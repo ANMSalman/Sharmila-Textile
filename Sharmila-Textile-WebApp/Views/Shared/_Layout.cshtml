@@ -1,48 +1,124 @@
-﻿<!DOCTYPE html>
+﻿@using Sharmila_Textile_WebApp.HtmlEntities
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sharmila_Textile_WebApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <title>@ViewData["Title"] - SharmilaTex</title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link href="~/demo/demo.css" rel="stylesheet" />
+    <link href="~/css/material-dashboard.css" rel="stylesheet" />
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sharmila_Textile_WebApp</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+
+    <div class="wrapper">
+
+        <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+            <!--
+            Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+            Tip 2: you can also add an image using data-image tag
+            -->
+            <div class="logo">
+                <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+                    Sharmila <strong>Tex</strong>
+                </a>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Home", "Index")">
+                        <a class="nav-link" is-active-route asp-controller="Home" asp-action="Index">
+                            <i class="material-icons">dashboard</i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext , "Home", "Privacy")">
+                        <a class="nav-link" is-active-route asp-controller="Home" asp-action="Privacy">
+                            <i class="material-icons">Staffs</i>
+                            <p>Privacy</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./tables.html">
+                            <i class="material-icons">content_paste</i>
+                            <p>  </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./typography.html">
+                            <i class="material-icons">library_books</i>
+                            <p>Typography</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./icons.html">
+                            <i class="material-icons">bubble_chart</i>
+                            <p>Icons</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./map.html">
+                            <i class="material-icons">location_ons</i>
+                            <p>Maps</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./notifications.html">
+                            <i class="material-icons">notifications</i>
+                            <p>Notifications</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./rtl.html">
+                            <i class="material-icons">language</i>
+                            <p>RTL Support</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active-pro ">
+                        <a class="nav-link" href="./upgrade.html">
+                            <i class="material-icons">unarchive</i>
+                            <p>Upgrade to PRO</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        @RenderBody()
+
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - Sharmila_Textile_WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <script src="~/js/core/jquery.min.js"></script>
+    <script src="~/js/core/popper.min.js"></script>
+    <script src="~/js/core/bootstrap-material-design.min.js"></script>
+
+    <script src="~/js/plugins/arrive.min.js"></script>
+    <script src="~/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/js/plugins/bootstrap-notify.js"></script>
+    <script src="~/js/plugins/bootstrap-selectpicker.js"></script>
+    <script src="~/js/plugins/bootstrap-tagsinput.js"></script>
+    <script src="~/js/plugins/chartist.min.js"></script>
+    <script src="~/js/plugins/fullcalendar.min.js"></script>
+    <script src="~/js/plugins/jasny-bootstrap.min.js"></script>
+    <script src="~/js/plugins/jquery-jvectormap.js"></script>
+    <script src="~/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <script src="~/js/plugins/jquery.dataTables.min.js"></script>
+    <script src="~/js/plugins/jquery.tagsinput.js"></script>
+    <script src="~/js/plugins/jquery.validate.min.js"></script>
+    <script src="~/js/plugins/moment.min.js"></script>
+    <script src="~/js/plugins/nouislider.min.js"></script>
+    <script src="~/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/js/plugins/sweetalert2.js"></script>
+
+    <script src="~/demo/demo.js"></script>
+    <script src="~/js/material-dashboard.js"></script>
+
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
