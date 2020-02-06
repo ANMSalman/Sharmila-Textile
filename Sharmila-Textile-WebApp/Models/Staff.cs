@@ -13,14 +13,21 @@ namespace Sharmila_Textile_WebApp.Models {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("STAFF_ID")]
         public long StaffId { get; set; }
-
-        [StringLength(50, ErrorMessage = "Staff Name must not be longer than 50 characters")]
-        [Column("STAFF_NAME")]
+        
+        [Column("STAFF_NAME", TypeName = "varchar(50)")] 
         public string StaffName { get; set; }
          
-        [Column("NIC", TypeName = "varchar(max)")]
+        [Column("NIC", TypeName = "varchar(12)")]
         public string Nic { get; set; }
 
+        [Column("ADDRESS", TypeName = "varchar(max)")]
+        public string Address { get; set; }
+        
+        [Column("CONTACT_NO", TypeName = "varchar(10)")]
+        public string ContactNo { get; set; }
+
+        [Column("CURRENT_STATUS", TypeName = "int")]
+        public int CurrentStatus { get; set; }
 
     }
 }
