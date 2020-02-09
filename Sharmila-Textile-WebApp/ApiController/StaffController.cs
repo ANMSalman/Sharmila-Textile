@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sharmila_Textile_WebApp.Data;
+using Sharmila_Textile_WebApp.HtmlEntities;
 using Sharmila_Textile_WebApp.Models;
 using Sharmila_Textile_WebApp.ViewModel;
 
@@ -44,7 +45,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
             if (flag > 0) {
                 /**************** Creating Staff Attachments and Saving **************/
-                CreateFolder();
+                Miscellaneous.CreateFolder(_hostingEnvironment.WebRootPath + @"\files");
                 IList<StaffAttachmentViewModel> staffAttachmentlList = model.StaffAttachmentList;
                 foreach (var item in staffAttachmentlList) {
                     string randName = DateTime.Now.ToString("MMddyyyyhhmmssfff") + "_" + new Random().Next(0, 10000).ToString("D6") + "_" + item.AttachmentName;
@@ -70,10 +71,10 @@ namespace Sharmila_Textile_WebApp.ApiController {
                     _context.User.Add(userModel);
                     _context.SaveChanges();
                 }
-
+                return Ok(true);
             }
 
-            return Ok("ok");
+            return Ok(false);
         }
 
         [HttpPost]
@@ -97,7 +98,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
             /**************** Updating Staff Attachments and Saving **************/
             DeleteFiles(model.StaffId);
-            CreateFolder();
+            Miscellaneous.CreateFolder(_hostingEnvironment.WebRootPath + @"\files");
             IList<StaffAttachmentViewModel> staffAttachmentlList = model.StaffAttachmentList;
             foreach (var item in staffAttachmentlList) {
                 string randName = DateTime.Now.ToString("MMddyyyyhhmmssfff") + "_" + new Random().Next(0, 10000).ToString("D6") + "_" + item.AttachmentName;
@@ -142,10 +143,17 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
             }
 
-            return Ok("ok");
+            return Ok(true);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Delete(long id) {
+            var staff = _context.Staff.Single(x => x.StaffId == id);
+            staff.CurrentStatus = 0;
+            int flag = _context.SaveChanges();
 
+            return Ok(flag > 0);
+        }
 
         private void DeleteFiles(long staffId) {
             string rootFolder = _hostingEnvironment.WebRootPath + @"\files\";
@@ -166,21 +174,6 @@ namespace Sharmila_Textile_WebApp.ApiController {
                 Console.WriteLine(ioExp.Message);
             }
         }
-
-        private void CreateFolder() {
-            string path = _hostingEnvironment.WebRootPath + @"\files";
-            try {
-                if (Directory.Exists(path)) {
-                    Console.WriteLine("That path exists already.");
-
-                } else {
-                    DirectoryInfo di = Directory.CreateDirectory(path);
-                    Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
-                }
-
-            } catch (Exception e) {
-                Console.WriteLine("The process failed: {0}", e.ToString());
-            } finally { }
-        }
+         
     }
 }

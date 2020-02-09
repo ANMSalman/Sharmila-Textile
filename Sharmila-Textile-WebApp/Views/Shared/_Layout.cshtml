@@ -45,10 +45,10 @@
                             <p>Staff</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./tables.html">
-                            <i class="material-icons">content_paste</i>
-                            <p>content_paste</p>
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Customer", "CustomerView")">
+                        <a class="nav-link" asp-controller="Customer" asp-action="CustomerView">
+                            <i class="material-icons">group</i>
+                            <p>Customer</p>
                         </a>
                     </li>
                     <li class="nav-item ">

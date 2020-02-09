@@ -1,10 +1,9 @@
 ﻿@if (ViewBag.IsUpdate == "true") {
-    @model Sharmila_Textile_WebApp.ViewModel.StaffViewModel;
+    @model Sharmila_Textile_WebApp.ViewModel.CustomerViewModel;
 }
 
-
 @{
-    ViewData["Title"] = "StaffDetailView";
+    ViewData["Title"] = "CustomerDetailView";
 }
 
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -12,7 +11,7 @@
         <div class="navbar-wrapper">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-action="StaffView">Staff</a></li>
+                    <li class="breadcrumb-item"><a asp-action="CustomerView">Customer</a></li>
                     <li class="breadcrumb-item active" aria-current="page">@ViewBag.breadcumValue</li>
                 </ol>
             </nav>
@@ -56,7 +55,6 @@
         </div>
     </div>
 </nav>
-
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -65,40 +63,71 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-12">
                 <div class="card h-100 ">
                     <div class="card-body">
                         <div class="row h-100">
                             <div class="col-md-12">
                                 <h3>Staff Details</h3>
                             </div>
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-4 mt-3">
                                 <div class="form-group">
-                                    <label for="txtStaffName">Staff Name</label>
-                                    <input type="text" class="form-control" id="txtStaffName" asp-for="StaffName">
+                                    <label for="txtCustomerName">Customer Name</label>
+                                    <input type="text" class="form-control" id="txtCustomerName" asp-for="CustomerName">
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-4 mt-3">
                                 <div class="form-group">
-                                    <label for="txtNic">Staff National IC</label>
-                                    <input type="text" class="form-control" id="txtNic" asp-for="Nic">
+                                    <label for="txtNic">Customer National IC</label>
+                                    <input type="text" class="form-control" id="txtNic" asp-for="NIC">
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-4 mt-3">
                                 <div class="form-group">
-                                    <label for="txtContactNo">Staff Contact No</label>
-                                    <input type="number" class="form-control" id="txtContactNo" asp-for="ContactNo">
+                                    <label for="txtHomeAddress">Home Address</label>
+                                    <input type="text" class="form-control" id="txtHomeAddress" asp-for="HomeAddress">
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-4 mt-3">
                                 <div class="form-group">
-                                    <label for="txtStaffAddress">Staff Address</label>
-                                    <input type="text" class="form-control" id="txtStaffAddress" asp-for="Address">
+                                    <label for="txtHomeLandline">Home Landline</label>
+                                    <input type="text" class="form-control" id="txtHomeLandline" asp-for="HomeLandline">
                                 </div>
                             </div>
-                            <div class="col-md-8 mt-3">
-                                <input type="file" id="fileStaffAttachment" class="d-none">
-                                <label for="fileStaffAttachment" class="btn btn-round btn-success btn-sm mt-0">
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="txtOfficeAddress">Office Address</label>
+                                    <input type="text" class="form-control" id="txtOfficeAddress" asp-for="OfficeAddress">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="txtOfficeLandline">Office Landline</label>
+                                    <input type="text" class="form-control" id="txtOfficeLandline" asp-for="OfficeLandline">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="txtMobile">Mobile</label>
+                                    <input type="text" class="form-control" id="txtMobile" asp-for="Mobile">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="txtOpeningBalance">Opening Balance</label>
+                                    <input type="number" class="form-control" id="txtOpeningBalance" asp-for="OpeningBalance">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="txtCurrentBalance">Current Balance</label>
+                                    <input type="number" class="form-control" id="txtCurrentBalance" asp-for="CurrentBalance">
+                                </div>
+                            </div>
+
+                            <div class="col-md-5 mt-3">
+                                <input type="file" id="fileAttachment" class="d-none">
+                                <label for="fileAttachment" class="btn btn-round btn-success btn-sm mt-0">
                                     <i class="fa fa-cloud-upload mr-1"></i> Upload File
                                 </label>
                                 <hr />
@@ -106,23 +135,14 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <td class="font-weight-bold" width="60%">File Name</td>
-                                                <td class="font-weight-bold text-center" width="20%">View File</td>
-                                                <td class="font-weight-bold text-center" width="20%">Remove</td>
+                                                <td class="font-weight-bold" width="70%">File Name</td>
+                                                <td class="font-weight-bold text-center" width="15%">View File</td>
+                                                <td class="font-weight-bold text-center" width="15%">Remove</td>
                                             </tr>
                                         </thead>
                                         <tbody id="selectedImageList">
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mt-3">
-                                <div class="form-inline float-right">
-                                    <h4 class="mb-0 font-weight-bold">Enable User</h4>
-                                    <label class="switch ml-2">
-                                        <input type="checkbox" id="userSwitch">
-                                        <span class="slider round"></span>
-                                    </label>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-3 align-self-end">
@@ -132,38 +152,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
-                <div class="card h-100" id="pnlUser">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>User Details</h3>
-                            </div>
-                            <div class="col-md-12 mt-3">
-                                <div class="form-group">
-                                    <label for="txtUsername">Username</label>
-                                    <input type="text" class="form-control" id="txtUsername" asp-for="UserViewModel.UserName">
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-3">
-                                <div class="form-group">
-                                    <label for="txtPassword">Password</label>
-                                    <input type="text" class="form-control" id="txtPassword" asp-for="UserViewModel.Password">
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-3">
-                                <div class="form-group">
-                                    <label for="txtConfirmPassword">Confirm Password</label>
-                                    <input type="text" class="form-control" id="txtConfirmPassword" asp-for="UserViewModel.Password">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
+
 
 <script>
 
@@ -173,33 +165,13 @@
     $('#pnlUser').hide();
 
     var IsUpdate = @ViewBag.IsUpdate;
-    var staffId;
-    var userId;
-    var userCurrentStatus = 0;
+    var customerId;
 
     @if (ViewBag.IsUpdate == "true") {
-        @:userCurrentStatus = 1;
-        @:staffId = @Model.StaffId;
-        if (Model.UserViewModel != null) {
-            var userId = false || Model.UserViewModel.CurrentStatus == 1;
-
-            if (userId) {
-                @:userId = @Model.UserViewModel.UserId;
-                @:$('#userSwitch').prop("checked", true);
-                @:$('#pnlUser').show();
-            }else {
-            @:$('#txtUsername').val("");
-            @:$('#txtPassword').val("");
-            @:$('#txtConfirmPassword').val("");
-        }
-        }
-
-
-
-
-        var attachmentCount = false || Model.StaffAttachmentList.Count > 0;
+        @:customerId = @Model.CustomerId;
+        var attachmentCount = false || Model.CustomerAttachmentList.Count > 0;
         if (attachmentCount) {
-            foreach (var item in Model.StaffAttachmentList) {
+            foreach (var item in Model.CustomerAttachmentList) {
 
                 @:var baseFile = '@Html.Raw(item.AttachmentFile)';
                 @:populateFileObjectArray(baseFile, "@item.AttachmentName");
@@ -231,7 +203,7 @@
         fileCount++;
     }
 
-    $('input[id="fileStaffAttachment"]').change(function (e) {
+    $('input[id="fileAttachment"]').change(function (e) {
         if (fileObject.length < 5) {
             populateFilesList(e.target.files[0]);
         } else {
@@ -290,63 +262,54 @@
 
     }
 
-
-    $('#userSwitch').unbind().click(function (e) {
-        if (this.checked) {
-            userCurrentStatus = 1;
-            $('#pnlUser').fadeIn();
-        } else {
-            userCurrentStatus = 0;
-            $('#pnlUser').fadeOut();
-            if (!IsUpdate) {
-                $('#txtUsername').val("");
-                $('#txtPassword').val("");
-                $('#txtConfirmPassword').val("");
-            }
-        }
-    });
-
     var model = {};
 
     function getFieldDetails() {
-        var staffName = $('#txtStaffName').val();
+        var customerName = $('#txtCustomerName').val();
         var nic = $('#txtNic').val();
-        var address = $('#txtStaffAddress').val();
-        var contactNo = $('#txtContactNo').val();
-
-        var username = $('#txtUsername').val();
-        var password = $('#txtPassword').val();
-
+        var homeAddress = $('#txtHomeAddress').val();
+        var homeLandline = $('#txtHomeLandline').val();
+        var officeAddress = $('#txtOfficeAddress').val();
+        var officeLandline = $('#txtOfficeLandline').val();
+        var mobile = $('#txtMobile').val();
+        var openingBalance = $('#txtOpeningBalance').val();
+        var currentBalance = $('#txtCurrentBalance').val();
 
         var filesList = [];
         for (var i = 0; i < fileObject.length; i++) {
             filesList.push({ "AttachmentName": fileObject[i].fileName, "AttachmentFile": fileObject[i].filesBase64 });
         }
 
-
         if (IsUpdate) {
             model = {
-                "StaffId": staffId,
-                "StaffName": staffName,
-                "Nic": nic,
-                "Address": address,
-                "ContactNo": contactNo,
-                "StaffAttachmentList": filesList,
-                "UserViewModel": {
-                    "UserId":userId, "UserName": username, "Password": password, "CurrentStatus":userCurrentStatus
-                }
+                "CustomerId": customerId,
+                "CustomerName": customerName,
+                "NIC": nic,
+                "HomeAddress": homeAddress,
+                "HomeLandline": homeLandline,
+                "OfficeAddress": officeAddress,
+                "OfficeLandline": officeLandline,
+                "Mobile": mobile,
+                "OpeningBalance": parseFloat(openingBalance),
+                "CurrentBalance": parseFloat(currentBalance),
+                "CustomerAttachmentList": filesList 
+
             };
             SaveChanges('Update');
         } else {
             model = {
-                "StaffName": staffName,
-                "Nic": nic,
-                "Address": address,
-                "ContactNo": contactNo,
-                "StaffAttachmentList": filesList,
-                "UserViewModel": {
-                   "UserName": username, "Password": password, "CurrentStatus":userCurrentStatus
-                }
+                "CustomerName": customerName,
+                "NIC": nic,
+                "HomeAddress": homeAddress,
+                "HomeLandline": homeLandline,
+                "OfficeAddress": officeAddress,
+                "OfficeLandline": officeLandline,
+                "Mobile": mobile,
+                "OpeningBalance": parseFloat(openingBalance),
+                "CurrentBalance": parseFloat(currentBalance),
+                "CustomerAttachmentList": filesList,
+                //                "CreatedBy":localStorage.loggedUser
+                "CreatedBy":4
             };
             SaveChanges('Create');
         }
@@ -354,7 +317,7 @@
 
     function SaveChanges(type) {
         $.ajax({
-            url: localStorage.apiLink + "api/Staff/" + type,
+            url: localStorage.apiLink + "api/Customer/" + type,
             type: 'POST',
             data: JSON.stringify(model),
             contentType: 'application/json',
@@ -370,11 +333,11 @@
                         text: "Changes Saved Successfully!",
                         icon: 'success',
                         showCancelButton: false,
-                        confirmButtonColor: '#3085d6', 
+                        confirmButtonColor: '#3085d6',
                         confirmButtonText: 'OK!'
                     }).then((result) => {
                         if (result.value) {
-                            window.location.replace(localStorage.apiLink + "Staff/StaffView");
+                            window.location.replace(localStorage.apiLink + "Customer/CustomerView");
                         }
                     });
                 } else {
@@ -393,6 +356,3 @@
 
 
 </script>
-
-
-

@@ -28,6 +28,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
             return View(list);
         }
 
+        [Obsolete]
         public IActionResult StaffDetailView(string breadCumValue, int staffId) {
             ViewBag.breadcumValue = breadCumValue;
             ViewBag.IsUpdate = staffId > 0 ? "true":"false";
@@ -43,10 +44,11 @@ namespace Sharmila_Textile_WebApp.Controllers {
 
                 List<StaffAttachmentViewModel> stfList = new List<StaffAttachmentViewModel>(); 
                 foreach (var item in staffAttachments) {
-                    StaffAttachmentViewModel stfAttachmentViewModel = new StaffAttachmentViewModel();
-                    stfAttachmentViewModel.StaffId = item.StaffId;
-                    stfAttachmentViewModel.AttachmentName = item.AttachmentName;
-                    stfAttachmentViewModel.AttachmentRandomName = item.AttachmentPath;
+                    StaffAttachmentViewModel stfAttachmentViewModel = new StaffAttachmentViewModel {
+                        StaffId = item.StaffId,
+                        AttachmentName = item.AttachmentName,
+                        AttachmentRandomName = item.AttachmentPath
+                    };
 
                     string path = _hostingEnvironment.WebRootPath + @"\files\" + item.AttachmentPath;
                     byte[] data = System.IO.File.ReadAllBytes(path); 
@@ -61,13 +63,6 @@ namespace Sharmila_Textile_WebApp.Controllers {
             return View();
         }
  
-        public IActionResult Delete(long id) {
-            var staff = _context.Staff.Single(x => x.StaffId == id);
-            staff.CurrentStatus = 0;
-            _context.SaveChanges();
 
-            List<StaffViewModel> list = _mapper.Map<List<StaffViewModel>>(_context.Staff.Where(x => x.CurrentStatus == 1).ToList());
-            return View("StaffView", list);
-        }
     }
 }
