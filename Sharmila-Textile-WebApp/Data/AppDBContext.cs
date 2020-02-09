@@ -16,7 +16,7 @@ namespace Sharmila_Textile_WebApp.Data {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerAttachment> CustomerAttachment { get; set; }
         public DbSet<Supplier> Supplier { get; set; }
-        public DbSet<SupplierAttachment> supplierAttachment { get; set; }
+        public DbSet<SupplierAttachment> SupplierAttachment { get; set; }
 
     }
 }

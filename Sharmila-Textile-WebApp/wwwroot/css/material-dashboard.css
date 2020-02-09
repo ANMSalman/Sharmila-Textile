@@ -4804,8 +4804,7 @@ tbody.collapse.show {
   flex-wrap: wrap;
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
-  list-style: none;
-  background-color: #e9ecef;
+  list-style: none; 
   border-radius: 0.25rem;
 }
 
@@ -14885,7 +14884,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 .main-panel>.content {
   margin-top: 70px;
-  padding: 30px 15px;
+  padding: 0px 15px;
   min-height: calc(100vh - 123px);
 }
 

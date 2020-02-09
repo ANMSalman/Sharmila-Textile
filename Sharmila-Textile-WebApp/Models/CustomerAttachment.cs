@@ -20,6 +20,9 @@ namespace Sharmila_Textile_WebApp.Models {
         [Column("ATTACHMENT_PATH", TypeName = "varchar(max)")]
         public string AttachmentPath { get; set; }
 
+        [Column("MIME_TYPE", TypeName = "varchar(50)")]
+        public string MimeType { get; set; }
+
         [Column("CUSTOMER_ID")]
         public long CustomerId { get; set; }
 

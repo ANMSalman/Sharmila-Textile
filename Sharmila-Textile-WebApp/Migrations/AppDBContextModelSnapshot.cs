@@ -102,6 +102,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .HasColumnName("CUSTOMER_ID")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("MimeType")
+                        .HasColumnName("MIME_TYPE")
+                        .HasColumnType("varchar(50)");
+
                     b.HasKey("AttachmentId");
 
                     b.HasIndex("CustomerId");
@@ -157,6 +161,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<string>("AttachmentPath")
                         .HasColumnName("ATTACHMENT_PATH")
                         .HasColumnType("varchar(max)");
+
+                    b.Property<string>("MimeType")
+                        .HasColumnName("MIME_TYPE")
+                        .HasColumnType("varchar(50)");
 
                     b.Property<long>("StaffId")
                         .HasColumnName("STAFF_ID")
@@ -235,6 +243,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<string>("AttachmentPath")
                         .HasColumnName("ATTACHMENT_PATH")
                         .HasColumnType("varchar(max)");
+
+                    b.Property<string>("MimeType")
+                        .HasColumnName("MIME_TYPE")
+                        .HasColumnType("varchar(50)");
 
                     b.Property<long>("SupplierId")
                         .HasColumnName("SUPPLIER_ID")

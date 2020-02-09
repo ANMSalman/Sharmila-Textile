@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace Sharmila_Textile_WebApp.Models {
         [Column("CONTACT_NO", TypeName = "varchar(10)")]
         public string ContactNo { get; set; }
 
+        [DefaultValue(1)]
         [Column("CURRENT_STATUS", TypeName = "int")]
         public int CurrentStatus { get; set; }
 

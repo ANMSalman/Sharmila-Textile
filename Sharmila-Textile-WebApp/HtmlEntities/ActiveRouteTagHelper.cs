@@ -17,7 +17,7 @@ namespace Sharmila_Textile_WebApp.HtmlEntities {
             string controller = viewContext.RouteData.Values["controller"].ToString();
             string action = viewContext.RouteData.Values["action"].ToString();
 
-            if (controller == selectedController && action == selectedAction) {
+            if (controller == selectedController) {
                 flag = "active";
             }
 

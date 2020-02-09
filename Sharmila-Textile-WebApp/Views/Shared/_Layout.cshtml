@@ -10,7 +10,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link href="~/demo/demo.css" rel="stylesheet" />
     <link href="~/css/material-dashboard.css" rel="stylesheet" />
-
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/js/core/jquery.min.js"></script>
+    <script>
+        localStorage.apiLink = "https://localhost:44367/";
+    </script>
 </head>
 <body>
 
@@ -35,16 +39,16 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext , "Home", "Privacy")">
-                        <a class="nav-link" is-active-route asp-controller="Home" asp-action="Privacy">
-                            <i class="material-icons">Staffs</i>
-                            <p>Privacy</p>
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext , "Staff", "StaffView")">
+                        <a class="nav-link" is-active-route asp-controller="Staff" asp-action="StaffView">
+                            <i class="material-icons">face</i>
+                            <p>Staff</p>
                         </a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="./tables.html">
                             <i class="material-icons">content_paste</i>
-                            <p>  </p>
+                            <p>content_paste</p>
                         </a>
                     </li>
                     <li class="nav-item ">
@@ -53,47 +57,18 @@
                             <p>Typography</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./icons.html">
-                            <i class="material-icons">bubble_chart</i>
-                            <p>Icons</p>
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./map.html">
-                            <i class="material-icons">location_ons</i>
-                            <p>Maps</p>
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./notifications.html">
-                            <i class="material-icons">notifications</i>
-                            <p>Notifications</p>
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./rtl.html">
-                            <i class="material-icons">language</i>
-                            <p>RTL Support</p>
-                        </a>
-                    </li>
-                    <li class="nav-item active-pro ">
-                        <a class="nav-link" href="./upgrade.html">
-                            <i class="material-icons">unarchive</i>
-                            <p>Upgrade to PRO</p>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
+        <div class="main-panel">
+            @RenderBody()
 
-        @RenderBody()
-
+        </div>
     </div>
 
 
 
-    <script src="~/js/core/jquery.min.js"></script>
+
     <script src="~/js/core/popper.min.js"></script>
     <script src="~/js/core/bootstrap-material-design.min.js"></script>
 
@@ -107,14 +82,16 @@
     <script src="~/js/plugins/jasny-bootstrap.min.js"></script>
     <script src="~/js/plugins/jquery-jvectormap.js"></script>
     <script src="~/js/plugins/jquery.bootstrap-wizard.js"></script>
-    <script src="~/js/plugins/jquery.dataTables.min.js"></script>
     <script src="~/js/plugins/jquery.tagsinput.js"></script>
     <script src="~/js/plugins/jquery.validate.min.js"></script>
     <script src="~/js/plugins/moment.min.js"></script>
     <script src="~/js/plugins/nouislider.min.js"></script>
     <script src="~/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <script src="~/js/plugins/sweetalert2.js"></script>
+<script src="~/js/plugins/jquery.dataTables.min.js"></script>
 
+
+<script src="~/js/plugins/dataTables.bootstrap4.min.js"></script>
     <script src="~/demo/demo.js"></script>
     <script src="~/js/material-dashboard.js"></script>
 

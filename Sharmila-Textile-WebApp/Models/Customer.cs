@@ -36,10 +36,10 @@ namespace Sharmila_Textile_WebApp.Models {
         public string Mobile { get; set; }
 
         [Column("OPENING_BALANCE", TypeName = "decimal(18, 2)")]
-        public double OpeningBalance { get; set; }
+        public decimal OpeningBalance { get; set; }
 
         [Column("CURRENT_BALANCE", TypeName = "decimal(18, 2)")]
-        public double CurrentBalance { get; set; }
+        public decimal CurrentBalance { get; set; }
 
         [Column("CREATE_DATE", TypeName = "datetime")]
         public DateTime CreatedDate { get; set; }

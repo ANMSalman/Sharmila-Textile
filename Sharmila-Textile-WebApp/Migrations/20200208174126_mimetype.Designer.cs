@@ -10,8 +10,8 @@ using Sharmila_Textile_WebApp.Data;
 namespace Sharmila_Textile_WebApp.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20200206123811_Supplier-Created")]
-    partial class SupplierCreated
+    [Migration("20200208174126_mimetype")]
+    partial class mimetype
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -104,6 +104,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .HasColumnName("CUSTOMER_ID")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("MimeType")
+                        .HasColumnName("MIME_TYPE")
+                        .HasColumnType("varchar(50)");
+
                     b.HasKey("AttachmentId");
 
                     b.HasIndex("CustomerId");
@@ -159,6 +163,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<string>("AttachmentPath")
                         .HasColumnName("ATTACHMENT_PATH")
                         .HasColumnType("varchar(max)");
+
+                    b.Property<string>("MimeType")
+                        .HasColumnName("MIME_TYPE")
+                        .HasColumnType("varchar(50)");
 
                     b.Property<long>("StaffId")
                         .HasColumnName("STAFF_ID")
@@ -237,6 +245,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<string>("AttachmentPath")
                         .HasColumnName("ATTACHMENT_PATH")
                         .HasColumnType("varchar(max)");
+
+                    b.Property<string>("MimeType")
+                        .HasColumnName("MIME_TYPE")
+                        .HasColumnType("varchar(50)");
 
                     b.Property<long>("SupplierId")
                         .HasColumnName("SUPPLIER_ID")
