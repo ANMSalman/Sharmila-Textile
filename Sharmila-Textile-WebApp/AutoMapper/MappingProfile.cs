@@ -12,6 +12,7 @@ namespace Sharmila_Textile_WebApp.AutoMapper {
             CreateMap<StaffViewModel, Staff>().ReverseMap();
             CreateMap<UserViewModel, User>().ReverseMap();
             CreateMap<CustomerViewModel, Customer>().ReverseMap();
+            CreateMap<SupplierViewModel, Supplier>().ReverseMap();
         }
     }
 }

@@ -15,15 +15,14 @@ using Sharmila_Textile_WebApp.ViewModel;
 namespace Sharmila_Textile_WebApp.ApiController {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class CustomerController : ControllerBase {
-
+    public class SupplierController : ControllerBase {
         private readonly AppDBContext _context;
         private readonly IMapper _mapper;
         [Obsolete]
         private readonly IHostingEnvironment _hostingEnvironment;
 
         [Obsolete]
-        public CustomerController(AppDBContext context, IMapper mapper, IHostingEnvironment hostingEnvironment) {
+        public SupplierController(AppDBContext context, IMapper mapper, IHostingEnvironment hostingEnvironment) {
             _context = context;
             _mapper = mapper;
             _hostingEnvironment = hostingEnvironment;
@@ -31,39 +30,39 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
         [HttpPost]
         [Obsolete]
-        public IActionResult Create(CustomerViewModel model) {
+        public IActionResult Create(SupplierViewModel model) {
             if (!ModelState.IsValid) {
                 return BadRequest(ModelState);
             }
 
-            /**************** Saving Customer **************/
-            Customer customer = _mapper.Map<Customer>(model);
-            customer.CurrentStatus = 1;
-            customer.CreatedDate= DateTime.Now;
-            _context.Customers.Add(customer);
+            /**************** Saving Suppliers **************/
+            Supplier supplier = _mapper.Map<Supplier>(model);
+            supplier.CurrentStatus = 1;
+            supplier.CreatedDate = DateTime.Now;
+            _context.Supplier.Add(supplier);
             var flag = _context.SaveChanges();
-            var customerId = customer.CustomerId;
+            var supplierId = supplier.SupplierId;
 
 
             if (flag > 0) {
-                /**************** Creating Customer Attachments and Saving **************/
+                /**************** Creating Supplier Attachments and Saving **************/
                 Miscellaneous.CreateFolder(_hostingEnvironment.WebRootPath + @"\files");
-                IList<CustomerAttachmentViewModel> customerAttachmentList = model.CustomerAttachmentList;
-                foreach (var item in customerAttachmentList) {
+                IList<SupplierAttachmentViewModel> supplierAttachmentList = model.SupplierAttachmentList;
+                foreach (var item in supplierAttachmentList) {
                     string randName = DateTime.Now.ToString("MMddyyyyhhmmssfff") + "_" + new Random().Next(0, 10000).ToString("D6") + "_" + item.AttachmentName;
                     string base64 = item.AttachmentFile.Substring(item.AttachmentFile.IndexOf(',') + 1);
                     byte[] data = Convert.FromBase64String(base64);
                     string path = _hostingEnvironment.WebRootPath + @"\files\" + randName;
                     System.IO.File.WriteAllBytes(path, data.ToArray());
-                    CustomerAttachment customerAttachment = new CustomerAttachment() {
+                    SupplierAttachment supplierAttachment = new SupplierAttachment() {
                         AttachmentName = item.AttachmentName,
                         AttachmentPath = randName,
-                        CustomerId = customerId,
+                        SupplierId = supplierId,
                         MimeType = item.AttachmentFile.Split(",")[0]
                     };
-                    _context.CustomerAttachment.Add(customerAttachment);
+                    _context.SupplierAttachment.Add(supplierAttachment);
                     _context.SaveChanges();
-                } 
+                }
                 return Ok(true);
             }
 
@@ -72,61 +71,58 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
         [HttpPost]
         [Obsolete]
-        public IActionResult Update(CustomerViewModel model) {
+        public IActionResult Update(SupplierViewModel model) {
             if (!ModelState.IsValid) {
                 return BadRequest(ModelState);
             }
 
-            /**************** Updating Customer **************/
+            /**************** Updating Suppliers **************/
 
-            var single = _context.Customers.Single(x => x.CustomerId == model.CustomerId);
-            single.CustomerName = model.CustomerName;
-            single.NIC = model.NIC;
-            single.HomeAddress = model.HomeAddress;
-            single.HomeLandline = model.HomeLandline;
-            single.OfficeAddress = model.OfficeAddress;
-            single.OfficeLandline = model.OfficeLandline;
+            var single = _context.Supplier.Single(x => x.SupplierId == model.SupplierId);
+            single.SupplierName = model.SupplierName;
+            single.Address = model.Address;
+            single.Landline = model.Landline;
             single.Mobile = model.Mobile;
             single.OpeningBalance = model.OpeningBalance;
-            single.CurrentBalance = model.CurrentBalance; 
+            single.CurrentBalance = model.CurrentBalance;
 
             var flag = _context.SaveChanges();
-            var cusId = single.CustomerId;
+            var supplierId = single.SupplierId;
 
-
-            /**************** Updating Customer Attachments and Saving **************/
-            DeleteFiles(model.CustomerId);
+            /**************** Updating Suppliers Attachments and Saving **************/
+            DeleteFiles(model.SupplierId);
             Miscellaneous.CreateFolder(_hostingEnvironment.WebRootPath + @"\files");
-            IList<CustomerAttachmentViewModel> customerAttachmentList = model.CustomerAttachmentList;
+            IList<SupplierAttachmentViewModel> supplierAttachmentList = model.SupplierAttachmentList;
 
-            foreach (var item in customerAttachmentList) {
+            foreach (var item in supplierAttachmentList) {
                 string randName = DateTime.Now.ToString("MMddyyyyhhmmssfff") + "_" + new Random().Next(0, 10000).ToString("D6") + "_" + item.AttachmentName;
                 string base64 = item.AttachmentFile.Split(",")[1];
                 byte[] data = Convert.FromBase64String(base64);
                 string path = _hostingEnvironment.WebRootPath + @"\files\" + randName;
                 System.IO.File.WriteAllBytes(path, data.ToArray());
-                CustomerAttachment customerAttachment = new CustomerAttachment() {
+                SupplierAttachment supplierAttachment = new SupplierAttachment() {
                     AttachmentName = item.AttachmentName,
                     AttachmentPath = randName,
-                    CustomerId = cusId,
+                    SupplierId = supplierId,
                     MimeType = item.AttachmentFile.Split(",")[0]
                 };
-                _context.CustomerAttachment.Add(customerAttachment);
+                _context.SupplierAttachment.Add(supplierAttachment);
                 _context.SaveChanges();
-            } 
+            }
 
             return Ok(true);
         }
 
-        private void DeleteFiles(long customerId) {
+        [Obsolete]
+        private void DeleteFiles(long supplierId) {
             string rootFolder = _hostingEnvironment.WebRootPath + @"\files\";
 
-            IEnumerable<CustomerAttachment> customerAttachments = _context.CustomerAttachment.Where(x => x.CustomerId == customerId).ToList();
-            _context.CustomerAttachment.RemoveRange(customerAttachments);
+            IEnumerable<SupplierAttachment> supplierAttachments = _context.SupplierAttachment.Where(x => x.SupplierId == supplierId).ToList();
+            _context.SupplierAttachment.RemoveRange(supplierAttachments);
             _context.SaveChanges();
 
             try {
-                foreach (var item in customerAttachments) {
+                foreach (var item in supplierAttachments) {
                     if (System.IO.File.Exists(Path.Combine(rootFolder, item.AttachmentPath))) {
                         System.IO.File.Delete(Path.Combine(rootFolder, item.AttachmentPath));
                         Console.WriteLine("File deleted.");
@@ -142,12 +138,11 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
         [HttpGet("{id}")]
         public IActionResult Delete(long id) {
-            var model = _context.Customers.Single(x => x.CustomerId == id);
+            var model = _context.Supplier.Single(x => x.SupplierId == id);
             model.CurrentStatus = 0;
             int flag = _context.SaveChanges();
 
             return Ok(flag > 0);
         }
-
     }
 }

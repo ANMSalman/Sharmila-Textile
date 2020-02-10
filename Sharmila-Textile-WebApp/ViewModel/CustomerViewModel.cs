@@ -20,8 +20,7 @@ namespace Sharmila_Textile_WebApp.ViewModel {
         public DateTime CreatedDate { get; set; }
         public long CreatedBy { get; set; }
         public int CurrentStatus { get; set; } 
-        public string UserName { get; set; }
-        public UserViewModel UserViewModel { get; set; }
+        public string UserName { get; set; } 
         public List<CustomerAttachmentViewModel> CustomerAttachmentList { get; set; }
     }
 }

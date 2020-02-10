@@ -51,10 +51,10 @@
                             <p>Customer</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./typography.html">
-                            <i class="material-icons">library_books</i>
-                            <p>Typography</p>
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Supplier", "SupplierView")">
+                        <a class="nav-link" asp-controller="Supplier" asp-action="SupplierView">
+                            <i class="material-icons">local_shipping</i>
+                            <p>Supplier</p>
                         </a>
                     </li>
                 </ul>

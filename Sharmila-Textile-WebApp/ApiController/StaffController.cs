@@ -148,8 +148,8 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
         [HttpGet("{id}")]
         public IActionResult Delete(long id) {
-            var staff = _context.Staff.Single(x => x.StaffId == id);
-            staff.CurrentStatus = 0;
+            var model = _context.Staff.Single(x => x.StaffId == id);
+            model.CurrentStatus = 0;
             int flag = _context.SaveChanges();
 
             return Ok(flag > 0);
