@@ -66,63 +66,72 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card h-100 ">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Customer Details</h4>
+                    </div>
                     <div class="card-body">
-                        <div class="row h-100">
-                            <div class="col-md-12">
-                                <h3>Customer Details</h3>
-                            </div>
+                        <div class="row h-100"> 
                             <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtCustomerName">Customer Name</label>
                                     <input type="text" class="form-control" id="txtCustomerName" asp-for="CustomerName">
+                                    <div class="text-danger" id="errorCustomerName"></div>
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtNic">Customer National IC</label>
                                     <input type="text" class="form-control" id="txtNic" asp-for="NIC">
+                                    <div class="text-danger" id="errorNic"></div>
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtHomeAddress">Home Address</label>
                                     <input type="text" class="form-control" id="txtHomeAddress" asp-for="HomeAddress">
+                                    <div class="text-danger" id="errorHomeAddress"></div>
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtHomeLandline">Home Landline</label>
                                     <input type="text" class="form-control" id="txtHomeLandline" asp-for="HomeLandline">
+                                    <div class="text-danger" id="errorHomeLandline"></div>
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtOfficeAddress">Office Address</label>
                                     <input type="text" class="form-control" id="txtOfficeAddress" asp-for="OfficeAddress">
+                                    <div class="text-danger" id="errorOfficeAddress"></div>
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtOfficeLandline">Office Landline</label>
                                     <input type="text" class="form-control" id="txtOfficeLandline" asp-for="OfficeLandline">
+                                    <div class="text-danger" id="errorOfficeLandline"></div>
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtMobile">Mobile</label>
                                     <input type="text" class="form-control" id="txtMobile" asp-for="Mobile">
+                                    <div class="text-danger" id="errorMobile"></div>
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtOpeningBalance">Opening Balance</label>
                                     <input type="number" class="form-control" id="txtOpeningBalance" asp-for="OpeningBalance">
+                                    <div class="text-danger" id="errorOpeningBalance"></div>
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtCurrentBalance">Current Balance</label>
                                     <input type="number" class="form-control" id="txtCurrentBalance" asp-for="CurrentBalance">
+                                    <div class="text-danger" id="errorCurrentBalance"></div>
                                 </div>
                             </div>
 
@@ -276,6 +285,9 @@
         var openingBalance = $('#txtOpeningBalance').val();
         var currentBalance = $('#txtCurrentBalance').val();
 
+        openingBalance = openingBalance === '' ? 0 : openingBalance;
+        currentBalance = currentBalance === '' ? 0 : currentBalance;
+
         var filesList = [];
         for (var i = 0; i < fileObject.length; i++) {
             filesList.push({ "AttachmentName": fileObject[i].fileName, "AttachmentFile": fileObject[i].filesBase64 });
@@ -350,7 +362,26 @@
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
-                console.log('Error in Operation');
+
+                const objArr = [
+                    [xhr.responseJSON.errors.CustomerName, '#errorCustomerName'],
+                    [xhr.responseJSON.errors.NIC, '#errorNic'],
+                    [xhr.responseJSON.errors.HomeLandline, '#errorHomeLandline'],
+                    [xhr.responseJSON.errors.OfficeLandline, '#errorOfficeLandline'],
+                    [xhr.responseJSON.errors.Mobile, '#errorMobile'],
+                    [xhr.responseJSON.errors.OpeningBalance, '#errorOpeningBalance'],
+                    [xhr.responseJSON.errors.CurrentBalance, '#errorCurrentBalance']
+                ];
+
+                for (let i = 0; i < objArr.length; i++) {
+                    $(objArr[i][1]).html('');
+                    if (objArr[i][0] != null) { 
+                        for (let j = 0; j < objArr[i][0].length; j++) { 
+                            $(objArr[i][1]).append(`<h6 class="mb-0 text-capitalize">${objArr[i][0][j]}</h6> \n`);
+                        } 
+                    }
+                }
+
             }
         });
     }

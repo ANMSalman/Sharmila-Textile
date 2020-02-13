@@ -1,11 +1,18 @@
+using System.Globalization;
+using System.Linq;
+using System.Net;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sharmila_Textile_WebApp.Data;
+using Sharmila_Textile_WebApp.FluentValidation.Responses;
+using Sharmila_Textile_WebApp.FluentValidation.Validators;
 
 namespace Sharmila_Textile_WebApp {
     public class Startup {
@@ -24,6 +31,22 @@ namespace Sharmila_Textile_WebApp {
             );
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddMvc()
+//                .ConfigureApiBehaviorOptions(option => {
+//                option.InvalidModelStateResponseFactory = (context) => {
+//                    var errors = context.ModelState.Values.SelectMany(x => x.Errors.Select(p => new ErrorModel() {
+//                        ErrorCode = ((int)HttpStatusCode.BadRequest).ToString(CultureInfo.CurrentCulture),
+//                        Message = p.ErrorMessage
+//                    })).ToList();
+//                    var result = new ErrorResponse {
+//                        Errors = errors,
+//                        ResponseCode = (int)HttpStatusCode.BadRequest
+//
+//                    };
+//                    return new BadRequestObjectResult(result);
+//                };
+//            })
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

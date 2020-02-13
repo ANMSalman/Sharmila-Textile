@@ -67,33 +67,37 @@
         <div class="row">
             <div class="col-md-7">
                 <div class="card h-100 ">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Staff Details</h4>
+                    </div>
                     <div class="card-body">
                         <div class="row h-100">
-                            <div class="col-md-12">
-                                <h3>Staff Details</h3>
-                            </div>
                             <div class="col-md-6 mt-3">
                                 <div class="form-group">
                                     <label for="txtStaffName">Staff Name</label>
                                     <input type="text" class="form-control" id="txtStaffName" asp-for="StaffName">
+                                    <div class="text-danger" id="errorStaffName"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 mt-3">
                                 <div class="form-group">
                                     <label for="txtNic">Staff National IC</label>
                                     <input type="text" class="form-control" id="txtNic" asp-for="Nic">
+                                    <div class="text-danger" id="errorNic"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 mt-3">
                                 <div class="form-group">
                                     <label for="txtContactNo">Staff Contact No</label>
-                                    <input type="number" class="form-control" id="txtContactNo" asp-for="ContactNo">
+                                    <input type="text" class="form-control" id="txtContactNo" asp-for="ContactNo">
+                                    <div class="text-danger" id="errorContactNo"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 mt-3">
                                 <div class="form-group">
                                     <label for="txtStaffAddress">Staff Address</label>
                                     <input type="text" class="form-control" id="txtStaffAddress" asp-for="Address">
+                                    <div class="text-danger" id="errorAddress"></div>
                                 </div>
                             </div>
                             <div class="col-md-8 mt-3">
@@ -134,27 +138,30 @@
             </div>
             <div class="col-md-5">
                 <div class="card h-100" id="pnlUser">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">User Details</h4>
+                    </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">
-                                <h3>User Details</h3>
-                            </div>
                             <div class="col-md-12 mt-3">
                                 <div class="form-group">
                                     <label for="txtUsername">Username</label>
                                     <input type="text" class="form-control" id="txtUsername" asp-for="UserViewModel.UserName">
+                                    <div class="text-danger" id="errorUserName"></div>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-3">
                                 <div class="form-group">
                                     <label for="txtPassword">Password</label>
                                     <input type="text" class="form-control" id="txtPassword" asp-for="UserViewModel.Password">
+                                    <div class="text-danger" id="errorPassword"></div>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-3">
                                 <div class="form-group">
                                     <label for="txtConfirmPassword">Confirm Password</label>
                                     <input type="text" class="form-control" id="txtConfirmPassword" asp-for="UserViewModel.Password">
+                                    <div class="text-danger" id="errorConfirmPassword"></div>
                                 </div>
                             </div>
                         </div>
@@ -370,7 +377,7 @@
                         text: "Changes Saved Successfully!",
                         icon: 'success',
                         showCancelButton: false,
-                        confirmButtonColor: '#3085d6', 
+                        confirmButtonColor: '#3085d6',
                         confirmButtonText: 'OK!'
                     }).then((result) => {
                         if (result.value) {
@@ -386,7 +393,80 @@
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
-                console.log('Error in Operation');
+                console.log(xhr.responseJSON.errors);
+                 
+                const objArr = [
+                    [xhr.responseJSON.errors.StaffName, '#errorStaffName'],
+                    [xhr.responseJSON.errors.Nic, '#errorNic'],
+                    [xhr.responseJSON.errors.ContactNo, '#errorContactNo'],
+                    [xhr.responseJSON.errors.Address, '#errorAddress'],
+                    [xhr.responseJSON.errors.UserName, '#errorUserName'],
+                    [xhr.responseJSON.errors.Password, '#errorPassword']
+                ];
+
+                for (let i = 0; i < objArr.length; i++) {
+                    $(objArr[i][1]).html('');
+                    if (objArr[i][0] != null) { 
+                        for (let j = 0; j < objArr[i][0].length; j++) { 
+                            $(objArr[i][1]).append(`<h6 class="mb-0 text-capitalize">${objArr[i][0][j]}</h6> \n`);
+                        } 
+                    }
+                }
+
+//                objName = xhr.responseJSON.errors.StaffName;
+//                if (objName != null) {
+//                    for (let i = 0; i < objName.length; i++) {
+//                        html += `<h6 class="mb-0 text-capitalize">${objName[i]}</h6> \n`;
+//                    }
+//                    $('#errorStaffName').html(html);
+//                    html = '';
+//                }
+//
+//                objName = xhr.responseJSON.errors.Nic;
+//                if (objName != null) {
+//                    for (let i = 0; i < objName.length; i++) {
+//                        html += `<h6 class="mb-0 text-capitalize">${objName[i]}</h6> \n`;
+//                    }
+//                    $('#errorNic').html(html);
+//                    html = '';
+//                }
+//
+//                objName = xhr.responseJSON.errors.ContactNo;
+//                if (objName != null) {
+//                    for (let i = 0; i < objName.length; i++) {
+//                        html += `<h6 class="mb-0 text-capitalize">${objName[i]}</h6> \n`;
+//                    }
+//                    $('#errorContactNo').html(html);
+//                    html = '';
+//                }
+//
+//                objName = xhr.responseJSON.errors.Address;
+//                if (objName != null) {
+//                    for (let i = 0; i < objName.length; i++) {
+//                        html += `<h6 class="mb-0 text-capitalize">${objName[i]}</h6> \n`;
+//                    }
+//                    $('#errorAddress').html(html);
+//                    html = '';
+//                }
+//
+//                objName = xhr.responseJSON.errors.UserName;
+//                if (objName != null) {
+//                    for (let i = 0; i < objName.length; i++) {
+//                        html += `<h6 class="mb-0 text-capitalize">${objName[i]}</h6> \n`;
+//                    }
+//                    $('#errorUserName').html(html);
+//                    html = '';
+//                }
+//
+//                objName = xhr.responseJSON.errors.Password;
+//                if (objName != null) {
+//                    for (let i = 0; i < objName.length; i++) {
+//                        html += `<h6 class="mb-0 text-capitalize">${objName[i]}</h6> \n`;
+//                    }
+//                    $('#errorPassword').html(html);
+//                    html = '';
+//                }
+
             }
         });
     }

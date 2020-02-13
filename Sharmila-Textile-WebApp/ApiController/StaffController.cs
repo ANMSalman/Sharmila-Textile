@@ -79,9 +79,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
         [HttpPost]
         public IActionResult Update(StaffViewModel model) {
-            if (!ModelState.IsValid) {
-                return BadRequest(ModelState);
-            }
+          
 
 
             /**************** Updating Staffs **************/
