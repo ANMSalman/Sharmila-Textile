@@ -12,8 +12,8 @@ using Sharmila_Textile_WebApp.ViewModel;
 
 namespace Sharmila_Textile_WebApp.Controllers {
     public class CustomerController : Controller {
-        private readonly AppDBContext _context;
-        private readonly IMapper _mapper;
+            private readonly AppDBContext _context;
+            private readonly IMapper _mapper;
         [Obsolete]
         private readonly IHostingEnvironment _hostingEnvironment;
 

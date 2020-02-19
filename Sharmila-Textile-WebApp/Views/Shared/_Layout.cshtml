@@ -11,7 +11,10 @@
     <link href="~/demo/demo.css" rel="stylesheet" />
     <link href="~/css/material-dashboard.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
-    <script src="~/js/core/jquery.min.js"></script>
+    <link href="~/css/easy-autocomplete.min.css" rel="stylesheet" />
+    <link href="~/css/easy-autocomplete.themes.min.css" rel="stylesheet" />
+
+    <script src="~/js/core/jquery.min.js"></script> 
     <script>
         localStorage.apiLink = "https://localhost:44367/";
     </script>
@@ -57,6 +60,12 @@
                             <p>Supplier</p>
                         </a>
                     </li>
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "OwnCheque", "OwnChequeList")">
+                        <a class="nav-link" asp-controller="OwnCheque" asp-action="OwnChequeList">
+                            <i class="fa fa-money"></i>
+                            <p>Own Cheque</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -70,9 +79,11 @@
 
 
     <script src="~/js/core/popper.min.js"></script>
-    <script src="~/js/core/bootstrap-material-design.min.js"></script>
+<script src="~/js/core/bootstrap-material-design.min.js"></script>
 
+    <script src="~/js/jquery.easy-autocomplete.min.js"></script>
     <script src="~/js/plugins/arrive.min.js"></script>
+    <script src="~/js/plugins/moment.min.js"></script>
     <script src="~/js/plugins/bootstrap-datetimepicker.min.js"></script>
     <script src="~/js/plugins/bootstrap-notify.js"></script>
     <script src="~/js/plugins/bootstrap-selectpicker.js"></script>
@@ -84,14 +95,13 @@
     <script src="~/js/plugins/jquery.bootstrap-wizard.js"></script>
     <script src="~/js/plugins/jquery.tagsinput.js"></script>
     <script src="~/js/plugins/jquery.validate.min.js"></script>
-    <script src="~/js/plugins/moment.min.js"></script>
     <script src="~/js/plugins/nouislider.min.js"></script>
     <script src="~/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <script src="~/js/plugins/sweetalert2.js"></script>
-<script src="~/js/plugins/jquery.dataTables.min.js"></script>
+    <script src="~/js/plugins/jquery.dataTables.min.js"></script>
 
-
-<script src="~/js/plugins/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/jquery.datetimepicker.js"></script>
+    <script src="~/js/plugins/dataTables.bootstrap4.min.js"></script>
     <script src="~/demo/demo.js"></script>
     <script src="~/js/material-dashboard.js"></script>
 

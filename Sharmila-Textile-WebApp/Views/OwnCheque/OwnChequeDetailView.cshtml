@@ -1,0 +1,340 @@
+﻿@if (ViewBag.IsUpdate == "true") {
+    @model Sharmila_Textile_WebApp.ViewModel.OwnChequeViewModel;
+}
+@{
+    ViewData["Title"] = "OwnChequeDetailView";
+}
+
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <nav aria-label="breadcrumb" role="navigation">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a asp-action="OwnChequeList">Own Cheque</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewBag.breadCumValue</li>
+                </ol>
+            </nav>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form">
+                <div class="input-group no-border">
+                    <input type="text" value="" class="form-control" placeholder="Search...">
+                    <button type="button" class="btn btn-white btn-round btn-just-icon">
+                        <i class="material-icons">search</i>
+                        <div class="ripple-container"></div>
+                    </button>
+                </div>
+            </form>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">notifications</i>
+                        @* <span class="notification">5</span> *@
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Mike John responded to your email</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">person</i>
+                        <p class="d-lg-none d-md-block">
+                            Account
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Log out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card h-100">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Own Cheque Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row h-100">
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="txtChequeCode">Cheque Code</label>
+                                    <input type="text" class="form-control" id="txtChequeCode" asp-for="ChequeCode">
+                                    <div class="text-danger" id="errorChequeCode"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="txtBank">Bank</label>
+                                    <input type="text" class="form-control" id="txtBank" asp-for="Bank">
+                                    <div class="text-danger" id="errorBank"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="txtBranch">Branch</label>
+                                    <input type="text" class="form-control" id="txtBranch" asp-for="Branch">
+                                    <div class="text-danger" id="errorBranch"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="txtAmount">Amount</label>
+                                    <input type="text" class="form-control" id="txtAmount" asp-for="Amount">
+                                    <div class="text-danger" id="errorAmount"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="dtpDueDate">Due Date</label>
+                                    <input type="date" class="form-control" id="dtpDueDate" asp-for="DueDate" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                    <div class="text-danger" id="errorDueDate"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="drpDwnStatus" class="mb-0">Status</label>
+                                    <div class="dropdown">
+                                        <button class="btn btn-block btn-info text-capitalize dropdown-toggle pt-1 pb-1" type="button" data-toggle="dropdown"
+                                                data-setChqId="@{
+                                                                   @Html.Raw((ViewBag.IsUpdate == "true") ? Model.StatusId : Model.ChequeStatusesVm[0].ChequeStatusId)
+                                                               }" id="drpDwnStatus" aria-haspopup="true" aria-expanded="false">
+                                            @{
+                                                @Html.Raw((ViewBag.IsUpdate == "true") ? Model.ChequeStatusesVm.SingleOrDefault(c => c.ChequeStatusId == Model.StatusId)?.StatusName : Model.ChequeStatusesVm[0].StatusName)
+                                            }
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            @foreach (var item in Model.ChequeStatusesVm) {
+                                                <a class="dropdown-item cursor-pointer" href="#" data-getChqId="@item.ChequeStatusId">@item.StatusName</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="form-group">
+                                    <label for="txtRemark">Remark</label>
+                                    <input type="text" class="form-control" id="txtRemark" asp-for="Remark">
+                                    <div class="text-danger" id="errorRemark"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div class="row justify-content-end">
+                                    <div class="col-auto form-inline" id="progressBar">
+                                        <img src="~/img/progress.gif" style="max-height: 41px;" class="mr-3" />
+                                        <h5 class="align-bottom mb-0">Please Wait....</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="button" class="btn btn-primary" onclick="getFieldDetails()">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var model = {};
+    var actionLogModel = {};
+    var IsUpdate = @ViewBag.IsUpdate;
+    var ownChequeId;
+    $('#progressBar').hide();
+
+    @if (ViewBag.IsUpdate == "true") {
+        @:ownChequeId = @Model.OwnChequeId;
+        @:$("#txtChequeCode").prop('readonly', true);
+    }
+
+    $('.dropdown-item').click(function() {
+        $(this).parent().siblings('.dropdown-toggle')
+            .text($(this).text())
+            .data('setchqid', $(this).data('getchqid'));
+    });
+
+    var bankNames = [];
+    @foreach (var item in Model.BankList) {
+        @:bankNames.push({ "name": "@item", "code": "@item" });
+    }
+
+    var branchNames = [];
+    @foreach (var item in Model.BranchList) {
+        @:branchNames.push({ "name": "@item", "code": "@item" });
+    }
+
+    var bankOptions = {
+        data: bankNames,
+        getValue: function(element) {
+            return element.name;
+        },
+        list: {
+            match: {
+                enabled: true
+            },
+            sort: {
+                enabled: true
+            },
+            onClickEvent: function() {
+                var value = $("#txtBank").getSelectedItemData().code; // for future use
+                console.log(value);
+            }
+        }
+    };
+
+    var branchOptions = {
+        data: branchNames,
+        getValue: function(element) {
+            return element.name;
+        },
+        list: {
+            match: {
+                enabled: true
+            },
+            sort: {
+                enabled: true
+            },
+            onClickEvent: function() {
+                var value = $("#txtBranch").getSelectedItemData().code; // for future use
+                console.log(value);
+            }
+        }
+    };
+
+    $(function() {
+        $('#txtBank').easyAutocomplete(bankOptions).parent().removeClass("easy-autocomplete");
+        $('#txtBranch').easyAutocomplete(branchOptions).parent().removeClass("easy-autocomplete");
+    });
+
+
+    function getFieldDetails() {
+
+        var chequeCode = $('#txtChequeCode').val(),
+            bank = $('#txtBank').val(),
+            branch = $('#txtBranch').val(),
+            amount = $('#txtAmount').val(),
+            dueDate = $('#dtpDueDate').val(),
+            remark = $('#txtRemark').val(),
+            statusId = $("#drpDwnStatus").data('setchqid');
+
+        actionLogModel = {
+            "CreatedDate": '@DateTime.Now.ToString("yyyy-MM-dd")',
+            "ReferenceId": null,
+            "RecipientId": null,
+            "ChequeStatusId": statusId,
+            "UserId": 4
+        };
+
+        if (IsUpdate) {
+            model = {
+                "OwnChequeId": ownChequeId,
+                "ChequeCode": chequeCode,
+                "Bank": bank,
+                "Branch": branch,
+                "Amount": parseFloat(amount),
+                "DueDate": dueDate,
+                "Remark": remark,
+                "StatusId": statusId,
+                "ActionLog":actionLogModel,
+                "IsUpdate":true
+            };
+            SaveChanges("Update");
+        } else {
+            model = {
+                "ChequeCode": chequeCode,
+                "Bank": bank,
+                "Branch": branch,
+                "Amount": parseFloat(amount),
+                "DueDate": dueDate,
+                "Remark": remark,
+                "StatusId": statusId,
+                "ActionLog":actionLogModel,
+                "IsUpdate":false
+            };
+            SaveChanges("Create");
+        }
+    }
+
+    function SaveChanges(type) {
+        $('#progressBar').show();
+        $.ajax({
+            url: localStorage.apiLink + "api/OwnCheque/" + type,
+            type: 'POST',
+            data: JSON.stringify(model),
+            contentType: 'application/json',
+            success: function (data, textStatus, xhr) {
+                $('#progressBar').hide();
+                if (data === true) {
+
+                    Swal.fire({
+                        title: 'Success',
+                        text: "Changes Saved Successfully!",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK!'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.replace(localStorage.apiLink + "OwnCheque/OwnChequeList");
+                        }
+                    });
+                } else {
+                    Swal.fire(
+                        'Oops...',
+                        'Something went wrong!',
+                        'error'
+                    );
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                $('#progressBar').hide();
+                const objArr = [
+                    [xhr.responseJSON.errors.ChequeCode, '#errorChequeCode'],
+                    [xhr.responseJSON.errors.Bank, '#errorBank'],
+                    [xhr.responseJSON.errors.Branch, '#errorBranch'],
+                    [xhr.responseJSON.errors.Amount, '#errorAmount']
+                ];
+
+                for (let i = 0; i < objArr.length; i++) {
+                    $(objArr[i][1]).html('');
+                    $(objArr[i][1]).parent().removeClass('has-danger').addClass("has-success").find('span').text('done');
+                    if (objArr[i][0] != null) {
+                        $(objArr[i][1]).parent().find('span').remove();
+                        for (let j = 0; j < objArr[i][0].length; j++) {
+                            $(objArr[i][1]).append(`<h6 class="mb-0 text-capitalize">${objArr[i][0][j]}</h6> \n`);
+                            $(objArr[i][1]).parent().removeClass('has-success').addClass("has-danger")
+                                .append(`<span class="material-icons form-control-feedback">clear</span>`);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+</script>
+

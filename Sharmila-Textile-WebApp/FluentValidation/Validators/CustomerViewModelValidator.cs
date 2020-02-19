@@ -23,7 +23,7 @@ namespace Sharmila_Textile_WebApp.FluentValidation.Validators {
                 .Matches(@"^\d{10}$")
                 .When(x => x.OfficeLandline != "")
                 .WithMessage("Office Landline Number should have exactly 10 numbers");
-            
+
             RuleFor(x => x.Mobile)
                 .Matches(@"^\d{10}$")
                 .When(x => x.Mobile != "")
@@ -32,11 +32,11 @@ namespace Sharmila_Textile_WebApp.FluentValidation.Validators {
             RuleFor(x => x.OpeningBalance)
                 .NotEmpty().WithMessage("Opening Balance cannot be empty")
                 .ScalePrecision(2, 18).WithMessage("Number should be within 2 decimal place");
-            
+
             RuleFor(x => x.CurrentBalance)
                 .NotEmpty().WithMessage("Current Balance cannot be empty")
                 .ScalePrecision(2, 18).WithMessage("Number should be within 2 decimal place");
-             
+
         }
 
     }

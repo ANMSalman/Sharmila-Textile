@@ -1,4 +1,14 @@
-﻿ 
+﻿
+/* Cursor pointer */
+.cursor-pointer {
+  cursor: pointer;
+}
+.link {
+  color: aqua;
+  text-decoration: none;
+  background-color: none;
+}
+
 /* The switch - the box around the slider */
 .switch {
    position: relative;

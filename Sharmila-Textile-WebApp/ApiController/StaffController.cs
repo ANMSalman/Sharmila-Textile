@@ -21,7 +21,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-
+        [Obsolete]
         public StaffController(AppDBContext context, IMapper mapper, IHostingEnvironment hostingEnvironment) {
             _context = context;
             _mapper = mapper;
@@ -29,10 +29,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
         }
 
         [HttpPost]
-        public IActionResult Create(StaffViewModel model) {
-            if (!ModelState.IsValid) {
-                return BadRequest(ModelState);
-            }
+        public IActionResult Create(StaffViewModel model) { 
 
             /**************** Saving Staffs **************/
             Staff staff = _mapper.Map<Staff>(model);

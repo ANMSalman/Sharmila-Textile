@@ -13,6 +13,9 @@ namespace Sharmila_Textile_WebApp.AutoMapper {
             CreateMap<UserViewModel, User>().ReverseMap();
             CreateMap<CustomerViewModel, Customer>().ReverseMap();
             CreateMap<SupplierViewModel, Supplier>().ReverseMap();
+            CreateMap<OwnChequeViewModel, OwnCheque>()
+                .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.StatusId)).ReverseMap();
+            CreateMap<ChequeStatusViewModel, ChequeStatus>().ReverseMap();
         }
     }
 }

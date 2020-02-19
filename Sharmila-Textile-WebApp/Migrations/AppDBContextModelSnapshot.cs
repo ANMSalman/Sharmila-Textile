@@ -19,6 +19,23 @@ namespace Sharmila_Textile_WebApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.ChequeStatus", b =>
+                {
+                    b.Property<long>("ChequeStatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("CHEQUE_STATUS_ID")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("StatusName")
+                        .HasColumnName("STATUS_NAME")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("ChequeStatusId");
+
+                    b.ToTable("CHEQUE_STATUS");
+                });
+
             modelBuilder.Entity("Sharmila_Textile_WebApp.Models.Customer", b =>
                 {
                     b.Property<long>("CustomerId")
@@ -111,6 +128,111 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("CUSTOMER_ATTACHMENT");
+                });
+
+            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.OwnCheque", b =>
+                {
+                    b.Property<long>("OwnChequeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("OWN_CHEQUE_ID")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnName("AMOUNT")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Bank")
+                        .HasColumnName("BANK")
+                        .HasColumnType("varchar(70)");
+
+                    b.Property<string>("Branch")
+                        .HasColumnName("BRANCH")
+                        .HasColumnType("varchar(70)");
+
+                    b.Property<string>("ChequeCode")
+                        .HasColumnName("CHEQUE_CODE")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnName("DUE_DATE")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Remark")
+                        .HasColumnName("REMARK")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<long>("Status")
+                        .HasColumnName("STATUS")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("OwnChequeId");
+
+                    b.HasIndex("Status");
+
+                    b.ToTable("OWN_CHEQUE");
+                });
+
+            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.OwnChequeActionLog", b =>
+                {
+                    b.Property<long>("OwnChequeActionLogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("OWN_CHEQUE_ACTION_LOG_ID")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("ChequeStatusId")
+                        .HasColumnName("CHEQUE_STATUS_ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnName("CREATED_DATE")
+                        .HasColumnType("datetime");
+
+                    b.Property<long>("OwnChequeId")
+                        .HasColumnName("OWN_CHEQUE_ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("RecipientId")
+                        .HasColumnName("RECIPIENT_ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ReferenceId")
+                        .HasColumnName("REFERENCE_ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnName("USER_ID")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("OwnChequeActionLogId");
+
+                    b.HasIndex("ChequeStatusId");
+
+                    b.HasIndex("OwnChequeId");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OWN_CHEQUE_ACTION_LOG");
+                });
+
+            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.Recipient", b =>
+                {
+                    b.Property<long>("RecipientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("RECIPIENT_ID")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RecipientType")
+                        .HasColumnName("RECIPIENT_TYPE")
+                        .HasColumnType("varchar(70)");
+
+                    b.HasKey("RecipientId");
+
+                    b.ToTable("RECIPIENT");
                 });
 
             modelBuilder.Entity("Sharmila_Textile_WebApp.Models.Staff", b =>
@@ -304,6 +426,38 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.HasOne("Sharmila_Textile_WebApp.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.OwnCheque", b =>
+                {
+                    b.HasOne("Sharmila_Textile_WebApp.Models.ChequeStatus", "ChequeStatus")
+                        .WithMany()
+                        .HasForeignKey("Status")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.OwnChequeActionLog", b =>
+                {
+                    b.HasOne("Sharmila_Textile_WebApp.Models.ChequeStatus", "ChequeStatus")
+                        .WithMany()
+                        .HasForeignKey("ChequeStatusId");
+
+                    b.HasOne("Sharmila_Textile_WebApp.Models.OwnCheque", "OwnCheque")
+                        .WithMany()
+                        .HasForeignKey("OwnChequeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sharmila_Textile_WebApp.Models.Recipient", "Recipient")
+                        .WithMany()
+                        .HasForeignKey("RecipientId");
+
+                    b.HasOne("Sharmila_Textile_WebApp.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
