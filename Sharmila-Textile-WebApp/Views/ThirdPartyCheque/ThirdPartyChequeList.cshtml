@@ -1,6 +1,6 @@
-﻿@model List<Sharmila_Textile_WebApp.ViewModel.OwnChequeViewModel>
+﻿@model List<Sharmila_Textile_WebApp.ViewModel.ThirdPartyChequeViewModel>
 @{
-    ViewData["Title"] = "Own Cheque List";
+    ViewData["Title"] = "Third Party Cheque List";
 }
 
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -8,7 +8,7 @@
         <div class="navbar-wrapper">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Own Cheque</li>
+                    <li class="breadcrumb-item active" aria-current="page">Third Party Cheque</li>
                 </ol>
             </nav>
         </div>
@@ -60,7 +60,6 @@
     </div>
 </nav>
 
-
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -70,8 +69,8 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <a class="btn btn-primary float-right" asp-controller="OwnCheque" asp-action="OwnChequeDetailView" asp-route-breadcumValue="Create Own Cheque">
-                    <i class="material-icons">add</i> Create Own Cheque
+                <a class="btn btn-primary float-right" asp-controller="ThirdPartyCheque" asp-action="ThirdPartyChequeDetailView" asp-route-breadcumValue="Create ThirdParty Cheque">
+                    <i class="material-icons">add</i> Create ThirdParty Cheque
                 </a>
             </div>
         </div>
@@ -95,7 +94,7 @@
                             <tbody>
                                 @foreach (var item in Model) {
                                     <tr>
-                                        <td class="text-center">@item.OwnChequeId</td>
+                                        <td class="text-center">@item.ThirdPartyChequeId</td>
                                         <td>@item.ChequeCode</td>
                                         <td>@item.Bank</td>
                                         <td>@item.Branch</td>
@@ -103,13 +102,12 @@
                                         <td>@item.DueDate.ToString("yyyy-MM-dd")</td>
                                         <td>@item.Status</td>
                                         <td class="td-actions text-center">
-                                            <a type="button" rel="tooltip" class="btn btn-success" asp-controller="OwnCheque" asp-action="OwnChequeDetailView" asp-route-breadcumValue="Edit Own Cheque" asp-route-ownChequeId="@item.OwnChequeId">
+                                            <a type="button" rel="tooltip" class="btn btn-success" asp-controller="ThirdPartyCheque" asp-action="ThirdPartyChequeDetailView" asp-route-breadcumValue="Edit Third Party Cheque" asp-route-thirdPartyChequeId="@item.ThirdPartyChequeId">
                                                 <i class="material-icons">visibility</i>
                                             </a>
                                         </td>
                                     </tr>
-                                }
-
+                                } 
                             </tbody>
                         </table>
                     </div>
@@ -122,6 +120,6 @@
 <script>
     $(function () {
         var myTable = $('#dataTbl').DataTable();
-        $('#dataTbl_filter').addClass("float-right"); 
+        $('#dataTbl_filter').addClass("float-right");
     });
 </script>

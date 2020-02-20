@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Sharmila_Textile_WebApp.Models {
-    [Table("OWN_CHEQUE_ACTION_LOG")]
-    public class OwnChequeActionLog {
+    [Table("THIRD_PARTY_CHEQUE_ACTION_LOG")]
+    public class ThirdPartyChequeActionLog {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("OWN_CHEQUE_ACTION_LOG_ID")]
-        public long OwnChequeActionLogId { get; set; }
+        [Column("THIRD_PARTY_CHEQUE_ACTION_LOG_ID")]
+        public long ThirdPartyChequeActionLogId { get; set; }
 
-        [Column("CREATED_DATE", TypeName = "datetime")] 
+        [Column("CREATED_DATE", TypeName = "datetime")]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        [Column("OWN_CHEQUE_ID")]
-        public long OwnChequeId { get; set; }
+        [Column("THIRD_PARTY_CHEQUE_ID")]
+        public long ThirdPartyChequeId { get; set; }
 
         [Column("REFERENCE_ID")]
         public long? ReferenceId { get; set; }
@@ -31,11 +30,10 @@ namespace Sharmila_Textile_WebApp.Models {
 
         [Column("USER_ID")]
         public long UserId { get; set; }
-
+         
         public Recipient Recipient { get; set; }
         public ChequeStatus ChequeStatus { get; set; }
-        public OwnCheque OwnCheque { get; set; }
+        public ThirdPartyCheque ThirdPartyCheque { get; set; }
         public User User { get; set; }
-
     }
 }

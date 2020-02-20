@@ -66,6 +66,12 @@
                             <p>Own Cheque</p>
                         </a>
                     </li>
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "ThirdPartyCheque", "ThirdPartyChequeList")">
+                        <a class="nav-link" asp-controller="ThirdPartyCheque" asp-action="ThirdPartyChequeList">
+                            <i class="fa fa-money"></i>
+                            <p>Third Party Cheque</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

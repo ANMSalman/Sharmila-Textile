@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sharmila_Textile_WebApp.Data;
 
 namespace Sharmila_Textile_WebApp.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200220164445_Thirdparty-table")]
+    partial class Thirdpartytable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -409,18 +411,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .HasColumnName("DUE_DATE")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("From")
-                        .HasColumnName("FROM")
-                        .HasColumnType("varchar(70)");
-
-                    b.Property<long?>("FromReferenceId")
-                        .HasColumnName("FROM_REFERENCE_ID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("FromReferenceNote")
-                        .HasColumnName("FROM_REFERENCE_NOTE")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Remark")
                         .HasColumnName("REMARK")
                         .HasColumnType("varchar(100)");
@@ -451,6 +441,18 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnName("CREATED_DATE")
                         .HasColumnType("datetime");
+
+                    b.Property<string>("From")
+                        .HasColumnName("FROM")
+                        .HasColumnType("varchar(70)");
+
+                    b.Property<long?>("FromReferenceId")
+                        .HasColumnName("FROM_REFERENCE_ID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("FromReferenceNote")
+                        .HasColumnName("FROM_REFERENCE_NOTE")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("RecipientId")
                         .HasColumnName("RECIPIENT_ID")

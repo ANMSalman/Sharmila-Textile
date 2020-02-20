@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using Sharmila_Textile_WebApp.Data;
 using Sharmila_Textile_WebApp.ViewModel;
 
 namespace Sharmila_Textile_WebApp.FluentValidation.Validators {
-    public class OwnChequeViewModelValidator : AbstractValidator<OwnChequeViewModel> {
+    public class ThirdPartyChequeViewModelValidator : AbstractValidator<ThirdPartyChequeViewModel> {
         private readonly AppDBContext _context;
-
-        public OwnChequeViewModelValidator(AppDBContext context) {
+        public ThirdPartyChequeViewModelValidator(AppDBContext context) {
             _context = context;
 
             RuleFor(x => x.ChequeCode)
@@ -35,7 +33,7 @@ namespace Sharmila_Textile_WebApp.FluentValidation.Validators {
         }
 
         private bool UniqueChequeCode(string checkCode) {
-            var codeCheque = _context.OwnCheque
+            var codeCheque = _context.ThirdPartyCheque
                 .SingleOrDefault(x => x.ChequeCode.ToLower() == checkCode.ToLower());
 
             return codeCheque == null;

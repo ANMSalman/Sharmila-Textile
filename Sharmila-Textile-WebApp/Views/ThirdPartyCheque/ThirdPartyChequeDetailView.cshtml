@@ -1,8 +1,8 @@
 ﻿@if (ViewBag.IsUpdate == "true") {
-    @model Sharmila_Textile_WebApp.ViewModel.OwnChequeViewModel;
+    @model Sharmila_Textile_WebApp.ViewModel.ThirdPartyChequeViewModel;
 }
 @{
-    ViewData["Title"] = "Own Cheque Detail View";
+    ViewData["Title"] = "Third Party Cheque Detail View";
 }
 
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -10,7 +10,7 @@
         <div class="navbar-wrapper">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a asp-action="OwnChequeList">Own Cheque</a></li>
+                    <li class="breadcrumb-item active"><a asp-action="ThirdPartyChequeList">Third Party Cheque</a></li>
                     <li class="breadcrumb-item active" aria-current="page">@ViewBag.breadCumValue</li>
                 </ol>
             </nav>
@@ -74,7 +74,7 @@
             <div class="col-md-12">
                 <div class="card h-100">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title">Own Cheque Details</h4>
+                        <h4 class="card-title">Third Party Cheque Details</h4>
                     </div>
                     <div class="card-body">
                         <div class="row h-100">
@@ -113,12 +113,19 @@
                                     <div class="text-danger" id="errorDueDate"></div>
                                 </div>
                             </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="txtRemark">Remark</label>
+                                    <input type="text" class="form-control" id="txtRemark" asp-for="Remark">
+                                    <div class="text-danger" id="errorRemark"></div>
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="drpDwnStatus" class="mb-0">Status</label>
                                     <div class="dropdown">
                                         <button class="btn btn-block btn-info text-capitalize dropdown-toggle pt-1 pb-1" type="button" data-toggle="dropdown"
-                                                data-setChqId="@{
+                                                data-btn="@{
                                                                    @Html.Raw((ViewBag.IsUpdate == "true") ? Model.StatusId : Model.ChequeStatusesVm[0].ChequeStatusId)
                                                                }" id="drpDwnStatus" aria-haspopup="true" aria-expanded="false">
                                             @{
@@ -127,23 +134,88 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             @foreach (var item in Model.ChequeStatusesVm) {
-                                                <a class="dropdown-item cursor-pointer" href="#" data-getChqId="@item.ChequeStatusId">@item.StatusName</a>
+                                                <a class="dropdown-item drpDwnStatus cursor-pointer" href="#" data-li="@item.ChequeStatusId">@item.StatusName</a>
                                             }
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-4 ">
                                 <div class="form-group">
-                                    <label for="txtRemark">Remark</label>
-                                    <input type="text" class="form-control" id="txtRemark" asp-for="Remark">
-                                    <div class="text-danger" id="errorRemark"></div>
+                                    <label for="drpDwnChequeFrom" class="mb-0">Cheque From</label>
+                                    <div class="dropdown">
+                                        <button class="btn btn-block btn-info text-capitalize dropdown-toggle pt-1 pb-1" type="button" data-toggle="dropdown"
+                                                data-btn="@Html.Raw(ViewBag.IsUpdate == "true" ? Model.From : "Customer")" id="drpDwnChequeFrom" aria-haspopup="true" aria-expanded="false">
+
+                                            @Html.Raw(ViewBag.IsUpdate == "true" ? Model.From : "Customer")
+
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item drpDwnChequeFrom cursor-pointer" href="#" data-li="Customer">Customer</a>
+                                            <a class="dropdown-item drpDwnChequeFrom cursor-pointer" href="#" data-li="Supplier">Supplier</a>
+                                            <a class="dropdown-item drpDwnChequeFrom cursor-pointer" href="#" data-li="Other">Other</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="pnlCustomerList">
+                                <div class="form-group">
+                                    <label for="drpDwnCustomer" class="mb-0">Select a Customer</label>
+                                    <div class="dropdown">
+
+                                        <button class="btn btn-block btn-info text-capitalize dropdown-toggle pt-1 pb-1" type="button" data-toggle="dropdown"
+                                                data-btn="@Html.Raw(ViewBag.IsUpdate == "true" && Model.From == "Customer" ? Model.FromReferenceId : Model.CustomerList[0].CustomerId)" id="drpDwnCustomer" aria-haspopup="true" aria-expanded="false">
+                                            @if (ViewBag.IsUpdate == "true") {
+                                                if (Model.From == "Customer") {
+                                                    <strong>@Model.FromReferenceId - </strong> @Model.CustomerList.SingleOrDefault(x => x.CustomerId == Model.FromReferenceId)?.CustomerName;
+                                                }
+                                                else {
+                                                    <strong>@Model.CustomerList[0].CustomerId - </strong>@Model.CustomerList[0].CustomerName
+                                                }
+                                            }
+                                            else {
+                                                <strong>@Model.CustomerList[0].CustomerId - </strong>@Model.CustomerList[0].CustomerName
+                                            }
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            @foreach (var item in Model.CustomerList) {
+                                                <a class="dropdown-item drpDwnCustomer cursor-pointer" href="#" data-li="@item.CustomerId"><strong>@item.CustomerId</strong> - @item.CustomerName</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="pnlSupplierList">
+                                <div class="form-group">
+                                    <label for="drpDwnSupplier" class="mb-0">Select a Supplier</label>
+                                    <div class="dropdown">
+                                        <button class="btn btn-block btn-info text-capitalize dropdown-toggle pt-1 pb-1" type="button" data-toggle="dropdown"
+                                                data-btn="@Html.Raw(ViewBag.IsUpdate == "true" && Model.From == "Supplier" ? Model.FromReferenceId : Model.SupplierList[0].SupplierId)" id="drpDwnSupplier" aria-haspopup="true" aria-expanded="false">
+                                            @if (ViewBag.IsUpdate == "true") {
+                                                if (Model.From == "Supplier") {
+                                                    <strong>@Model.FromReferenceId - </strong> @Model.SupplierList.SingleOrDefault(x => x.SupplierId == Model.FromReferenceId)?.SupplierName;
+                                                }
+                                                else {
+                                                    <strong>@Model.SupplierList[0].SupplierId - </strong>@Model.SupplierList[0].SupplierName
+                                                }
+                                            }
+                                            else {
+                                                <strong>@Model.SupplierList[0].SupplierId - </strong>@Model.SupplierList[0].SupplierName
+                                            }
+
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            @foreach (var item in Model.SupplierList) {
+                                                <a class="dropdown-item drpDwnSupplier cursor-pointer" href="#" data-li="@item.SupplierId"><strong>@item.SupplierId</strong> - @item.SupplierName</a>
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-3">
                                 <div class="row justify-content-end">
                                     <div class="col-auto form-inline" id="progressBar">
-                                        <img src="~/img/progress.gif" style="max-height: 41px;" class="mr-3" />
+                                        <img src="~/img/progress.gif" style="max-height: 41px;" class="mr-3" alt="" />
                                         <h5 class="align-bottom mb-0">Please Wait....</h5>
                                     </div>
                                     <div class="col-auto">
@@ -159,24 +231,74 @@
     </div>
 </div>
 
-
 <script>
     var model = {};
     var actionLogModel = {};
     var IsUpdate = @ViewBag.IsUpdate;
-    var ownChequeId;
+    var thirdPartyChequeId;
+    var chequeFromRefId = $("#drpDwnCustomer").data('btn');
     $('#progressBar').hide();
+    $('#pnlSupplierList').hide();
+
+    if (IsUpdate === true) {
+        if ($("#drpDwnChequeFrom").data('btn')  === "Customer") {
+            $('#pnlSupplierList').hide();
+            $('#pnlCustomerList').show();
+        } else if ($("#drpDwnChequeFrom").data('btn') === "Supplier") {
+            $('#pnlSupplierList').show();
+            $('#pnlCustomerList').hide();
+        } else {
+            $('#pnlSupplierList').hide();
+            $('#pnlCustomerList').hide();
+        }
+    }
 
     @if (ViewBag.IsUpdate == "true") {
-        @:ownChequeId = @Model.OwnChequeId;
+        @:thirdPartyChequeId = @Model.ThirdPartyChequeId;
         @:$("#txtChequeCode").prop('readonly', true);
     }
 
-    $('.dropdown-item').click(function() {
+    $('.drpDwnStatus').click(function() {
         $(this).parent().siblings('.dropdown-toggle')
             .text($(this).text())
-            .data('setchqid', $(this).data('getchqid'));
+            .data('btn', $(this).data('li'));
     });
+
+    $('.drpDwnCustomer').click(function() {
+        $(this).parent().siblings('.dropdown-toggle')
+            .text($(this).text())
+            .data('btn', $(this).data('li'));
+        chequeFromRefId = $("#drpDwnCustomer").data('btn');
+    });
+    $('.drpDwnSupplier').click(function() {
+        $(this).parent().siblings('.dropdown-toggle')
+            .text($(this).text())
+            .data('btn', $(this).data('li'));
+        chequeFromRefId = $("#drpDwnSupplier").data('btn');
+    });
+    $('.drpDwnChequeFrom').click(function() {
+        $(this).parent().siblings('.dropdown-toggle')
+            .text($(this).text())
+            .data('btn', $(this).data('li'));
+
+        if ($(this).data('li') === 'Customer') {
+            $('#pnlSupplierList').hide();
+            $('#pnlCustomerList').show();
+            chequeFromRefId = $("#drpDwnCustomer").data('btn');
+        }else if ($(this).data('li') === 'Supplier') {
+            $('#pnlSupplierList').show();
+            $('#pnlCustomerList').hide();
+            chequeFromRefId = $("#drpDwnSupplier").data('btn');
+        }else if ($(this).data('li') === 'Other') {
+            $('#pnlSupplierList').hide();
+            $('#pnlCustomerList').hide();
+            chequeFromRefId = null;
+        }
+
+    });
+
+
+
 
     var bankNames = [];
     @foreach (var item in Model.BankList) {
@@ -240,18 +362,19 @@
             amount = $('#txtAmount').val(),
             dueDate = $('#dtpDueDate').val(),
             remark = $('#txtRemark').val(),
-            statusId = $("#drpDwnStatus").data('setchqid');
+            statusId = $("#drpDwnStatus").data('btn');
 
-        actionLogModel = { 
+        actionLogModel = {
             "ReferenceId": null,
             "RecipientId": null,
             "ChequeStatusId": statusId,
             "UserId": 4
         };
 
+
         if (IsUpdate) {
             model = {
-                "OwnChequeId": ownChequeId,
+                "ThirdPartyChequeId": thirdPartyChequeId,
                 "ChequeCode": chequeCode,
                 "Bank": bank,
                 "Branch": branch,
@@ -259,6 +382,9 @@
                 "DueDate": dueDate,
                 "Remark": remark,
                 "StatusId": statusId,
+                "From": $("#drpDwnChequeFrom").data('btn'),
+                "FromReferenceId": chequeFromRefId,
+                "FromReferenceNote": null,
                 "ActionLog":actionLogModel,
                 "IsUpdate":true
             };
@@ -272,6 +398,9 @@
                 "DueDate": dueDate,
                 "Remark": remark,
                 "StatusId": statusId,
+                "From": $("#drpDwnChequeFrom").data('btn'),
+                "FromReferenceId": chequeFromRefId,
+                "FromReferenceNote": null,
                 "ActionLog":actionLogModel,
                 "IsUpdate":false
             };
@@ -282,7 +411,7 @@
     function SaveChanges(type) {
         $('#progressBar').show();
         $.ajax({
-            url: localStorage.apiLink + "api/OwnCheque/" + type,
+            url: localStorage.apiLink + "api/ThirdPartyCheque/" + type,
             type: 'POST',
             data: JSON.stringify(model),
             contentType: 'application/json',
@@ -299,7 +428,7 @@
                         confirmButtonText: 'OK!'
                     }).then((result) => {
                         if (result.value) {
-                            window.location.replace(localStorage.apiLink + "OwnCheque/OwnChequeList");
+                            window.location.replace(localStorage.apiLink + "ThirdPartyCheque/ThirdPartyChequeList");
                         }
                     });
                 } else {
@@ -336,4 +465,3 @@
     }
 
 </script>
-
