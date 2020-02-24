@@ -24,7 +24,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult StaffView() {
-            List<StaffViewModel> list = _mapper.Map<List<StaffViewModel>>(_context.Staff.Where(x=>x.CurrentStatus == 1).ToList());
+            List<StaffViewModel> list = _mapper.Map<List<StaffViewModel>>(_context.Staffs.Where(x=>x.CurrentStatus == 1).ToList());
             return View(list);
         }
 
@@ -34,10 +34,10 @@ namespace Sharmila_Textile_WebApp.Controllers {
             ViewBag.IsUpdate = staffId > 0 ? "true":"false";
 
             if (staffId > 0) {
-                Staff staff = _context.Staff.FirstOrDefault(x => x.StaffId == staffId);
-                User user = _context.User.FirstOrDefault(x => x.StaffId == staffId);
+                Staff staff = _context.Staffs.FirstOrDefault(x => x.StaffId == staffId);
+                User user = _context.Users.FirstOrDefault(x => x.StaffId == staffId);
                 List<StaffAttachment> staffAttachments =
-                    _context.StaffAttachment.Where(x => x.StaffId == staffId).ToList();
+                    _context.StaffAttachments.Where(x => x.StaffId == staffId).ToList();
 
                 StaffViewModel model = _mapper.Map<StaffViewModel>(staff);
                 model.UserViewModel = _mapper.Map<UserViewModel>(user);

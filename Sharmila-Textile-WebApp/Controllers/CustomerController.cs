@@ -27,7 +27,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
         public IActionResult CustomerView() {
 
             var data = from a in _context.Customers
-                       join b in _context.User on a.CreatedBy equals b.UserId where a.CurrentStatus == 1
+                       join b in _context.Users on a.CreatedBy equals b.UserId where a.CurrentStatus == 1
                        select new CustomerViewModel {
                            CustomerId = a.CustomerId, CustomerName = a.CustomerName, NIC = a.NIC, HomeAddress = a.HomeAddress, HomeLandline = a.HomeLandline,
                            OfficeAddress = a.OfficeAddress, OfficeLandline = a.OfficeLandline, Mobile = a.Mobile, OpeningBalance = a.OpeningBalance,
@@ -45,7 +45,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
             if (cusId > 0) {
                 Customer customer = _context.Customers.FirstOrDefault(x => x.CustomerId == cusId);
                 List<CustomerAttachment> customerAttachments =
-                    _context.CustomerAttachment.Where(x => x.CustomerId == cusId).ToList();
+                    _context.CustomerAttachments.Where(x => x.CustomerId == cusId).ToList();
 
                 CustomerViewModel model = _mapper.Map<CustomerViewModel>(customer);
 

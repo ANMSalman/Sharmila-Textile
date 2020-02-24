@@ -45,5 +45,6 @@ namespace Sharmila_Textile_WebApp.Models {
 
         [ForeignKey("Status")]
         public ChequeStatus ChequeStatus { get; set; }
+        public List<SupplierPaymentThirdPartyCheque> SupplierPaymentThirdPartyCheques { get; set; }
     }
 }

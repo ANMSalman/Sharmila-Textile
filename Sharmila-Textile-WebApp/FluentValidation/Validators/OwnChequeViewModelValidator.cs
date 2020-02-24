@@ -35,7 +35,7 @@ namespace Sharmila_Textile_WebApp.FluentValidation.Validators {
         }
 
         private bool UniqueChequeCode(string checkCode) {
-            var codeCheque = _context.OwnCheque
+            var codeCheque = _context.OwnCheques
                 .SingleOrDefault(x => x.ChequeCode.ToLower() == checkCode.ToLower());
 
             return codeCheque == null;

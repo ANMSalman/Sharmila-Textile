@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sharmila_Textile_WebApp.Data;
 
 namespace Sharmila_Textile_WebApp.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200223121051_allDone")]
+    partial class allDone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -401,10 +403,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .HasColumnName("CREATED_BY")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnName("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnName("DESCRIPTION")
                         .HasColumnType("varchar(100)");
@@ -439,8 +437,6 @@ namespace Sharmila_Textile_WebApp.Migrations
 
                     b.HasKey("SupplierPaymentId");
 
-                    b.HasIndex("CreatedBy");
-
                     b.HasIndex("PaymentType");
 
                     b.HasIndex("SupplierId");
@@ -463,23 +459,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.HasIndex("SupplierPaymentId");
 
                     b.ToTable("SUPPLIER_PAYMENT_OWN_CHEQUE");
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.SupplierPaymentThirdPartyCheque", b =>
-                {
-                    b.Property<long>("ThirdPartyChequeId")
-                        .HasColumnName("THIRD_PARTY_CHEQUE_ID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("SupplierPaymentId")
-                        .HasColumnName("SUPPLIER_PAYMENT_ID")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ThirdPartyChequeId", "SupplierPaymentId");
-
-                    b.HasIndex("SupplierPaymentId");
-
-                    b.ToTable("SUPPLIER_PAYMENT_THIRD_PARTY_CHEQUE");
                 });
 
             modelBuilder.Entity("Sharmila_Textile_WebApp.Models.ThirdPartyCheque", b =>
@@ -692,12 +671,6 @@ namespace Sharmila_Textile_WebApp.Migrations
 
             modelBuilder.Entity("Sharmila_Textile_WebApp.Models.SupplierPayment", b =>
                 {
-                    b.HasOne("Sharmila_Textile_WebApp.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Sharmila_Textile_WebApp.Models.ChequeStatus", "ChequeStatus")
                         .WithMany()
                         .HasForeignKey("PaymentType")
@@ -722,21 +695,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.HasOne("Sharmila_Textile_WebApp.Models.SupplierPayment", "SupplierPayment")
                         .WithMany("SupplierPaymentOwnCheques")
                         .HasForeignKey("SupplierPaymentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.SupplierPaymentThirdPartyCheque", b =>
-                {
-                    b.HasOne("Sharmila_Textile_WebApp.Models.SupplierPayment", "SupplierPayment")
-                        .WithMany("SupplierPaymentThirdPartyCheques")
-                        .HasForeignKey("SupplierPaymentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Sharmila_Textile_WebApp.Models.ThirdPartyCheque", "ThirdPartyCheque")
-                        .WithMany("SupplierPaymentThirdPartyCheques")
-                        .HasForeignKey("ThirdPartyChequeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

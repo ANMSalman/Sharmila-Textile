@@ -5,7 +5,7 @@
     ViewData["Title"] = "Own Cheque Detail View";
 }
 
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
     <div class="container-fluid">
         <div class="navbar-wrapper">
             <nav aria-label="breadcrumb" role="navigation">
@@ -200,7 +200,7 @@
             sort: {
                 enabled: true
             },
-            onClickEvent: function() {
+            onChooseEvent: function() {
                 var value = $("#txtBank").getSelectedItemData().code; // for future use
                 console.log(value);
             }
@@ -219,7 +219,7 @@
             sort: {
                 enabled: true
             },
-            onClickEvent: function() {
+            onChooseEvent: function() {
                 var value = $("#txtBranch").getSelectedItemData().code; // for future use
                 console.log(value);
             }

@@ -61,7 +61,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
                         CustomerId = customerId,
                         MimeType = item.AttachmentFile.Split(",")[0]
                     };
-                    _context.CustomerAttachment.Add(customerAttachment);
+                    _context.CustomerAttachments.Add(customerAttachment);
                     _context.SaveChanges();
                 } 
                 return Ok(true);
@@ -111,7 +111,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
                     CustomerId = cusId,
                     MimeType = item.AttachmentFile.Split(",")[0]
                 };
-                _context.CustomerAttachment.Add(customerAttachment);
+                _context.CustomerAttachments.Add(customerAttachment);
                 _context.SaveChanges();
             } 
 
@@ -121,8 +121,8 @@ namespace Sharmila_Textile_WebApp.ApiController {
         private void DeleteFiles(long customerId) {
             string rootFolder = _hostingEnvironment.WebRootPath + @"\files\";
 
-            IEnumerable<CustomerAttachment> customerAttachments = _context.CustomerAttachment.Where(x => x.CustomerId == customerId).ToList();
-            _context.CustomerAttachment.RemoveRange(customerAttachments);
+            IEnumerable<CustomerAttachment> customerAttachments = _context.CustomerAttachments.Where(x => x.CustomerId == customerId).ToList();
+            _context.CustomerAttachments.RemoveRange(customerAttachments);
             _context.SaveChanges();
 
             try {

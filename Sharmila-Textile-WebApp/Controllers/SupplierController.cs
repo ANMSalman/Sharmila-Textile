@@ -24,12 +24,12 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult SupplierView() {
-            var data = from a in _context.Supplier
-                       join b in _context.User on a.CreatedBy equals b.UserId where a.CurrentStatus == 1
+            var data = from a in _context.Suppliers
+                       join b in _context.Users on a.CreatedBy equals b.UserId where a.CurrentStatus == 1
                        select new SupplierViewModel {
                            SupplierId = a.SupplierId, SupplierName = a.SupplierName, Address = a.Address, Landline = a.Landline, 
-                           Mobile = a.Mobile, OpeningBalance = a.OpeningBalance,
-                           CurrentBalance = a.CurrentBalance, CreatedDate = a.CreatedDate, CreatedBy = a.CreatedBy, CurrentStatus = a.CurrentStatus,
+                           Mobile = a.Mobile, OpeningBalance = a.OpeningBalance, CurrentBalance = a.CurrentBalance, CreatedDate = a.CreatedDate, 
+                           CreatedBy = a.CreatedBy, CurrentStatus = a.CurrentStatus,
                            UserName = b.UserName
                        };
             return View(data);
@@ -41,9 +41,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
             ViewBag.IsUpdate = supplierId > 0 ? "true" : "false";
 
             if (supplierId > 0) {
-                Supplier supplier = _context.Supplier.FirstOrDefault(x => x.SupplierId == supplierId);
+                Supplier supplier = _context.Suppliers.FirstOrDefault(x => x.SupplierId == supplierId);
                 List<SupplierAttachment> supplierAttachments =
-                    _context.SupplierAttachment.Where(x => x.SupplierId == supplierId).ToList();
+                    _context.SupplierAttachments.Where(x => x.SupplierId == supplierId).ToList();
 
                 SupplierViewModel model = _mapper.Map<SupplierViewModel>(supplier);
 

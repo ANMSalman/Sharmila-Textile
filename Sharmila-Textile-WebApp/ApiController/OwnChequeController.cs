@@ -30,7 +30,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
             OwnChequeActionLog actionLog = model.ActionLog;
             actionLog.OwnCheque = ownCheque;
 
-            _context.OwnChequeActionLog.Add(actionLog);
+            _context.OwnChequeActionLogs.Add(actionLog);
             var flag = _context.SaveChanges();
 
             return Ok(flag > 0);
@@ -39,12 +39,12 @@ namespace Sharmila_Textile_WebApp.ApiController {
         public IActionResult Update(OwnChequeViewModel model) {
 
             OwnCheque ownCheque = _mapper.Map<OwnCheque>(model);
-            _context.OwnCheque.Update(ownCheque);
+            _context.OwnCheques.Update(ownCheque);
 //            _context.SaveChanges();
 
             OwnChequeActionLog actionLog = model.ActionLog;
             actionLog.OwnChequeId = model.OwnChequeId;
-            _context.OwnChequeActionLog.Add(actionLog);
+            _context.OwnChequeActionLogs.Add(actionLog);
             var flag = _context.SaveChanges();
             return Ok(flag > 0);
         }

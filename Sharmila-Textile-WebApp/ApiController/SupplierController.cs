@@ -39,7 +39,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
             Supplier supplier = _mapper.Map<Supplier>(model);
             supplier.CurrentStatus = 1;
             supplier.CreatedDate = DateTime.Now;
-            _context.Supplier.Add(supplier);
+            _context.Suppliers.Add(supplier);
             var flag = _context.SaveChanges();
             var supplierId = supplier.SupplierId;
 
@@ -60,7 +60,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
                         SupplierId = supplierId,
                         MimeType = item.AttachmentFile.Split(",")[0]
                     };
-                    _context.SupplierAttachment.Add(supplierAttachment);
+                    _context.SupplierAttachments.Add(supplierAttachment);
                     _context.SaveChanges();
                 }
                 return Ok(true);
@@ -78,7 +78,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
             /**************** Updating Suppliers **************/
 
-            var single = _context.Supplier.Single(x => x.SupplierId == model.SupplierId);
+            var single = _context.Suppliers.Single(x => x.SupplierId == model.SupplierId);
             single.SupplierName = model.SupplierName;
             single.Address = model.Address;
             single.Landline = model.Landline;
@@ -106,7 +106,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
                     SupplierId = supplierId,
                     MimeType = item.AttachmentFile.Split(",")[0]
                 };
-                _context.SupplierAttachment.Add(supplierAttachment);
+                _context.SupplierAttachments.Add(supplierAttachment);
                 _context.SaveChanges();
             }
 
@@ -117,8 +117,8 @@ namespace Sharmila_Textile_WebApp.ApiController {
         private void DeleteFiles(long supplierId) {
             string rootFolder = _hostingEnvironment.WebRootPath + @"\files\";
 
-            IEnumerable<SupplierAttachment> supplierAttachments = _context.SupplierAttachment.Where(x => x.SupplierId == supplierId).ToList();
-            _context.SupplierAttachment.RemoveRange(supplierAttachments);
+            IEnumerable<SupplierAttachment> supplierAttachments = _context.SupplierAttachments.Where(x => x.SupplierId == supplierId).ToList();
+            _context.SupplierAttachments.RemoveRange(supplierAttachments);
             _context.SaveChanges();
 
             try {
@@ -138,7 +138,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
         [HttpGet("{id}")]
         public IActionResult Delete(long id) {
-            var model = _context.Supplier.Single(x => x.SupplierId == id);
+            var model = _context.Suppliers.Single(x => x.SupplierId == id);
             model.CurrentStatus = 0;
             int flag = _context.SaveChanges();
 

@@ -25,6 +25,6 @@ namespace Sharmila_Textile_WebApp.Models {
         [Column("STAFF_ID")]
         public long StaffId { get; set; }
 
-        public Staff Staff { get; set; }
+        public Staff Staff { get; set; } 
     }
 }

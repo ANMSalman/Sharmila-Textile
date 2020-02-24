@@ -29,7 +29,7 @@ namespace Sharmila_Textile_WebApp.ApiController
             ThirdPartyCheque thirdPartyCheque = _mapper.Map<ThirdPartyCheque>(model);
             ThirdPartyChequeActionLog actionLog = model.ActionLog;
             actionLog.ThirdPartyCheque = thirdPartyCheque; 
-            _context.ThirdPartyChequeActionLog.Add(actionLog);
+            _context.ThirdPartyChequeActionLogs.Add(actionLog);
             var flag = _context.SaveChanges();
 
             return Ok(flag > 0);
@@ -38,12 +38,12 @@ namespace Sharmila_Textile_WebApp.ApiController
         public IActionResult Update(ThirdPartyChequeViewModel model) {
 
             ThirdPartyCheque thirdPartyCheque = _mapper.Map<ThirdPartyCheque>(model);
-            _context.ThirdPartyCheque.Update(thirdPartyCheque);
+            _context.ThirdPartyCheques.Update(thirdPartyCheque);
             //            _context.SaveChanges();
 
             ThirdPartyChequeActionLog actionLog = model.ActionLog;
             actionLog.ThirdPartyChequeId = model.ThirdPartyChequeId;
-            _context.ThirdPartyChequeActionLog.Add(actionLog);
+            _context.ThirdPartyChequeActionLogs.Add(actionLog);
             var flag = _context.SaveChanges();
             return Ok(flag > 0);
         }

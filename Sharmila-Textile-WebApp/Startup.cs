@@ -70,7 +70,7 @@ namespace Sharmila_Textile_WebApp {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=OwnCheque}/{action=OwnChequeList}");
+                    pattern: "{controller=SupplierPayment}/{action=PaymentListView}");
             });
         }
     }

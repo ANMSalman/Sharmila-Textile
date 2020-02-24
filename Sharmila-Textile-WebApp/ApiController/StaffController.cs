@@ -35,7 +35,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
             Staff staff = _mapper.Map<Staff>(model);
             staff.CurrentStatus = 1;
 
-            _context.Staff.Add(staff);
+            _context.Staffs.Add(staff);
             var flag = _context.SaveChanges();
             var staffId = staff.StaffId;
 
@@ -56,7 +56,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
                         StaffId = staffId,
                         MimeType = item.AttachmentFile.Split(",")[0]
                     };
-                    _context.StaffAttachment.Add(staffAttachment);
+                    _context.StaffAttachments.Add(staffAttachment);
                     _context.SaveChanges();
                 }
 
@@ -65,7 +65,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
                     User userModel = _mapper.Map<User>(model.UserViewModel);
                     userModel.StaffId = staffId;
 
-                    _context.User.Add(userModel);
+                    _context.Users.Add(userModel);
                     _context.SaveChanges();
                 }
                 return Ok(true);
@@ -81,7 +81,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
             /**************** Updating Staffs **************/
 
-            var single = _context.Staff.Single(x => x.StaffId == model.StaffId);
+            var single = _context.Staffs.Single(x => x.StaffId == model.StaffId);
             single.StaffName = model.StaffName;
             single.Nic = model.Nic;
             single.ContactNo = model.ContactNo;
@@ -107,15 +107,15 @@ namespace Sharmila_Textile_WebApp.ApiController {
                     StaffId = staffId,
                     MimeType = item.AttachmentFile.Split(",")[0]
                 };
-                _context.StaffAttachment.Add(staffAttachment);
+                _context.StaffAttachments.Add(staffAttachment);
                 _context.SaveChanges();
             }
 
             /**************** Updating User **************/
             if (model.UserViewModel.CurrentStatus == 1) {
 
-                if (_context.User.Count(x => x.UserId == model.UserViewModel.UserId) > 0) {
-                    var user = _context.User.Single(x => x.UserId == model.UserViewModel.UserId);
+                if (_context.Users.Count(x => x.UserId == model.UserViewModel.UserId) > 0) {
+                    var user = _context.Users.Single(x => x.UserId == model.UserViewModel.UserId);
                     user.UserName = model.UserViewModel.UserName;
                     user.Password = model.UserViewModel.Password;
                     user.CurrentStatus = model.UserViewModel.CurrentStatus;
@@ -123,14 +123,14 @@ namespace Sharmila_Textile_WebApp.ApiController {
                 } else {
                     User userModel = _mapper.Map<User>(model.UserViewModel);
                     userModel.StaffId = staffId;
-                    _context.User.Add(userModel);
+                    _context.Users.Add(userModel);
                 }
 
                 _context.SaveChanges();
 
             } else {
-                if (_context.User.Count(x => x.UserId == model.UserViewModel.UserId) > 0) {
-                    var user = _context.User.Single(x => x.UserId == model.UserViewModel.UserId);
+                if (_context.Users.Count(x => x.UserId == model.UserViewModel.UserId) > 0) {
+                    var user = _context.Users.Single(x => x.UserId == model.UserViewModel.UserId);
                     user.CurrentStatus = 0;
                     _context.SaveChanges();
 
@@ -143,7 +143,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
         [HttpGet("{id}")]
         public IActionResult Delete(long id) {
-            var model = _context.Staff.Single(x => x.StaffId == id);
+            var model = _context.Staffs.Single(x => x.StaffId == id);
             model.CurrentStatus = 0;
             int flag = _context.SaveChanges();
 
@@ -153,8 +153,8 @@ namespace Sharmila_Textile_WebApp.ApiController {
         private void DeleteFiles(long staffId) {
             string rootFolder = _hostingEnvironment.WebRootPath + @"\files\";
 
-            IEnumerable<StaffAttachment> staffAttachments = _context.StaffAttachment.Where(x => x.StaffId == staffId).ToList();
-            _context.StaffAttachment.RemoveRange(staffAttachments);
+            IEnumerable<StaffAttachment> staffAttachments = _context.StaffAttachments.Where(x => x.StaffId == staffId).ToList();
+            _context.StaffAttachments.RemoveRange(staffAttachments);
             _context.SaveChanges();
 
             try {
