@@ -38,5 +38,6 @@ namespace Sharmila_Textile_WebApp.Models {
         public ChequeStatus ChequeStatus { get; set; }
 
         public List<SupplierPaymentOwnCheque> SupplierPaymentOwnCheques { get; set; }
+        public List<CollectionOwnCheque> CollectionOwnCheques { get; set; }
     }
 }

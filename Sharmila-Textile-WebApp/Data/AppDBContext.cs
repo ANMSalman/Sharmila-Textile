@@ -24,6 +24,7 @@ namespace Sharmila_Textile_WebApp.Data {
         public DbSet<ThirdPartyCheque> ThirdPartyCheques { get; set; }
         public DbSet<ThirdPartyChequeActionLog> ThirdPartyChequeActionLogs { get; set; }
         public DbSet<SupplierPayment> SupplierPayments { get; set; }
+        public DbSet<Collection> Collections { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<SupplierPaymentOwnCheque>()
@@ -55,7 +56,39 @@ namespace Sharmila_Textile_WebApp.Data {
                 .WithMany(x => x.SupplierPaymentThirdPartyCheques)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasForeignKey(oc => oc.SupplierPaymentId);
-             
+
+
+
+
+            modelBuilder.Entity<CollectionOwnCheque>()
+                .HasKey(t => new { t.OwnChequeId, t.CollectionId });
+
+            modelBuilder.Entity<CollectionOwnCheque>()
+                .HasOne(oc => oc.OwnCheque)
+                .WithMany(x => x.CollectionOwnCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.OwnChequeId);
+
+            modelBuilder.Entity<CollectionOwnCheque>()
+                .HasOne(sp => sp.Collection)
+                .WithMany(x => x.CollectionOwnCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.CollectionId);
+
+            modelBuilder.Entity<CollectionThirdPartyCheque>()
+                .HasKey(t => new { t.ThirdPartyChequeId, t.CollectionId });
+
+            modelBuilder.Entity<CollectionThirdPartyCheque>()
+                .HasOne(oc => oc.ThirdPartyCheque)
+                .WithMany(x => x.CollectionThirdPartyCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.ThirdPartyChequeId);
+
+            modelBuilder.Entity<CollectionThirdPartyCheque>()
+                .HasOne(sp => sp.Collection)
+                .WithMany(x => x.CollectionThirdPartyCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.CollectionId);
 
         }
     }

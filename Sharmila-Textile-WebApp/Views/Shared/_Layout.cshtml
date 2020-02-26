@@ -14,7 +14,7 @@
     <link href="~/css/easy-autocomplete.min.css" rel="stylesheet" />
     <link href="~/css/easy-autocomplete.themes.min.css" rel="stylesheet" />
 
-    <script src="~/js/core/jquery.min.js"></script> 
+    <script src="~/js/core/jquery.min.js"></script>
     <script>
         localStorage.apiLink = "https://localhost:44367/";
     </script>
@@ -78,6 +78,12 @@
                             <p>Supplier Payment</p>
                         </a>
                     </li>
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Collection", "CollectionListView")">
+                        <a class="nav-link" asp-controller="Collection" asp-action="CollectionListView">
+                            <i class="fa fa-bitcoin"></i>
+                            <p>Collection</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -91,7 +97,7 @@
 
 
     <script src="~/js/core/popper.min.js"></script>
-<script src="~/js/core/bootstrap-material-design.min.js"></script>
+    <script src="~/js/core/bootstrap-material-design.min.js"></script>
 
     <script src="~/js/jquery.easy-autocomplete.min.js"></script>
     <script src="~/js/plugins/arrive.min.js"></script>
