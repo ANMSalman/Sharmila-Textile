@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sharmila_Textile_WebApp.Data;
 
 namespace Sharmila_Textile_WebApp.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200226140726_cusAccounts")]
+    partial class cusAccounts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,14 +229,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnName("DESCRIPTION")
                         .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Remark")
-                        .HasColumnName("REMARK")
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<int>("Status")
-                        .HasColumnName("STATUS")
-                        .HasColumnType("int");
 
                     b.HasKey("CustomerAccountId");
 
@@ -528,89 +522,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.ToTable("SUPPLIER");
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.SupplierAccount", b =>
-                {
-                    b.Property<long>("SupplierAccountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("SUPPLIER_ACCOUNTS_ID")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AccountType")
-                        .HasColumnName("ACCOUNT_TYPE")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnName("AMOUNT")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<long>("CreatedBy")
-                        .HasColumnName("CREATED_BY")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnName("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnName("DESCRIPTION")
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Remark")
-                        .HasColumnName("REMARK")
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<int>("Status")
-                        .HasColumnName("STATUS")
-                        .HasColumnType("int");
-
-                    b.Property<long>("SupplierId")
-                        .HasColumnName("SUPPLIER_ID")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("SupplierAccountId");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("SUPPLIER_ACCOUNT");
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.SupplierAccountOwnCheque", b =>
-                {
-                    b.Property<long>("OwnChequeId")
-                        .HasColumnName("OWN_CHEQUE_ID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("SupplierAccountId")
-                        .HasColumnName("SUPPLIER_ACCOUNTS_ID")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("OwnChequeId", "SupplierAccountId");
-
-                    b.HasIndex("SupplierAccountId");
-
-                    b.ToTable("SUPPLIER_ACCOUNT_OWN_CHEQUE");
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.SupplierAccountThirdPartyCheque", b =>
-                {
-                    b.Property<long>("ThirdPartyChequeId")
-                        .HasColumnName("THIRD_PARTY_CHEQUE_ID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("SupplierAccountId")
-                        .HasColumnName("SUPPLIER_ACCOUNTS_ID")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ThirdPartyChequeId", "SupplierAccountId");
-
-                    b.HasIndex("SupplierAccountId");
-
-                    b.ToTable("SUPPLIER_ACCOUNT_THIRD_PARTY_CHEQUE");
                 });
 
             modelBuilder.Entity("Sharmila_Textile_WebApp.Models.SupplierAttachment", b =>
@@ -1037,51 +948,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.SupplierAccount", b =>
-                {
-                    b.HasOne("Sharmila_Textile_WebApp.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sharmila_Textile_WebApp.Models.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.SupplierAccountOwnCheque", b =>
-                {
-                    b.HasOne("Sharmila_Textile_WebApp.Models.OwnCheque", "OwnCheque")
-                        .WithMany("SupplierAccountOwnCheques")
-                        .HasForeignKey("OwnChequeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Sharmila_Textile_WebApp.Models.SupplierAccount", "SupplierAccount")
-                        .WithMany("SupplierAccountOwnCheques")
-                        .HasForeignKey("SupplierAccountId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.SupplierAccountThirdPartyCheque", b =>
-                {
-                    b.HasOne("Sharmila_Textile_WebApp.Models.SupplierAccount", "SupplierAccount")
-                        .WithMany("SupplierAccountThirdPartyCheques")
-                        .HasForeignKey("SupplierAccountId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Sharmila_Textile_WebApp.Models.ThirdPartyCheque", "ThirdPartyCheque")
-                        .WithMany("SupplierAccountThirdPartyCheques")
-                        .HasForeignKey("ThirdPartyChequeId")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

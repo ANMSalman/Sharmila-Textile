@@ -7,9 +7,7 @@ using Sharmila_Textile_WebApp.Models;
 
 namespace Sharmila_Textile_WebApp.Data {
     public class AppDBContext : DbContext {
-        public AppDBContext(DbContextOptions options) : base(options) {
-
-        }
+        public AppDBContext(DbContextOptions options) : base(options) { }
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<StaffAttachment> StaffAttachments { get; set; }
         public DbSet<User> Users { get; set; }
@@ -25,6 +23,8 @@ namespace Sharmila_Textile_WebApp.Data {
         public DbSet<ThirdPartyChequeActionLog> ThirdPartyChequeActionLogs { get; set; }
         public DbSet<SupplierPayment> SupplierPayments { get; set; }
         public DbSet<Collection> Collections { get; set; }
+        public DbSet<CustomerAccount> CustomerAccounts { get; set; }
+        public DbSet<SupplierAccount> SupplierAccounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<SupplierPaymentOwnCheque>()
@@ -90,6 +90,69 @@ namespace Sharmila_Textile_WebApp.Data {
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasForeignKey(oc => oc.CollectionId);
 
+
+
+            modelBuilder.Entity<CustomerAccountOwnCheque>()
+                .HasKey(t => new { t.OwnChequeId, t.CustomerAccountId });
+
+            modelBuilder.Entity<CustomerAccountOwnCheque>()
+                .HasOne(oc => oc.OwnCheque)
+                .WithMany(x => x.CustomerAccountOwnCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.OwnChequeId);
+
+            modelBuilder.Entity<CustomerAccountOwnCheque>()
+                .HasOne(sp => sp.CustomerAccount)
+                .WithMany(x => x.CustomerAccountOwnCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.CustomerAccountId);
+
+            modelBuilder.Entity<CustomerAccountThirdPartyCheque>()
+                .HasKey(t => new { t.ThirdPartyChequeId, t.CustomerAccountId });
+
+            modelBuilder.Entity<CustomerAccountThirdPartyCheque>()
+                .HasOne(oc => oc.ThirdPartyCheque)
+                .WithMany(x => x.CustomerAccountThirdPartyCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.ThirdPartyChequeId);
+
+            modelBuilder.Entity<CustomerAccountThirdPartyCheque>()
+                .HasOne(sp => sp.CustomerAccount)
+                .WithMany(x => x.CustomerAccountThirdPartyCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.CustomerAccountId);
+
+
+
+            modelBuilder.Entity<SupplierAccountOwnCheque>()
+                .HasKey(t => new { t.OwnChequeId, t.SupplierAccountId });
+
+            modelBuilder.Entity<SupplierAccountOwnCheque>()
+                .HasOne(oc => oc.OwnCheque)
+                .WithMany(x => x.SupplierAccountOwnCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.OwnChequeId);
+
+            modelBuilder.Entity<SupplierAccountOwnCheque>()
+                .HasOne(sp => sp.SupplierAccount)
+                .WithMany(x => x.SupplierAccountOwnCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.SupplierAccountId);
+
+            modelBuilder.Entity<SupplierAccountThirdPartyCheque>()
+                .HasKey(t => new { t.ThirdPartyChequeId, t.SupplierAccountId });
+
+            modelBuilder.Entity<SupplierAccountThirdPartyCheque>()
+                .HasOne(oc => oc.ThirdPartyCheque)
+                .WithMany(x => x.SupplierAccountThirdPartyCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.ThirdPartyChequeId);
+
+            modelBuilder.Entity<SupplierAccountThirdPartyCheque>()
+                .HasOne(sp => sp.SupplierAccount)
+                .WithMany(x => x.SupplierAccountThirdPartyCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.SupplierAccountId);
         }
     }
 }

@@ -385,7 +385,7 @@
 
 
     function populateOwnChequeTable(ownChequeModel) {
-        const isCorrect = ownCheques.filter(u => u.code === $("#txtOwnChequeCode").val());
+        const isCorrect = ownChequeModel.code === $("#txtOwnChequeCode").val();
         const isExist = ownChequeList.filter(u => u.id === ownChequeModel.id);
         $("#lblErrorOwnCheque").text("");
 
@@ -477,8 +477,7 @@
 
 
     function populateThirdPartyChequeTable(thirdPartyChequeModel) {
-
-        const isCorrect = thirdPartyCheques.filter(u => u.code === $("#txtThirdPartyChequeCode").val());
+        const isCorrect = thirdPartyChequeModel.code === $("#txtThirdPartyChequeCode").val(); 
         const isExist = thirdPartyChequeList.filter(u => u.id === thirdPartyChequeModel.id);
         $("#lblErrorThirdPartyCheque").text("");
 
