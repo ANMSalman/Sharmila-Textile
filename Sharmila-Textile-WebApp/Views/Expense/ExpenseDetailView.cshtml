@@ -1,19 +1,17 @@
 ﻿@using Sharmila_Textile_WebApp.HtmlEntities
-@if (ViewBag.IsUpdate == "true") { 
-    @model Sharmila_Textile_WebApp.ViewModel.CustomerAccountViewModel
+@if (ViewBag.IsUpdate == "true") {
+    @model Sharmila_Textile_WebApp.ViewModel.ExpenseViewModel;
 }
-
 @{
-    ViewData["Title"] = "Customer Accounts Detail View";
+    ViewData["Title"] = "Expense Detail View";
 }
-
 
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
     <div class="container-fluid">
         <div class="navbar-wrapper">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a asp-action="CustomerAccountListView">Customer Account</a></li>
+                    <li class="breadcrumb-item active"><a asp-action="ExpenseListView">Expenses</a></li>
                     <li class="breadcrumb-item active" aria-current="page">@ViewBag.breadCumValue</li>
                 </ol>
             </nav>
@@ -77,10 +75,18 @@
             <div class="col-md-12">
                 <div class="card h-100">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title">Customer Account Details</h4>
+                        <h4 class="card-title">Expenses Details</h4>
                     </div>
                     <div class="card-body">
                         <div class="row h-100">
+                            <div class="col-md-2 mt-3">
+                                <div class="form-group">
+                                    <label for="txtCash">Cash</label>
+                                    <input type="number" class="form-control number-validation" id="txtCash" asp-for="Cash" onkeyup="calculateGrandTotal();"
+                                           onfocusout=" ">
+                                    <div class="text-danger" id="errorCash"></div>
+                                </div>
+                            </div>
                             <div class="col-md-5 mt-3">
                                 <div class="form-group">
                                     <label for="txtDescription">Description</label>
@@ -95,49 +101,36 @@
                                     <div class="text-danger" id="errorRemark"></div>
                                 </div>
                             </div>
-                            <div class="col-md-2 mt-3">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="txtAmount">Amount</label>
-                                    <input type="number" class="form-control number-validation" id="txtAmount" asp-for="Amount" onkeyup="calculateGrandTotal();">
-                                    <div class="text-danger" id="errorAmount"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-3" id="pnlCustomerList">
-                                <div class="form-group">
-                                    <label for="drpDwnCustomer" class="mb-0">Select a Customer</label>
+                                    <label for="drpDwnPaymentType" class="mb-0">Select a Payment Type</label>
                                     <div class="dropdown">
                                         <button class="btn btn-block btn-info text-capitalize dropdown-toggle pt-1 pb-1" type="button" data-toggle="dropdown"
-                                                data-btn="@Html.Raw(ViewBag.IsUpdate=="true" ? Model.CustomerId : Model.CustomerList[0].CustomerId)" id="drpDwnCustomer" aria-haspopup="true" aria-expanded="false">
-
-                                            <strong>@Html.Raw(ViewBag.IsUpdate == "true" ? Model.CustomerId : Model.CustomerList[0].CustomerId) - </strong>@Html.Raw(ViewBag.IsUpdate == "true" ? Model.CustomerList.Single(x => x.CustomerId == Model.CustomerId).CustomerName : Model.CustomerList[0].CustomerName)
-
+                                                data-btn="@Html.Raw(ViewBag.IsUpdate=="true" ? Model.PaymentType : "BankDeposit")" id="drpDwnPaymentType" aria-haspopup="true" aria-expanded="false">
+                                            @Html.Raw(ViewBag.IsUpdate == "true" ? Miscellaneous.SplitCamelCase(Model.PaymentType)  : "Bank Deposit")
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            @foreach (var item in Model.CustomerList) {
-                                                <a class="dropdown-item drpDwnCustomer cursor-pointer" href="#" data-li="@item.CustomerId"><strong>@item.CustomerId</strong> - @item.CustomerName</a>
-                                            }
+                                            <a class="dropdown-item drpDwnPaymentType cursor-pointer" href="#" data-li="BankDeposit">Bank Deposit</a>
+                                            <a class="dropdown-item drpDwnPaymentType cursor-pointer" href="#" data-li="InHand">In hand</a>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3" id="pnlAccountTypeList">
-                                <div class="form-group">
-                                    <label for="drpDwnAccountType" class="mb-0">Select an Account Type</label>
-                                    <button class="btn btn-block btn-info text-capitalize dropdown-toggle pt-1 pb-1" type="button" data-toggle="dropdown"
-                                            data-btn="@Html.Raw(ViewBag.IsUpdate=="true" ? Model.AccountType : "Bill")" id="drpDwnAccountType" aria-haspopup="true" aria-expanded="false">
-                                        @Html.Raw(ViewBag.IsUpdate == "true" ? Miscellaneous.SplitCamelCase(Model.AccountType) : "Bill")
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item drpDwnAccountType cursor-pointer" href="#" data-li="Bill">Bill</a>
-                                        <a class="dropdown-item drpDwnAccountType cursor-pointer" href="#" data-li="Loan">Loan</a>
-                                        <a class="dropdown-item drpDwnAccountType cursor-pointer" href="#" data-li="ChequeReturned">Cheque Returned</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-auto ml-auto my-auto" id="pnlChequeModalButtons">
+                            <div class="col-md-auto ml-auto  my-auto">
                                 <button class="btn btn-success text-capitalize" data-toggle="modal" data-target="#modalOwnCheque">Add Own Cheques</button>
                                 <button class="btn btn-success text-capitalize" data-toggle="modal" data-target="#modalThirdPartyCheque">Add Third-Party Cheques</button>
+                            </div>
+                            <div class="col-md-12">
+                                <hr />
+                            </div>
+                            <div class="col-md-4 offset-md-8 text-right">
+                                <h4 class="font-weight-bold mb-1">
+                                    Cheque Total = <span id="lblCheque">@Model.Cheque</span>
+                                </h4>
+                                <h4 class="font-weight-bold">
+                                    Total Amount = <span id="lblTotalAmount">@Model.TotalAmount</span>
+                                </h4>
                             </div>
 
                             <!-------------------------------------------  Button Section ----------------------------------------->
@@ -274,52 +267,35 @@
 </div>
 
 <script>
+
     var model = {};
     var ownChequeList = [];
     var thirdPartyChequeList = [];
     var ownChequeModel = {}
     var thirdPartyChequeModel = {}
     var IsUpdate = @ViewBag.IsUpdate;
-    var customerId = $("#drpDwnCustomer").data('btn');
-    var accountType = $("#drpDwnAccountType").data('btn');
+    var paymentType = $("#drpDwnPaymentType").data('btn');
+    var chequeTotal =  parseFloat($("#lblCheque").text());
+    var totalAmount = parseFloat($("#lblTotalAmount").text());
+
     $('#progressBar').hide();
 
-    if (IsUpdate !== true || "@Model.AccountType" !== "ChequeReturned") {
-        $('#pnlChequeModalButtons').hide(); 
-    } 
 
-    $("#txtRemark").prop('readonly', true);
 
     $(".number-validation").keyup(function () {
         if ($(this).val().length === 0) {
             $(this).val("0");
         };
+        calculateGrandTotal();
     });
 
-    $('.drpDwnCustomer').click(function() {
+
+    $('.drpDwnPaymentType').click(function() {
         $(this).parent().siblings('.dropdown-toggle')
             .text($(this).text())
             .data('btn', $(this).data('li'));
-        customerId = $("#drpDwnCustomer").data('btn');
+        paymentType = $("#drpDwnPaymentType").data('btn');
     });
-    $('.drpDwnAccountType').click(function() {
-        $(this).parent().siblings('.dropdown-toggle')
-            .text($(this).text())
-            .data('btn', $(this).data('li'));
-        accountType = $("#drpDwnAccountType").data('btn');
-        if (accountType === "ChequeReturned") {
-            $('#pnlChequeModalButtons').show();
-            $("#txtRemark").prop('readonly', true).val("");
-        } else if (accountType === "Loan") {
-            $('#pnlChequeModalButtons').hide();
-            $("#txtRemark").prop('readonly', false);
-        } else {
-            $('#pnlChequeModalButtons').hide();
-            $("#txtRemark").prop('readonly', true).val("");
-        }
-    });
-
-
 
 
     //**************** Own Cheque Modal ************************************************************************/
@@ -373,7 +349,7 @@
         const isExist = ownChequeList.filter(u => u.id === ownChequeModel.id);
         $("#lblErrorOwnCheque").text("");
 
-        if (!isCorrect) {
+        if (isCorrect.length <= 0) {
             $("#lblErrorOwnCheque").text("Invalid Cheque Code Selected");
         }else if (isExist.length > 0) {
             $("#lblErrorOwnCheque").text("Cheque Already Exists");
@@ -399,7 +375,7 @@
         }
         $("#txtOwnChequeCode").val("");
         this.ownChequeModel = {};
-
+        calculateChequeTotal();
     }
 
     function removeOwnChequeFromArray(chequeNo) {
@@ -407,10 +383,13 @@
             return value.count !== chequeNo;
         });
         $('#ownChequeTableList').html(ownChequeList.map(e => e.listHtml).join(""));
-
+        calculateChequeTotal();
     }
 
     //**************** End-------  ************************************************************************/
+
+
+
 
     //**************** Third Party Cheque Modal ************************************************************************/
     var thirdPartyChequeCount = 0;
@@ -488,6 +467,7 @@
         }
         $("#txtThirdPartyChequeCode").val("");
         this.thirdPartyChequeModel = {};
+        calculateChequeTotal();
     }
 
     function removeThirdPartyChequeFromArray(chequeNo) {
@@ -495,32 +475,49 @@
             return value.count !== chequeNo;
         });
         $('#thirdPartyChequeTableList').html(thirdPartyChequeList.map(e => e.listHtml).join(""));
+        calculateChequeTotal();
     }
     //**************** End------- ************************************************************************/
 
+    function calculateChequeTotal() {
+        var chqTotal = 0;
+        $.each(ownChequeList, function( key, value ) {
+            chqTotal += parseFloat(value.amount) ;
+        });
+        $.each(thirdPartyChequeList, function( key, value ) {
+            chqTotal += parseFloat(value.amount) ;
+        });
+        chequeTotal = chqTotal;
+        $("#lblCheque").text(chqTotal.toFixed(2));
+        calculateGrandTotal();
+    }
+
+    function calculateGrandTotal() {
+
+        const cash = parseFloat($('#txtCash').val());
+        totalAmount = cash + chequeTotal;
+        $("#lblTotalAmount").text(totalAmount.toFixed(2));
+    }
 
     $(function() {
         $('#txtOwnChequeCode').easyAutocomplete(ownChequeOptions).parent().removeClass("easy-autocomplete").width('100%');
         $('#txtThirdPartyChequeCode').easyAutocomplete(thirdPartyChequeOptions).parent().removeClass("easy-autocomplete").width('100%');
     });
 
+
     function getFieldDetails() {
-        var amount = $('#txtAmount').val(),
+        var cash = $('#txtCash').val(),
             description = $('#txtDescription').val(),
             remark = $('#txtRemark').val(),
             collectionOwnCheques = ownChequeList.map(u => u.id),
             collectionThirdPartyCheques = thirdPartyChequeList.map(u => u.id);
 
-        if (accountType !== "ChequeReturned") {
-            collectionOwnCheques = [];
-            collectionThirdPartyCheques = [];
-        }
-
         model = {
             "Description": description,
-            "Amount": parseFloat(amount),
-            "AccountType": accountType,
-            "CustomerId": customerId,
+            "Cash": parseFloat(cash), 
+            "Cheque": parseFloat(chequeTotal),
+            "TotalAmount": parseFloat(totalAmount),
+            "PaymentType": paymentType,
             "Remark": remark,
             "OwnChequesId": collectionOwnCheques,
             "ThirdPartyChequesId": collectionThirdPartyCheques,
@@ -535,7 +532,7 @@
     function SaveChanges(type) {
         $('#progressBar').show();
         $.ajax({
-            url: localStorage.apiLink + "api/CustomerAccount/" + type,
+            url: localStorage.apiLink + "api/Expense/" + type,
             type: 'POST',
             data: JSON.stringify(model),
             contentType: 'application/json',
@@ -552,7 +549,7 @@
                         confirmButtonText: 'OK!'
                     }).then((result) => {
                         if (result.value) {
-                            window.location.replace(localStorage.apiLink + "CustomerAccount/CustomerAccountListView");
+                            window.location.replace(localStorage.apiLink + "Expense/ExpenseListView");
                         }
                     });
                 } else {
@@ -587,12 +584,12 @@
 
     function deletePayment() {
         $.ajax({
-            url: localStorage.apiLink + "api/CustomerAccount/Delete/" + @Model.CustomerAccountId,
+            url: localStorage.apiLink + "api/Expense/Delete/" + @Model.ExpenseId,
             type: 'get',
             contentType: 'application/json',
             success: function (data, textStatus, xhr) {
                 if (data === true) {
-                    window.location.replace(localStorage.apiLink + "CustomerAccount/CustomerAccountListView");
+                    window.location.replace(localStorage.apiLink + "Expense/ExpenseListView");
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -602,3 +599,4 @@
     }
 
 </script>
+

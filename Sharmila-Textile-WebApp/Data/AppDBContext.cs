@@ -25,6 +25,7 @@ namespace Sharmila_Textile_WebApp.Data {
         public DbSet<Collection> Collections { get; set; }
         public DbSet<CustomerAccount> CustomerAccounts { get; set; }
         public DbSet<SupplierAccount> SupplierAccounts { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<SupplierPaymentOwnCheque>()
@@ -153,6 +154,38 @@ namespace Sharmila_Textile_WebApp.Data {
                 .WithMany(x => x.SupplierAccountThirdPartyCheques)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasForeignKey(oc => oc.SupplierAccountId);
+
+
+
+            modelBuilder.Entity<ExpenseOwnCheque>()
+                .HasKey(t => new { t.OwnChequeId, t.ExpenseId });
+
+            modelBuilder.Entity<ExpenseOwnCheque>()
+                .HasOne(oc => oc.OwnCheque)
+                .WithMany(x => x.ExpenseOwnCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.OwnChequeId);
+
+            modelBuilder.Entity<ExpenseOwnCheque>()
+                .HasOne(sp => sp.Expense)
+                .WithMany(x => x.ExpenseOwnCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.ExpenseId);
+
+            modelBuilder.Entity<ExpenseThirdPartyCheque>()
+                .HasKey(t => new { t.ThirdPartyChequeId, t.ExpenseId });
+
+            modelBuilder.Entity<ExpenseThirdPartyCheque>()
+                .HasOne(oc => oc.ThirdPartyCheque)
+                .WithMany(x => x.ExpenseThirdPartyCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.ThirdPartyChequeId);
+
+            modelBuilder.Entity<ExpenseThirdPartyCheque>()
+                .HasOne(sp => sp.Expense)
+                .WithMany(x => x.ExpenseThirdPartyCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.ExpenseId);
         }
     }
 }

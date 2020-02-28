@@ -96,6 +96,12 @@
                             <p>Supplier Account</p>
                         </a>
                     </li>
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Expense", "ExpenseListView")">
+                        <a class="nav-link" asp-controller="Expense" asp-action="ExpenseListView">
+                            <i class="fa  fa-dollar"></i>                            
+                            <p>Expenses</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

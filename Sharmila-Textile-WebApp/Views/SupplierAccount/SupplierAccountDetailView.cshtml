@@ -1,4 +1,5 @@
-﻿@if (ViewBag.IsUpdate == "true") {
+﻿@using Sharmila_Textile_WebApp.HtmlEntities
+@if (ViewBag.IsUpdate == "true") {
     @model Sharmila_Textile_WebApp.ViewModel.SupplierAccountViewModel
 }
 @{
@@ -115,7 +116,7 @@
                                     <label for="drpDwnAccountType" class="mb-0">Select an Account Type</label>
                                     <button class="btn btn-block btn-info text-capitalize dropdown-toggle pt-1 pb-1" type="button" data-toggle="dropdown"
                                             data-btn="@Html.Raw(ViewBag.IsUpdate=="true" ? Model.AccountType : "Bill")" id="drpDwnAccountType" aria-haspopup="true" aria-expanded="false">
-                                        @Html.Raw(ViewBag.IsUpdate == "true" ? Model.AccountType : "Bill")
+                                        @Html.Raw(ViewBag.IsUpdate == "true" ? Miscellaneous.SplitCamelCase(Model.AccountType) : "Bill")
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <a class="dropdown-item drpDwnAccountType cursor-pointer" href="#" data-li="Bill">Bill</a>

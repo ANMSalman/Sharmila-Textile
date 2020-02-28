@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Sharmila_Textile_WebApp.HtmlEntities {
@@ -23,6 +24,11 @@ namespace Sharmila_Textile_WebApp.HtmlEntities {
                 Console.WriteLine("The process failed: {0}", e.ToString());
             }
             finally { }
+        }
+
+        public static string SplitCamelCase(string str) {
+            var output = Regex.Replace(str, "(\\B[A-Z])", " $1");
+            return output;
         }
     }
 }
