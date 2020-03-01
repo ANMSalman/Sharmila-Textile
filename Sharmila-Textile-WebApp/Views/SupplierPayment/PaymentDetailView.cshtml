@@ -77,7 +77,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row h-100">
-                            <div class="col-md-4 mt-3">
+                            <div class="col-md-3 mt-3">
                                 <div class="form-group">
                                     <label for="txtCash">Cash</label>
                                     <input type="number" class="form-control number-validation" id="txtCash" asp-for="Cash" onkeyup="calculateGrandTotal();"
@@ -85,14 +85,22 @@
                                     <div class="text-danger" id="errorCash"></div>
                                 </div>
                             </div>
-                            <div class="col-md-4 mt-3">
+                            <div class="col-md-3 mt-3">
+                                <div class="form-group">
+                                    <label for="txtCash">InHand Cash</label>
+                                    <input type="number" class="form-control number-validation" id="txtInHandCash" asp-for="InHandCash"
+                                           onfocusout=" ">
+                                    <div class="text-danger" id="errorInHandCash"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mt-3">
                                 <div class="form-group">
                                     <label for="txtReturns">Returns</label>
                                     <input type="number" class="form-control number-validation" id="txtReturns" asp-for="Returns" onkeyup="calculateGrandTotal();">
                                     <div class="text-danger" id="errorReturns"></div>
                                 </div>
                             </div>
-                            <div class="col-md-4 mt-3">
+                            <div class="col-md-3 mt-3">
                                 <div class="form-group">
                                     <label for="txtPurchase">Purchase</label>
                                     <input type="number" class="form-control number-validation" id="txtPurchase" asp-for="Purchase" onkeyup="calculateGrandTotal();">
@@ -549,6 +557,7 @@
 
     function getFieldDetails() {
         var cash = $('#txtCash').val(),
+            inHandCash = $('#txtInHandCash').val(),
             returns = $('#txtReturns').val(),
             purchase = $('#txtPurchase').val(),
             description = $('#txtDescription').val(),
@@ -559,6 +568,7 @@
         model = {
             "Description": description,
             "Cash": parseFloat(cash),
+            "InHandCash": parseFloat(inHandCash),
             "Returns": parseFloat(returns),
             "Cheque": parseFloat(chequeTotal),
             "Purchase": parseFloat(purchase),

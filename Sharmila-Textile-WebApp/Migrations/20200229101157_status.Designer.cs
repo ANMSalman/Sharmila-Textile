@@ -3,102 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sharmila_Textile_WebApp.Data;
 
 namespace Sharmila_Textile_WebApp.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200229101157_status")]
+    partial class status
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.BalanceSheet", b =>
-                {
-                    b.Property<long>("BalanceSheetId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("BALANCE_SHEET_ID")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("BankBalance")
-                        .HasColumnName("BANK_BALANCE")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("InHandCash")
-                        .HasColumnName("IN_HAND_CASH")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("InHandCheque")
-                        .HasColumnName("IN_HAND_CHEQUE")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("InHold")
-                        .HasColumnName("IN_HOLD")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("BalanceSheetId");
-
-                    b.ToTable("BALANCE_SHEET");
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.BankDeposit", b =>
-                {
-                    b.Property<long>("BankDepositId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("BANK_DEPOSIT_ID")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Cash")
-                        .HasColumnName("CASH")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<long>("CreatedBy")
-                        .HasColumnName("CREATED_BY")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnName("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("InHandCash")
-                        .HasColumnName("IN_HAND_CASH")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("Status")
-                        .HasColumnName("STATUS")
-                        .HasColumnType("int");
-
-                    b.HasKey("BankDepositId");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.ToTable("BANK_DEPOSIT");
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.BankDepositThirdPartyCheque", b =>
-                {
-                    b.Property<long>("ThirdPartyChequeId")
-                        .HasColumnName("THIRD_PARTY_CHEQUE_ID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("BankDepositId")
-                        .HasColumnName("BANK_DEPOSIT_ID")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ThirdPartyChequeId", "BankDepositId");
-
-                    b.HasIndex("BankDepositId");
-
-                    b.ToTable("BANK_DEPOSIT_THIRD_PARTY_CHEQUE");
-                });
 
             modelBuilder.Entity("Sharmila_Textile_WebApp.Models.ChequeStatus", b =>
                 {
@@ -313,10 +234,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .HasColumnName("DESCRIPTION")
                         .HasColumnType("varchar(100)");
 
-                    b.Property<decimal>("InHandCash")
-                        .HasColumnName("IN_HAND_CASH")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<string>("Remark")
                         .HasColumnName("REMARK")
                         .HasColumnType("varchar(100)");
@@ -426,10 +343,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnName("DESCRIPTION")
                         .HasColumnType("varchar(100)");
-
-                    b.Property<decimal>("InHandCash")
-                        .HasColumnName("IN_HAND_CASH")
-                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("PaymentType")
                         .HasColumnName("PAYMENT_TYPE")
@@ -850,10 +763,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .HasColumnName("DESCRIPTION")
                         .HasColumnType("varchar(100)");
 
-                    b.Property<decimal>("InHandCash")
-                        .HasColumnName("IN_HAND_CASH")
-                        .HasColumnType("decimal(18, 2)");
-
                     b.Property<long>("PaymentType")
                         .HasColumnName("PAYMENT_TYPE")
                         .HasColumnType("bigint");
@@ -1056,30 +965,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.HasIndex("StaffId");
 
                     b.ToTable("USER");
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.BankDeposit", b =>
-                {
-                    b.HasOne("Sharmila_Textile_WebApp.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.BankDepositThirdPartyCheque", b =>
-                {
-                    b.HasOne("Sharmila_Textile_WebApp.Models.BankDeposit", "BankDeposit")
-                        .WithMany("BankDepositThirdPartyCheques")
-                        .HasForeignKey("BankDepositId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Sharmila_Textile_WebApp.Models.ThirdPartyCheque", "ThirdPartyCheque")
-                        .WithMany("BankDepositThirdPartyCheques")
-                        .HasForeignKey("ThirdPartyChequeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Sharmila_Textile_WebApp.Models.Collection", b =>

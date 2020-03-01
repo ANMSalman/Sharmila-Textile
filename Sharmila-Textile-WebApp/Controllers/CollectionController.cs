@@ -53,7 +53,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                                        }).Single();
             }
 
-            collectionViewModel.CollectionTypeList = _mapper.Map<List<ChequeStatusViewModel>>(_context.ChequeStatuses.ToList());
+            collectionViewModel.CollectionTypeList = _mapper.Map<List<ChequeStatusViewModel>>(_context.ChequeStatuses.Where(x => x.StatusType.Contains("PC")).ToList());
             collectionViewModel.CustomerList = _context.Customers.Where(s => s.CurrentStatus == 1).Select(x => new Customer() {
                 CustomerId = x.CustomerId, CustomerName = x.CustomerName
             }).ToList();

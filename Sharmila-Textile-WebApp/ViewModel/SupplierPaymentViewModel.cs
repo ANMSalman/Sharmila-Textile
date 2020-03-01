@@ -8,7 +8,8 @@ namespace Sharmila_Textile_WebApp.ViewModel {
     public class SupplierPaymentViewModel {
         public long SupplierPaymentId { get; set; } 
         public string Description { get; set; } 
-        public decimal Cash { get; set; } 
+        public decimal Cash { get; set; }
+        public decimal InHandCash { get; set; }
         public decimal Cheque { get; set; } 
         public decimal Returns { get; set; } 
         public decimal Purchase { get; set; } 

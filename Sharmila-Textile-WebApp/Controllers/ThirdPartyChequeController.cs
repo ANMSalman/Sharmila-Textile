@@ -42,7 +42,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
             }
                 
 
-            thirdPartyChequeViewModel.ChequeStatusesVm = _mapper.Map<List<ChequeStatusViewModel>>(_context.ChequeStatuses.ToList());
+            thirdPartyChequeViewModel.ChequeStatusesVm = _mapper.Map<List<ChequeStatusViewModel>>(_context.ChequeStatuses.Where(x => x.StatusType.Contains("CH")).ToList());
             thirdPartyChequeViewModel.BankList = _context.ThirdPartyCheques.Select(x => x.Bank).Distinct().ToList();
             thirdPartyChequeViewModel.BranchList = _context.ThirdPartyCheques.Select(x => x.Branch).Distinct().ToList();
 

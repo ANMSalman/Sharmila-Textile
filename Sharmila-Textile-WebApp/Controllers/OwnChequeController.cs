@@ -38,7 +38,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
             if (ownChequeId > 0)
                 ownChequeViewModel = _mapper.Map<OwnChequeViewModel>(_context.OwnCheques.SingleOrDefault(x => x.OwnChequeId == ownChequeId));
 
-            ownChequeViewModel.ChequeStatusesVm = _mapper.Map<List<ChequeStatusViewModel>>(_context.ChequeStatuses.ToList());
+            ownChequeViewModel.ChequeStatusesVm = _mapper.Map<List<ChequeStatusViewModel>>(_context.ChequeStatuses.Where(x=>x.StatusType.Contains("CH")).ToList());
             ownChequeViewModel.BankList = _context.OwnCheques.Select(x => x.Bank).Distinct().ToList();
             ownChequeViewModel.BranchList = _context.OwnCheques.Select(x => x.Branch).Distinct().ToList();
 

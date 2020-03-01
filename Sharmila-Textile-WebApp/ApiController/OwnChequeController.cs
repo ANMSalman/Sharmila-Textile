@@ -22,8 +22,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
             _context = context;
             _mapper = mapper;
         }
-
-
+         
         public IActionResult Create(OwnChequeViewModel model) {
             
             OwnCheque ownCheque = _mapper.Map<OwnCheque>(model);
@@ -32,6 +31,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
             _context.OwnChequeActionLogs.Add(actionLog);
             var flag = _context.SaveChanges();
+             
 
             return Ok(flag > 0);
         }

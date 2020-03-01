@@ -7,5 +7,6 @@ namespace Sharmila_Textile_WebApp.ViewModel {
     public class ChequeStatusViewModel {
         public long ChequeStatusId { get; set; } 
         public string StatusName { get; set; }
+        public string StatusType { get; set; }
     }
 }

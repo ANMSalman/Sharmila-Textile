@@ -40,6 +40,10 @@ namespace Sharmila_Textile_WebApp.ApiController {
             expense.ExpenseThirdPartyCheques = expenseThirdPartyCheques;
 
             _context.Expenses.Add(expense);
+
+            var balanceSheets = _context.BalanceSheets.SingleOrDefault(c => c.BalanceSheetId == 1);
+            if (balanceSheets != null) balanceSheets.InHandCash -= expense.InHandCash;
+
             var flag = _context.SaveChanges();
             var colId = expense.ExpenseId;
 

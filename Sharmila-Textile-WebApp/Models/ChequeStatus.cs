@@ -15,5 +15,8 @@ namespace Sharmila_Textile_WebApp.Models {
 
         [Column("STATUS_NAME", TypeName = "varchar(50)")]
         public string StatusName { get; set; }
+
+        [Column("STATUS_TYPE", TypeName = "varchar(10)")]
+        public string StatusType { get; set; }
     }
 }

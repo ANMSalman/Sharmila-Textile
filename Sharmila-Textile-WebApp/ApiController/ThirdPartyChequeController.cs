@@ -9,12 +9,10 @@ using Sharmila_Textile_WebApp.Data;
 using Sharmila_Textile_WebApp.Models;
 using Sharmila_Textile_WebApp.ViewModel;
 
-namespace Sharmila_Textile_WebApp.ApiController
-{
+namespace Sharmila_Textile_WebApp.ApiController {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ThirdPartyChequeController : ControllerBase
-    {
+    public class ThirdPartyChequeController : ControllerBase {
         private readonly AppDBContext _context;
         private readonly IMapper _mapper;
 
@@ -28,9 +26,21 @@ namespace Sharmila_Textile_WebApp.ApiController
 
             ThirdPartyCheque thirdPartyCheque = _mapper.Map<ThirdPartyCheque>(model);
             ThirdPartyChequeActionLog actionLog = model.ActionLog;
-            actionLog.ThirdPartyCheque = thirdPartyCheque; 
+            actionLog.ThirdPartyCheque = thirdPartyCheque;
             _context.ThirdPartyChequeActionLogs.Add(actionLog);
             var flag = _context.SaveChanges();
+
+            if (thirdPartyCheque.Status == 1) { // if cheque is in hand 
+                var single = _context.BalanceSheets.Single(x => x.BalanceSheetId == 1);
+                single.InHandCheque += thirdPartyCheque.Amount;
+                flag = _context.SaveChanges();
+            }
+
+            if (thirdPartyCheque.Status == 5) { // if cheque is banked 
+                var single = _context.BalanceSheets.Single(x => x.BalanceSheetId == 1);
+                single.InHold += thirdPartyCheque.Amount;
+                flag = _context.SaveChanges();
+            }
 
             return Ok(flag > 0);
         }
@@ -45,6 +55,26 @@ namespace Sharmila_Textile_WebApp.ApiController
             actionLog.ThirdPartyChequeId = model.ThirdPartyChequeId;
             _context.ThirdPartyChequeActionLogs.Add(actionLog);
             var flag = _context.SaveChanges();
+
+            if (thirdPartyCheque.Status == 5) { // if cheque is banked 
+                var single = _context.BalanceSheets.Single(x => x.BalanceSheetId == 1);
+                single.InHold += thirdPartyCheque.Amount;
+                flag = _context.SaveChanges();
+            }
+
+            if (thirdPartyCheque.Status == 6) { // if cheque is passed 
+                var single = _context.BalanceSheets.Single(x => x.BalanceSheetId == 1);
+                single.InHold -= thirdPartyCheque.Amount;
+                single.BankBalance += thirdPartyCheque.Amount;
+                flag = _context.SaveChanges();
+            }
+
+            if (thirdPartyCheque.Status == 2) { // if cheque is returned 
+                var single = _context.BalanceSheets.Single(x => x.BalanceSheetId == 1);
+                single.InHold -= thirdPartyCheque.Amount; 
+                flag = _context.SaveChanges();
+            }
+
             return Ok(flag > 0);
         }
     }

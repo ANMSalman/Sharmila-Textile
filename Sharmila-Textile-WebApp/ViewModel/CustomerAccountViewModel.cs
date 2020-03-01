@@ -9,6 +9,7 @@ namespace Sharmila_Textile_WebApp.ViewModel {
         public long CustomerAccountId { get; set; } 
         public string Description { get; set; } 
         public decimal Amount { get; set; } 
+        public decimal InHandCash { get; set; }  
         public DateTime CreatedDate { get; set; } 
         public string AccountType { get; set; } 
         public long CustomerId { get; set; }

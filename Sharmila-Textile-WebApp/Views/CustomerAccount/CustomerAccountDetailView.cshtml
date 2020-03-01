@@ -134,7 +134,13 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-md-3 mt-3">
+                                <div class="form-group">
+                                    <label for="txtAmount">In-Hand Cash</label>
+                                    <input type="number" class="form-control number-validation" id="txtInHandCash" asp-for="InHandCash">
+                                    <div class="text-danger" id="errorInHandCash"></div>
+                                </div>
+                            </div>
                             <div class="col-md-auto ml-auto my-auto" id="pnlChequeModalButtons">
                                 <button class="btn btn-success text-capitalize" data-toggle="modal" data-target="#modalOwnCheque">Add Own Cheques</button>
                                 <button class="btn btn-success text-capitalize" data-toggle="modal" data-target="#modalThirdPartyCheque">Add Third-Party Cheques</button>
@@ -289,6 +295,7 @@
     } 
 
     $("#txtRemark").prop('readonly', true);
+    $("#txtInHandCash").prop('readonly', true);
 
     $(".number-validation").keyup(function () {
         if ($(this).val().length === 0) {
@@ -310,12 +317,15 @@
         if (accountType === "ChequeReturned") {
             $('#pnlChequeModalButtons').show();
             $("#txtRemark").prop('readonly', true).val("");
+            $("#txtInHandCash").prop('readonly', true).val("0");
         } else if (accountType === "Loan") {
             $('#pnlChequeModalButtons').hide();
             $("#txtRemark").prop('readonly', false);
+            $("#txtInHandCash").prop('readonly', false); 
         } else {
             $('#pnlChequeModalButtons').hide();
             $("#txtRemark").prop('readonly', true).val("");
+            $("#txtInHandCash").prop('readonly', true).val("0");
         }
     });
 
@@ -506,6 +516,7 @@
 
     function getFieldDetails() {
         var amount = $('#txtAmount').val(),
+            inHandCash = $('#txtInHandCash').val(),
             description = $('#txtDescription').val(),
             remark = $('#txtRemark').val(),
             collectionOwnCheques = ownChequeList.map(u => u.id),
@@ -519,6 +530,7 @@
         model = {
             "Description": description,
             "Amount": parseFloat(amount),
+            "InHandCash": parseFloat(inHandCash),
             "AccountType": accountType,
             "CustomerId": customerId,
             "Remark": remark,

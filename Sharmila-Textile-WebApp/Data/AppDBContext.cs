@@ -26,6 +26,8 @@ namespace Sharmila_Textile_WebApp.Data {
         public DbSet<CustomerAccount> CustomerAccounts { get; set; }
         public DbSet<SupplierAccount> SupplierAccounts { get; set; }
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<BalanceSheet> BalanceSheets { get; set; }
+        public DbSet<BankDeposit> BankDeposits { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<SupplierPaymentOwnCheque>()
@@ -186,6 +188,25 @@ namespace Sharmila_Textile_WebApp.Data {
                 .WithMany(x => x.ExpenseThirdPartyCheques)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasForeignKey(oc => oc.ExpenseId);
+
+
+
+             
+
+            modelBuilder.Entity<BankDepositThirdPartyCheque>()
+                .HasKey(t => new { t.ThirdPartyChequeId, t.BankDepositId });
+
+            modelBuilder.Entity<BankDepositThirdPartyCheque>()
+                .HasOne(oc => oc.ThirdPartyCheque)
+                .WithMany(x => x.BankDepositThirdPartyCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.ThirdPartyChequeId);
+
+            modelBuilder.Entity<BankDepositThirdPartyCheque>()
+                .HasOne(sp => sp.BankDeposit)
+                .WithMany(x => x.BankDepositThirdPartyCheques)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(oc => oc.BankDepositId);
         }
     }
 }

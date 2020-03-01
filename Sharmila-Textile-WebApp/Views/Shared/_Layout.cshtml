@@ -98,8 +98,14 @@
                     </li>
                     <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Expense", "ExpenseListView")">
                         <a class="nav-link" asp-controller="Expense" asp-action="ExpenseListView">
-                            <i class="fa  fa-dollar"></i>                            
+                            <i class="fa fa-dollar"></i>
                             <p>Expenses</p>
+                        </a>
+                    </li>
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "BankDeposit", "BankDepositListView")">
+                        <a class="nav-link" asp-controller="BankDeposit" asp-action="BankDepositListView">
+                            <i class="fa fa-bank"></i>
+                            <p>Bank Deposit</p>
                         </a>
                     </li>
                 </ul>

@@ -39,13 +39,17 @@ namespace Sharmila_Textile_WebApp.ApiController {
             supplierPayment.SupplierPaymentThirdPartyCheques = supplierPaymentThirdPartyCheque;
 
             _context.SupplierPayments.Add(supplierPayment);
+
+            var balanceSheets = _context.BalanceSheets.SingleOrDefault(c => c.BalanceSheetId == 1);
+            if (balanceSheets != null) balanceSheets.InHandCash -= supplierPayment.InHandCash;
+
             var flag = _context.SaveChanges();
             var paymentId = supplierPayment.SupplierPaymentId;
-
+             
             if (flag > 0) {
                 var single = _context.Suppliers.Single(x => x.SupplierId == model.SupplierId);
                 single.CurrentBalance -= model.TotalAmount;
-                flag = _context.SaveChanges();
+                _context.SaveChanges();
             }
 
             return Ok(flag > 0);

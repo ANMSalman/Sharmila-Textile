@@ -17,7 +17,7 @@ namespace Sharmila_Textile_WebApp.Models {
         public string Description { get; set; }
 
         [Column("CASH", TypeName = "decimal(18, 2)")]
-        public decimal Cash { get; set; }
+        public decimal Cash { get; set; } 
 
         [Column("CHEQUE", TypeName = "decimal(18, 2)")]
         public decimal Cheque { get; set; }

@@ -40,6 +40,11 @@ namespace Sharmila_Textile_WebApp.ApiController {
             customerAccount.CustomerAccountThirdPartyCheques = customerAccountThirdPartyCheques;
 
             _context.CustomerAccounts.Add(customerAccount);
+
+            var balanceSheets = _context.BalanceSheets.SingleOrDefault(c => c.BalanceSheetId == 1);
+            if (balanceSheets != null) balanceSheets.InHandCash -= customerAccount.InHandCash;
+
+
             var flag = _context.SaveChanges();
             var lastId = customerAccount.CustomerAccountId;
 
