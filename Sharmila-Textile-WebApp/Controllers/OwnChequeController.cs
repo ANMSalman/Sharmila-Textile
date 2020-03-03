@@ -19,12 +19,12 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult OwnChequeList() {
-            List<OwnChequeViewModel> data = (from a in _context.OwnCheques
-                                             join b in _context.ChequeStatuses on a.Status equals b.ChequeStatusId
-                                             select new OwnChequeViewModel {
-                                                 OwnChequeId = a.OwnChequeId, ChequeCode = a.ChequeCode, Bank = a.Bank, Branch = a.Branch, Amount = a.Amount,
-                                                 DueDate = a.DueDate, StatusId = b.ChequeStatusId, Status = b.StatusName, Remark = a.Remark
-                                             }).ToList();
+            var data = (from a in _context.OwnCheques
+                        join b in _context.ChequeStatuses on a.Status equals b.ChequeStatusId
+                        select new OwnChequeViewModel {
+                            OwnChequeId = a.OwnChequeId, ChequeCode = a.ChequeCode, Bank = a.Bank, Branch = a.Branch, Amount = a.Amount,
+                            DueDate = a.DueDate, StatusId = b.ChequeStatusId, Status = b.StatusName, Remark = a.Remark, Date = a.Date
+                        }).ToList();
 
             return View(data);
         }
@@ -38,7 +38,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
             if (ownChequeId > 0)
                 ownChequeViewModel = _mapper.Map<OwnChequeViewModel>(_context.OwnCheques.SingleOrDefault(x => x.OwnChequeId == ownChequeId));
 
-            ownChequeViewModel.ChequeStatusesVm = _mapper.Map<List<ChequeStatusViewModel>>(_context.ChequeStatuses.Where(x=>x.StatusType.Contains("CH")).ToList());
+            ownChequeViewModel.ChequeStatusesVm = _mapper.Map<List<ChequeStatusViewModel>>(_context.ChequeStatuses.Where(x => x.StatusType.Contains("CH")).ToList());
             ownChequeViewModel.BankList = _context.OwnCheques.Select(x => x.Bank).Distinct().ToList();
             ownChequeViewModel.BranchList = _context.OwnCheques.Select(x => x.Branch).Distinct().ToList();
 

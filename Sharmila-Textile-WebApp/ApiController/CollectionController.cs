@@ -46,7 +46,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
             if (flag > 0) {
                 var single = _context.Customers.Single(x => x.CustomerId == model.CustomerId);
                 single.CurrentBalance -= model.TotalAmount;
-                flag = _context.SaveChanges();
+                _context.SaveChanges();
             }
 
             return Ok(flag > 0);

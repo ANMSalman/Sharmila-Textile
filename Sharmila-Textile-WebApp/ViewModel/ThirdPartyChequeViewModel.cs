@@ -11,6 +11,7 @@ namespace Sharmila_Textile_WebApp.ViewModel {
         public string Bank { get; set; }
         public string Branch { get; set; }
         public decimal Amount { get; set; }
+        public DateTime Date { get; set; }
         public DateTime DueDate { get; set; }
         public string Remark { get; set; }
         public long StatusId { get; set; }

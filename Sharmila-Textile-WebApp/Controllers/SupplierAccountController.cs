@@ -26,7 +26,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                         where a.Status == 1
                         select new SupplierAccountViewModel {
                             SupplierAccountId = a.SupplierAccountId, Description = a.Description, Amount = a.Amount, AccountType = a.AccountType,
-                            CreatedDate = a.CreatedDate, SupplierName = b.SupplierName, UserName = d.StaffName
+                            CreatedDate = a.CreatedDate, SupplierName = b.SupplierName, Date = a.Date, UserName = d.StaffName
                         }).ToList();
 
             return View(data);
@@ -42,7 +42,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                 supplierAccountViewModel = (from a in _context.SupplierAccounts where a.SupplierAccountId == supAccId
                                             select new SupplierAccountViewModel {
                                                 SupplierAccountId = a.SupplierAccountId, Description = a.Description, Amount = a.Amount, AccountType = a.AccountType,
-                                                CreatedDate = a.CreatedDate, Remark = a.Remark, SupplierId = a.SupplierId, CreatedBy = a.CreatedBy,
+                                                CreatedDate = a.CreatedDate, Remark = a.Remark, SupplierId = a.SupplierId, CreatedBy = a.CreatedBy, Date = a.Date,
                                                 OwnChequesId = a.SupplierAccountOwnCheques.Select(x => x.OwnChequeId).ToList(),
                                                 ThirdPartyChequesId = a.SupplierAccountThirdPartyCheques.Select(x => x.ThirdPartyChequeId).ToList()
                                             }).Single();

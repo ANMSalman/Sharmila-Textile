@@ -25,6 +25,9 @@ namespace Sharmila_Textile_WebApp.Models {
         [Column("AMOUNT", TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
 
+        [Column("DATE", TypeName = "datetime")]
+        public DateTime Date { get; set; }
+
         [Column("DUE_DATE", TypeName = "datetime")]
         public DateTime DueDate { get; set; }
 

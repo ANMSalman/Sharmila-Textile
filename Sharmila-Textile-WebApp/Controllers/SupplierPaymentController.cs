@@ -27,7 +27,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                         where a.Status == 1
                         select new SupplierPaymentViewModel {
                             SupplierPaymentId = a.SupplierPaymentId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque, Returns = a.Returns,
-                            Purchase = a.Purchase, TotalAmount = a.TotalAmount, CreatedDate = a.CreatedDate, PaymentType = a.PaymentType,
+                            Purchase = a.Purchase, TotalAmount = a.TotalAmount, Date = a.Date, CreatedDate = a.CreatedDate, PaymentType = a.PaymentType,
                             PaymentTypeName = b.StatusName, SupplierId = a.SupplierId, SupplierName = c.SupplierName, CreatedBy = a.CreatedBy,
                             UserName = e.StaffName, Remark = a.Remark
                         }).ToList();
@@ -47,7 +47,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                                select new SupplierPaymentViewModel {
                                    SupplierPaymentId = a.SupplierPaymentId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque, 
                                    Returns = a.Returns, Purchase = a.Purchase, TotalAmount = a.TotalAmount, PaymentType = a.PaymentType,
-                                   SupplierId = a.SupplierId, CreatedBy = a.CreatedBy, Remark = a.Remark, 
+                                   SupplierId = a.SupplierId, CreatedBy = a.CreatedBy, Remark = a.Remark, Date = a.Date,
                                    OwnChequesId = a.SupplierPaymentOwnCheques.Select(cid => cid.OwnChequeId).ToList(),
                                    ThirdPartyChequesId = a.SupplierPaymentThirdPartyCheques.Select(cid => cid.ThirdPartyChequeId).ToList()
                                }).Single();

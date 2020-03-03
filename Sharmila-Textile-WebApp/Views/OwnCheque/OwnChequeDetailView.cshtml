@@ -108,11 +108,26 @@
                             </div>
                             <div class="col-md-4 mt-3">
                                 <div class="form-group">
-                                    <label for="dtpDueDate">Due Date</label>
-                                    <input type="date" class="form-control" id="dtpDueDate" asp-for="DueDate" value="@DateTime.Now.ToString("yyyy-MM-dd")">
-                                    <div class="text-danger" id="errorDueDate"></div>
+                                    <label for="dtpDate">Date</label>
+                                    <input type="date" class="form-control" id="dtpDate" asp-for="Date" value="@if (ViewBag.IsUpdate != "true") {
+                                                                                                                   @DateTime.Now.ToString("yyyy-MM-dd");
+                                                                                                               }else {
+                                                                                                                   @Model.Date.ToString("yyyy-MM-dd");
+                                                                                                               }">
+                                    <div class="text-danger" id="errorDate"></div>
                                 </div>
                             </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="dtpDueDate">Due Date</label>
+                                    <input type="date" class="form-control" id="dtpDueDate" asp-for="DueDate" value="@if (ViewBag.IsUpdate != "true") {
+                                                                                                                         @DateTime.Now.ToString("yyyy-MM-dd");
+                                                                                                                     }else {
+                                                                                                                         @Model.DueDate.ToString("yyyy-MM-dd");
+                                                                                                                     }">
+                                    <div class="text-danger" id="errorDueDate"></div>
+                                </div>
+                            </div> 
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="drpDwnStatus" class="mb-0">Status</label>
@@ -133,7 +148,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-8 mt-3">
                                 <div class="form-group">
                                     <label for="txtRemark">Remark</label>
                                     <input type="text" class="form-control" id="txtRemark" asp-for="Remark">
@@ -238,11 +253,12 @@
             bank = $('#txtBank').val(),
             branch = $('#txtBranch').val(),
             amount = $('#txtAmount').val(),
+            date = $('#dtpDate').val(),
             dueDate = $('#dtpDueDate').val(),
             remark = $('#txtRemark').val(),
             statusId = $("#drpDwnStatus").data('setchqid');
 
-        actionLogModel = { 
+        actionLogModel = {
             "ReferenceId": null,
             "RecipientId": null,
             "ChequeStatusId": statusId,
@@ -256,6 +272,7 @@
                 "Bank": bank,
                 "Branch": branch,
                 "Amount": parseFloat(amount),
+                "Date": date,
                 "DueDate": dueDate,
                 "Remark": remark,
                 "StatusId": statusId,
@@ -269,6 +286,7 @@
                 "Bank": bank,
                 "Branch": branch,
                 "Amount": parseFloat(amount),
+                "Date": date,
                 "DueDate": dueDate,
                 "Remark": remark,
                 "StatusId": statusId,

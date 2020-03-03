@@ -25,7 +25,8 @@ namespace Sharmila_Textile_WebApp.Controllers {
                         where a.Status == 1
                         select new ExpenseViewModel {
                             ExpenseId = a.ExpenseId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque, TotalAmount = a.TotalAmount,
-                            CreatedDate = a.CreatedDate, PaymentType = a.PaymentType, CreatedBy = a.CreatedBy, UserName = c.StaffName, Remark = a.Remark
+                            CreatedDate = a.CreatedDate, PaymentType = a.PaymentType, CreatedBy = a.CreatedBy, UserName = c.StaffName, Remark = a.Remark,
+                            Date = a.Date
                         }).ToList();
 
             return View(data);
@@ -43,7 +44,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                                     select new ExpenseViewModel {
                                         ExpenseId = a.ExpenseId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque,
                                         TotalAmount = a.TotalAmount, PaymentType = a.PaymentType,
-                                        CreatedBy = a.CreatedBy, Remark = a.Remark,
+                                        CreatedBy = a.CreatedBy, Remark = a.Remark, Date = a.Date,
                                         OwnChequesId = a.ExpenseOwnCheques.Select(x => x.OwnChequeId).ToList(),
                                         ThirdPartyChequesId = a.ExpenseThirdPartyCheques.Select(x => x.ThirdPartyChequeId).ToList()
                                     }).Single();

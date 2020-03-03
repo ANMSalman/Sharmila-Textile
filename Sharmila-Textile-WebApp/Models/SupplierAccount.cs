@@ -22,6 +22,9 @@ namespace Sharmila_Textile_WebApp.Models {
         [Column("CREATED_DATE")]
         public DateTime CreatedDate { get; set; }
 
+        [Column("DATE")]
+        public DateTime Date { get; set; }
+
         [Column("ACCOUNT_TYPE")]
         public string AccountType { get; set; }
 

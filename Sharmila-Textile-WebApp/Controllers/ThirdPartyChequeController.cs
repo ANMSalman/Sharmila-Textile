@@ -19,12 +19,12 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult ThirdPartyChequeList() {
-            List<ThirdPartyChequeViewModel> data = (from a in _context.ThirdPartyCheques
-                                                    join b in _context.ChequeStatuses on a.Status equals b.ChequeStatusId
-                select new ThirdPartyChequeViewModel {
-                    ThirdPartyChequeId = a.ThirdPartyChequeId, ChequeCode = a.ChequeCode, Bank = a.Bank, Branch = a.Branch, Amount = a.Amount,
-                    DueDate = a.DueDate, StatusId = b.ChequeStatusId, Status = b.StatusName, Remark = a.Remark
-                }).ToList();
+            var data = (from a in _context.ThirdPartyCheques
+                        join b in _context.ChequeStatuses on a.Status equals b.ChequeStatusId
+                        select new ThirdPartyChequeViewModel {
+                            ThirdPartyChequeId = a.ThirdPartyChequeId, ChequeCode = a.ChequeCode, Bank = a.Bank, Branch = a.Branch, Amount = a.Amount,
+                            DueDate = a.DueDate, StatusId = b.ChequeStatusId, Status = b.StatusName, Remark = a.Remark, Date = a.Date
+                        }).ToList();
 
             return View(data);
         }
@@ -38,9 +38,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
             if (thirdPartyChequeId > 0) {
                 thirdPartyChequeViewModel = _mapper
                     .Map<ThirdPartyChequeViewModel>(_context.ThirdPartyCheques.SingleOrDefault(x => x.ThirdPartyChequeId == thirdPartyChequeId));
-                 
+
             }
-                
+
 
             thirdPartyChequeViewModel.ChequeStatusesVm = _mapper.Map<List<ChequeStatusViewModel>>(_context.ChequeStatuses.Where(x => x.StatusType.Contains("CH")).ToList());
             thirdPartyChequeViewModel.BankList = _context.ThirdPartyCheques.Select(x => x.Bank).Distinct().ToList();
@@ -48,7 +48,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
 
             thirdPartyChequeViewModel.CustomerList = _context.Customers.Where(s => s.CurrentStatus == 1).Select(x => new Customer() {
                 CustomerId = x.CustomerId, CustomerName = x.CustomerName
-            }).ToList();            
+            }).ToList();
             thirdPartyChequeViewModel.SupplierList = _context.Suppliers.Where(s => s.CurrentStatus == 1).Select(x => new Supplier() {
                 SupplierId = x.SupplierId, SupplierName = x.SupplierName
             }).ToList();

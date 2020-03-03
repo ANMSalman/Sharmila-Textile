@@ -86,11 +86,22 @@
                                     <div class="text-danger" id="errorDescription"></div>
                                 </div>
                             </div>
-                            <div class="col-md-2 mt-3">
+                            <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtAmount">Amount</label>
                                     <input type="number" class="form-control number-validation" id="txtAmount" asp-for="Amount" onkeyup="calculateGrandTotal();">
                                     <div class="text-danger" id="errorAmount"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="dtpDate">Date</label>
+                                    <input type="date" class="form-control" id="dtpDate" asp-for="Date" value="@if (ViewBag.IsUpdate != "true") {
+                                                                                                                   @DateTime.Now.ToString("yyyy-MM-dd");
+                                                                                                               }else {
+                                                                                                                   @Model.Date.ToString("yyyy-MM-dd");
+                                                                                                               }">
+                                    <div class="text-danger" id="errorDate"></div>
                                 </div>
                             </div>
                             <div class="col-md-3" id="pnlSupplierList">
@@ -109,7 +120,7 @@
                                             }
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
                             <div class="col-md-3" id="pnlAccountTypeList">
                                 <div class="form-group">
@@ -489,6 +500,7 @@
     function getFieldDetails() {
         var amount = $('#txtAmount').val(),
             description = $('#txtDescription').val(), 
+            date = $('#dtpDate').val(),
             ownChequesId = ownChequeList.map(u => u.id),
             thirdPartyChequesId = thirdPartyChequeList.map(u => u.id);
 
@@ -500,6 +512,7 @@
         model = {
             "Description": description,
             "Amount": parseFloat(amount),
+            "Date": date,
             "AccountType": accountType,
             "SupplierId": supplierId, 
             "OwnChequesId": ownChequesId,

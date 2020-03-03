@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sharmila_Textile_WebApp.Data;
 
 namespace Sharmila_Textile_WebApp.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200303130657_chqDatev2")]
+    partial class chqDatev2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -524,10 +526,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .HasColumnName("CHEQUE_CODE")
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime?>("Date")
-                        .HasColumnName("DATE")
-                        .HasColumnType("datetime");
-
                     b.Property<DateTime>("DueDate")
                         .HasColumnName("DUE_DATE")
                         .HasColumnType("datetime");
@@ -974,10 +972,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<string>("ChequeCode")
                         .HasColumnName("CHEQUE_CODE")
                         .HasColumnType("varchar(50)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnName("DATE")
-                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnName("DUE_DATE")

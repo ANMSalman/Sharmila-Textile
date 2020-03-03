@@ -81,33 +81,52 @@
                     </div>
                     <div class="card-body">
                         <div class="row h-100">
-                            <div class="col-md-5 mt-3">
+                            <div class="col-md-4 mt-3">
                                 <div class="form-group">
-                                    <label for="txtDescription">Description</label>
-                                    <input type="text" class="form-control" id="txtDescription" asp-for="Description">
-                                    <div class="text-danger" id="errorDescription"></div>
+                                    <label for="txtAmount">In-Hand Cash</label>
+                                    <input type="number" class="form-control number-validation" id="txtInHandCash" asp-for="InHandCash">
+                                    <div class="text-danger" id="errorInHandCash"></div>
                                 </div>
                             </div>
-                            <div class="col-md-5 mt-3">
-                                <div class="form-group">
-                                    <label for="txtRemark">Remark</label>
-                                    <input type="text" class="form-control" id="txtRemark" asp-for="Remark">
-                                    <div class="text-danger" id="errorRemark"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mt-3">
+                            <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtAmount">Amount</label>
                                     <input type="number" class="form-control number-validation" id="txtAmount" asp-for="Amount" onkeyup="calculateGrandTotal();">
                                     <div class="text-danger" id="errorAmount"></div>
                                 </div>
                             </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="dtpDate">Date</label>
+                                    <input type="date" class="form-control" id="dtpDate" asp-for="Date" value="@if (ViewBag.IsUpdate != "true") {
+                                                                                                                   @DateTime.Now.ToString("yyyy-MM-dd");
+                                                                                                               }else {
+                                                                                                                   @Model.Date.ToString("yyyy-MM-dd");
+                                                                                                               }">
+                                    <div class="text-danger" id="errorDate"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="form-group">
+                                    <label for="txtDescription">Description</label>
+                                    <input type="text" class="form-control" id="txtDescription" asp-for="Description">
+                                    <div class="text-danger" id="errorDescription"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="form-group">
+                                    <label for="txtRemark">Remark</label>
+                                    <input type="text" class="form-control" id="txtRemark" asp-for="Remark">
+                                    <div class="text-danger" id="errorRemark"></div>
+                                </div>
+                            </div>
+
                             <div class="col-md-3" id="pnlCustomerList">
                                 <div class="form-group">
                                     <label for="drpDwnCustomer" class="mb-0">Select a Customer</label>
                                     <div class="dropdown">
                                         <button class="btn btn-block btn-info text-capitalize dropdown-toggle pt-1 pb-1" type="button" data-toggle="dropdown"
-                                                data-btn="@Html.Raw(ViewBag.IsUpdate=="true" ? Model.CustomerId : Model.CustomerList[0].CustomerId)" id="drpDwnCustomer" aria-haspopup="true" aria-expanded="false">
+                                                data-btn="@Html.Raw(ViewBag.IsUpdate == "true" ? Model.CustomerId : Model.CustomerList[0].CustomerId)" id="drpDwnCustomer" aria-haspopup="true" aria-expanded="false">
 
                                             <strong>@Html.Raw(ViewBag.IsUpdate == "true" ? Model.CustomerId : Model.CustomerList[0].CustomerId) - </strong>@Html.Raw(ViewBag.IsUpdate == "true" ? Model.CustomerList.Single(x => x.CustomerId == Model.CustomerId).CustomerName : Model.CustomerList[0].CustomerName)
 
@@ -124,7 +143,7 @@
                                 <div class="form-group">
                                     <label for="drpDwnAccountType" class="mb-0">Select an Account Type</label>
                                     <button class="btn btn-block btn-info text-capitalize dropdown-toggle pt-1 pb-1" type="button" data-toggle="dropdown"
-                                            data-btn="@Html.Raw(ViewBag.IsUpdate=="true" ? Model.AccountType : "Bill")" id="drpDwnAccountType" aria-haspopup="true" aria-expanded="false">
+                                            data-btn="@Html.Raw(ViewBag.IsUpdate == "true" ? Model.AccountType : "Bill")" id="drpDwnAccountType" aria-haspopup="true" aria-expanded="false">
                                         @Html.Raw(ViewBag.IsUpdate == "true" ? Miscellaneous.SplitCamelCase(Model.AccountType) : "Bill")
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -134,13 +153,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 mt-3">
-                                <div class="form-group">
-                                    <label for="txtAmount">In-Hand Cash</label>
-                                    <input type="number" class="form-control number-validation" id="txtInHandCash" asp-for="InHandCash">
-                                    <div class="text-danger" id="errorInHandCash"></div>
-                                </div>
-                            </div>
+
                             <div class="col-md-auto ml-auto my-auto" id="pnlChequeModalButtons">
                                 <button class="btn btn-success text-capitalize" data-toggle="modal" data-target="#modalOwnCheque">Add Own Cheques</button>
                                 <button class="btn btn-success text-capitalize" data-toggle="modal" data-target="#modalThirdPartyCheque">Add Third-Party Cheques</button>
@@ -163,7 +176,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <pre id="txtJson" style=" font-size: 20px; font-weight: bold;">  </pre>
+                            <pre id="txtJson" style="font-size: 20px; font-weight: bold;">  </pre>
                         </div>
                     </div>
                 </div>
@@ -517,6 +530,7 @@
     function getFieldDetails() {
         var amount = $('#txtAmount').val(),
             inHandCash = $('#txtInHandCash').val(),
+            date = $('#dtpDate').val(),
             description = $('#txtDescription').val(),
             remark = $('#txtRemark').val(),
             collectionOwnCheques = ownChequeList.map(u => u.id),
@@ -530,6 +544,7 @@
         model = {
             "Description": description,
             "Amount": parseFloat(amount),
+            "Date": date,
             "InHandCash": parseFloat(inHandCash),
             "AccountType": accountType,
             "CustomerId": customerId,

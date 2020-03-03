@@ -87,6 +87,7 @@
                                     <th>Bank</th>
                                     <th>Branch</th>
                                     <th>Amount</th>
+                                    <th>Date</th>
                                     <th>Due Date</th>
                                     <th>Status</th>
                                     <th class="text-center">Actions</th>
@@ -100,6 +101,7 @@
                                         <td>@item.Bank</td>
                                         <td>@item.Branch</td>
                                         <td>@item.Amount</td>
+                                        <td>@item.Date.ToString("yyyy-MM-dd")</td>
                                         <td>@item.DueDate.ToString("yyyy-MM-dd")</td>
                                         <td>@item.Status</td>
                                         <td class="td-actions text-center">
@@ -122,6 +124,6 @@
 <script>
     $(function () {
         var myTable = $('#dataTbl').DataTable();
-        $('#dataTbl_filter').addClass("float-right"); 
+        $('#dataTbl_filter').addClass("float-right");
     });
 </script>

@@ -25,7 +25,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                         join d in _context.Staffs on c.StaffId equals d.StaffId
                         where a.Status == 1
                         select new CustomerAccountViewModel {
-                            CustomerAccountId = a.CustomerAccountId, Description = a.Description, Amount = a.Amount, AccountType = a.AccountType,
+                            CustomerAccountId = a.CustomerAccountId, Description = a.Description, Date = a.Date, Amount = a.Amount, AccountType = a.AccountType,
                             CreatedDate = a.CreatedDate, CustomerName = b.CustomerName, UserName = d.StaffName
                         }).ToList();
 
@@ -42,7 +42,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                 customerAccountViewModel = (from a in _context.CustomerAccounts where a.CustomerAccountId == cusAccId
                                             select new CustomerAccountViewModel {
                                                 CustomerAccountId = a.CustomerAccountId, Description = a.Description, Amount = a.Amount, AccountType = a.AccountType,
-                                                CreatedDate = a.CreatedDate, Remark = a.Remark, CustomerId = a.CustomerId, CreatedBy = a.CreatedBy,
+                                                CreatedDate = a.CreatedDate, Remark = a.Remark, CustomerId = a.CustomerId, CreatedBy = a.CreatedBy, Date = a.Date,
                                                 OwnChequesId = a.CustomerAccountOwnCheques.Select(x => x.OwnChequeId).ToList(),
                                                 ThirdPartyChequesId = a.CustomerAccountThirdPartyCheques.Select(x => x.ThirdPartyChequeId).ToList()
                                             }).Single();

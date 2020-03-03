@@ -14,6 +14,7 @@ namespace Sharmila_Textile_WebApp.ViewModel {
         public decimal Returns { get; set; } 
         public decimal Purchase { get; set; } 
         public decimal TotalAmount { get; set; }
+        public DateTime Date { get; set; }
         public DateTime CreatedDate { get; set; }
         public long PaymentType { get; set; } 
         public string PaymentTypeName { get; set; } 

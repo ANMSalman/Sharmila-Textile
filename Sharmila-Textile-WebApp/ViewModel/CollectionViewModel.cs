@@ -12,6 +12,7 @@ namespace Sharmila_Textile_WebApp.ViewModel {
         public decimal Cheque { get; set; } 
         public decimal Returns { get; set; }  
         public decimal TotalAmount { get; set; }
+        public DateTime Date { get; set; }
         public DateTime CreatedDate { get; set; }
         public long CollectionType { get; set; } 
         public string CollectionTypeName { get; set; } 

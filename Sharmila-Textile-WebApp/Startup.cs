@@ -70,7 +70,7 @@ namespace Sharmila_Textile_WebApp {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=CustomerAccount}/{action=CustomerAccountListView}");
+                    pattern: "{controller=Dashboard}/{action=Index}");
             });
         }
     }

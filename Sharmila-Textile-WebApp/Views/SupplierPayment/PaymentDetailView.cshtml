@@ -107,18 +107,29 @@
                                     <div class="text-danger" id="errorPurchase"></div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtDescription">Description</label>
                                     <input type="text" class="form-control" id="txtDescription" asp-for="Description">
                                     <div class="text-danger" id="errorDescription"></div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-4 mt-3">
                                 <div class="form-group">
                                     <label for="txtRemark">Remark</label>
                                     <input type="text" class="form-control" id="txtRemark" asp-for="Remark">
                                     <div class="text-danger" id="errorRemark"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-group">
+                                    <label for="dtpDate">Date</label>
+                                    <input type="date" class="form-control" id="dtpDate" asp-for="Date" value="@if (ViewBag.IsUpdate != "true") {
+                                                                                                                   @DateTime.Now.ToString("yyyy-MM-dd");
+                                                                                                               }else {
+                                                                                                                   @Model.Date.ToString("yyyy-MM-dd");
+                                                                                                               }">
+                                    <div class="text-danger" id="errorDate"></div>
                                 </div>
                             </div>
                             <div class="col-md-3" id="pnlSupplierList">
@@ -157,7 +168,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-auto ml-auto  my-auto">
+                            <div class="col-md-auto ml-auto my-auto">
                                 <button class="btn btn-success text-capitalize" data-toggle="modal" data-target="#modalOwnCheque">Add Own Cheques</button>
                                 <button class="btn btn-success text-capitalize" data-toggle="modal" data-target="#modalThirdPartyCheque">Add Third-Party Cheques</button>
                             </div>
@@ -559,6 +570,7 @@
         var cash = $('#txtCash').val(),
             inHandCash = $('#txtInHandCash').val(),
             returns = $('#txtReturns').val(),
+            date = $('#dtpDate').val(),
             purchase = $('#txtPurchase').val(),
             description = $('#txtDescription').val(),
             remark = $('#txtRemark').val(),
@@ -571,6 +583,7 @@
             "InHandCash": parseFloat(inHandCash),
             "Returns": parseFloat(returns),
             "Cheque": parseFloat(chequeTotal),
+            "Date": date,
             "Purchase": parseFloat(purchase),
             "TotalAmount": parseFloat(totalAmount),
             "PaymentType": paymentTypeId,
