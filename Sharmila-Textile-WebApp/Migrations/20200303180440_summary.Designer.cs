@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sharmila_Textile_WebApp.Data;
 
 namespace Sharmila_Textile_WebApp.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200303180440_summary")]
+    partial class summary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,10 +77,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<int>("Status")
                         .HasColumnName("STATUS")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnName("TOTAL_AMOUNT")
-                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("BankDepositId");
 
@@ -675,87 +673,6 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.HasIndex("StaffId");
 
                     b.ToTable("STAFF_ATTACHMENT");
-                });
-
-            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.Summary", b =>
-                {
-                    b.Property<long>("SummaryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("SUMMARY_ID")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("AccountableBankDeposit")
-                        .HasColumnName("ACCOUNTABLE_BANK_DEPOSIT")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("AccountableCollection")
-                        .HasColumnName("ACCOUNTABLE_COLLECTION")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("AccountableExpense")
-                        .HasColumnName("ACCOUNTABLE_EXPENSE")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("AccountablePayment")
-                        .HasColumnName("ACCOUNTABLE_PAYMENT")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("BttBills")
-                        .HasColumnName("BTT_BILLS")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("CashBalance")
-                        .HasColumnName("CASH_BALANCE")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("ChequeBalance")
-                        .HasColumnName("CHEQUE_BALANCE")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnName("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnName("DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("NormalBills")
-                        .HasColumnName("NORMAL_BILLS")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("Status")
-                        .HasColumnName("STATUS")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("SummaryTotal")
-                        .HasColumnName("SUMMARY_TOTAL")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnName("TOTAL_AMOUNT")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("TotalBankDeposit")
-                        .HasColumnName("TOTAL_BANK_DEPOSIT")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("TotalCollection")
-                        .HasColumnName("TOTAL_COLLECTION")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("TotalExpense")
-                        .HasColumnName("TOTAL_EXPENSE")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("TotalPayment")
-                        .HasColumnName("TOTAL_PAYMENT")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("SummaryId");
-
-                    b.ToTable("SUMMARY");
                 });
 
             modelBuilder.Entity("Sharmila_Textile_WebApp.Models.Supplier", b =>

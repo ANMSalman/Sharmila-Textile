@@ -108,6 +108,12 @@
                             <p>Bank Deposit</p>
                         </a>
                     </li>
+                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Summary", "SummaryListView")">
+                        <a class="nav-link" asp-controller="Summary" asp-action="SummaryListView">
+                            <i class="fa fa-list-alt"></i>
+                            <p>Summary</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

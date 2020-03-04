@@ -28,6 +28,7 @@ namespace Sharmila_Textile_WebApp.Data {
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<BalanceSheet> BalanceSheets { get; set; }
         public DbSet<BankDeposit> BankDeposits { get; set; }
+        public DbSet<Summary> Summaries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<SupplierPaymentOwnCheque>()

@@ -9,6 +9,7 @@ namespace Sharmila_Textile_WebApp.ViewModel {
         public long BankDepositId { get; set; } 
         public decimal Cash { get; set; } 
         public decimal InHandCash { get; set; } 
+        public decimal TotalAmount { get; set; }
         public decimal ChequeTotal { get; set; } 
         public DateTime CreatedDate { get; set; } 
         public long CreatedBy { get; set; }

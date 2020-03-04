@@ -105,9 +105,12 @@
                                         @if (ViewBag.IsUpdate == "true") {
                                             Model.ThirdPartyChequesList.Where(x => Model.ThirdPartyChequesId.Contains(x.ThirdPartyChequeId)).Sum(x => x.Amount);
                                         }
-                                </span>
-                            </h4>
-                        </div>
+                                    </span>
+                                </h4>
+                                <h4 class="font-weight-bold">
+                                    Total Amount = <span id="lblTotalAmount">@Model.TotalAmount</span>
+                                </h4>
+                            </div>
 
                         <!-------------------------------------------  Button Section ----------------------------------------->
                         <div class="col-md-12 mt-3">
@@ -197,7 +200,7 @@
     var thirdPartyChequeModel = {}
     var IsUpdate = @ViewBag.IsUpdate;
     var chequeTotal =  parseFloat($("#lblCheque").text());
-
+    var totalAmount = parseFloat($("#lblTotalAmount").text());
 
     $('#progressBar').hide();
 
@@ -304,6 +307,14 @@
         });
         chequeTotal = chqTotal;
         $("#lblCheque").text(chqTotal.toFixed(2));
+        calculateGrandTotal();
+    }
+
+    function calculateGrandTotal() {
+
+        const cash = parseFloat($('#txtCash').val());
+        totalAmount = cash + chequeTotal;
+        $("#lblTotalAmount").text(totalAmount.toFixed(2));
     }
 
     $(function() {
@@ -319,6 +330,7 @@
         model = {
             "Cash": parseFloat(cash),
             "InHandCash": parseFloat(inHandCash),
+            "TotalAmount": parseFloat(totalAmount),
             "ChequeTotal": parseFloat(chequeTotal),
             "ThirdPartyChequesId": collectionThirdPartyCheques,
             "CreatedBy": 4,

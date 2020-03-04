@@ -22,6 +22,7 @@ namespace Sharmila_Textile_WebApp.AutoMapper {
             CreateMap<SupplierAccount, SupplierAccountViewModel>().ReverseMap();
             CreateMap<ExpenseViewModel, Expense>().ReverseMap();
             CreateMap<BankDeposit, BankDepositViewModel>().ReverseMap();
+            CreateMap<SupplierViewModel, Summary>().ReverseMap();
         }
     }
 }
