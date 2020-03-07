@@ -247,7 +247,7 @@
                             <div class="col-6">
                                 <div class="form-group bmd-form-group">
                                     <label>Select a Date</label>
-                                    <input type="date" class="form-control" value="@if (ViewBag.IsUpdate != "true") { @DateTime.Now.ToString("yyyy-MM-dd"); } else { @Model.Date.ToString("yyyy-MM-dd"); }">
+                                    <input type="date" class="form-control" id="dtpDate" value="@if (ViewBag.IsUpdate != "true") { @DateTime.Now.ToString("yyyy-MM-dd"); } else { @Model.Date.ToString("yyyy-MM-dd"); }">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -320,6 +320,7 @@
         };
         calculateGrandTotal();
     });
+    calculateGrandTotal();
 
 
     function calculateGrandTotal() {
@@ -327,15 +328,107 @@
         bttBill = parseFloat($('#txtBttBill').val());
         normalBill = parseFloat($('#txtNormalBill').val());
         totalAmount = bttBill + normalBill;
-         
+
         $('#lblTotalAmount').text(totalAmount);
 
         summaryTotal = totalAmount + totalCollection - totalPayment - totalExpense - totalBankDeposit;
         $('#lblSummaryTotal').text(summaryTotal);
 
-
     }
 
+    function getFieldDetails() {
+
+        model = {
+            "BttBills": bttBill,
+            "NormalBills": normalBill,
+            "TotalAmount": totalAmount,
+            "TotalCollection": totalCollection,
+            "AccountableCollection": parseFloat($('#lblAccountableCollection').text()),
+            "TotalPayment": totalPayment,
+            "AccountablePayment": parseFloat($('#lblAccountablePayment').text()),
+            "TotalExpense": totalExpense,
+            "AccountableExpense": parseFloat($('#lblAccountableExpense').text()),
+            "TotalBankDeposit": totalBankDeposit,
+            "AccountableBankDeposit": parseFloat($('#lblAccountableBankDeposit').text()),
+            "SummaryTotal": summaryTotal,
+            "CashBalance": parseFloat($('#txtCashBalance').val()),
+            "ChequeBalance": parseFloat($('#lblChequeBalance').text()),
+            "Date": $('#dtpDate').val(), 
+            "IsUpdate":false
+        };
+
+        $('#txtJson').html(JSON.stringify(model, undefined, 4));
+        SaveChanges('Create');
+    }
+
+    function SaveChanges(type) {
+        $('#progressBar').show();
+        $.ajax({
+            url: localStorage.apiLink + "api/Summary/" + type,
+            type: 'POST',
+            data: JSON.stringify(model),
+            contentType: 'application/json',
+            success: function (data, textStatus, xhr) {
+                $('#progressBar').hide();
+                if (data === true) {
+
+                    Swal.fire({
+                        title: 'Success',
+                        text: "Changes Saved Successfully!",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK!'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.replace(localStorage.apiLink + "Summary/SummaryListView");
+                        }
+                    });
+                } else {
+                    Swal.fire(
+                        'Oops...',
+                        'Something went wrong!',
+                        'error'
+                    );
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+
+            }
+        });
+    }
+
+    function deleteConfirmation() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                deleteRequest();
+            }
+        });
+    }
+
+    function deleteRequest() {
+        $.ajax({
+            url: localStorage.apiLink + "api/Summary/Delete/" + @Model.SummaryId,
+            type: 'get',
+            contentType: 'application/json',
+            success: function (data, textStatus, xhr) {
+                if (data === true) {
+                    window.location.replace(localStorage.apiLink + "Summary/SummaryListView");
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log('Error in Operation');
+            }
+        });
+    }
 
 
 </script>

@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Sharmila_Textile_WebApp.ViewModel.SummaryViewModel>
 @{
     ViewData["Title"] = "Summary List View";
 }
@@ -83,19 +83,48 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th>Description</th>
-                                    <th>Cash</th>
-                                    <th>Cheque</th>
-                                    <th>Total Amount</th>
+                                    <th>Btt Bills</th>
+                                    <th>Normal Bills</th>
+                                    <th>Total Collection</th>
+                                    <th>Accountable Collection</th>
+                                    <th>Total Payment</th>
+                                    <th>Accountable Payment</th>
+                                    <th>Total Expense</th>
+                                    <th>Accountable Expense</th>
+                                    <th>Total Bank Deposit</th>
+                                    <th>Accountable Bank Deposit</th>
+                                    <th>Summary Total</th>
+                                    <th>Cash Balance</th>
+                                    <th>Cheque Balance</th>
                                     <th>Date</th>
-                                    <th>Created Date</th>
-                                    <th>Payment Type</th>
-                                    <th>Created By</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td class="text-center">@item.SummaryId</td>
+                                    <td>@item.BttBills</td>
+                                    <td>@item.NormalBills</td>
+                                    <td>@item.TotalCollection</td>
+                                    <td>@item.AccountableCollection</td>
+                                    <td>@item.TotalPayment</td>
+                                    <td>@item.AccountablePayment</td>
+                                    <td>@item.TotalExpense</td>
+                                    <td>@item.AccountableExpense</td>
+                                    <td>@item.TotalBankDeposit</td>
+                                    <td>@item.AccountableBankDeposit</td>
+                                    <td>@item.SummaryTotal</td>
+                                    <td>@item.CashBalance</td>
+                                    <td>@item.ChequeBalance</td> 
+                                    <td>@item.Date.ToString("yyyy-MM-dd")</td> 
+                                    <td class="td-actions text-center">
+                                        <a type="button" rel="tooltip" class="btn btn-success" asp-controller="Summary" asp-action="SummaryDetailView" asp-route-breadcumValue="View Summary" asp-route-sumId="@item.SummaryId">
+                                            <i class="material-icons">visibility</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
 
                             </tbody>
                         </table>

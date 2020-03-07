@@ -22,5 +22,7 @@ namespace Sharmila_Textile_WebApp.ViewModel {
         public decimal ChequeBalance { get; set; }
         public DateTime Date { get; set; }
         public DateTime CreatedDate { get; set; }
+        public bool IsUpdate { get; set; } = true;
+
     }
 }
