@@ -118,6 +118,9 @@
                                             <button type="button" rel="tooltip" class="btn btn-danger" onclick="deleteConfirmation(@item.CustomerId)">
                                                 <i class="material-icons">close</i>
                                             </button>
+                                            <a type="button" rel="tooltip" class="btn btn-success" asp-action="CustomerInfoView" asp-route-breadcumValue="Viewing @item.CustomerName" asp-route-cusId="@item.CustomerId">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }

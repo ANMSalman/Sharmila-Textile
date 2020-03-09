@@ -94,10 +94,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer d-print-none">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a href="javascript:;">Get More Space...</a>
+                            <a target="_blank" asp-controller="Collection" asp-action="CollectionListView" asp-route-date="@Model.Date" class="text-primary">
+                                <i class="fa fa-external-link mr-2"></i>View Collection
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -125,10 +126,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer d-print-none">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a href="javascript:;">Get More Space...</a>
+                            <a target="_blank" asp-controller="SupplierPayment" asp-action="PaymentListView" asp-route-date="@Model.Date" class="text-primary">
+                                <i class="fa fa-external-link mr-2"></i>View Payment
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -156,10 +158,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer d-print-none">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a href="javascript:;">Get More Space...</a>
+                            <a target="_blank" asp-controller="Expense" asp-action="ExpenseListView" asp-route-date="@Model.Date" class="text-primary">
+                                <i class="fa fa-external-link mr-2"></i>View Expenses
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -187,113 +190,121 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer d-print-none">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a href="javascript:;">Get More Space...</a>
+                            <a target="_blank" asp-controller="BankDeposit" asp-action="BankDepositListView" asp-route-date="@Model.Date" class="text-primary">
+                                <i class="fa fa-external-link mr-2"></i>View Bank Deposit
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-chart">
-                    <div class="card-header card-header-rose p-1 pt-2 pl-2">
-                        <h5 class="card-title">Daily Business</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-around">
-                            <div class="col-6">
-                                <div class="form-group bmd-form-group">
-                                    <label>BTT Bill</label>
-                                    <input type="number" class="form-control number-validation" id="txtBttBill" asp-for="BttBills">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group bmd-form-group">
-                                    <label>Normal Bill</label>
-                                    <input type="number" class="form-control number-validation" id="txtNormalBill" asp-for="NormalBills">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row ml-0 mr-0 pt-2 pb-2">
-                            <div class="col-6 text-right font-weight-bold">
-                                <h5 class="font-weight-bold mb-0">Total Amount</h5>
-                            </div>
-                            <div class="col-6 text-left">
-                                <h5 class="mb-0" id="lblTotalAmount">0.0</h5>
-                            </div>
-                        </div>
-                        <div class="row ml-0 mr-0 pt-2 pb-2">
-                            <div class="col-6 text-right font-weight-bold">
-                                <h5 class="font-weight-bold mb-0">Summary Total</h5>
-                            </div>
-                            <div class="col-6 text-left">
-                                <h5 class="mb-0" id="lblSummaryTotal">0.0</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-chart">
-                    <div class="card-header card-header-rose p-1 pt-2 pl-2">
-                        <h5 class="card-title">Cash/Cheque Remaining</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-around">
-                            <div class="col-6">
-                                <div class="form-group bmd-form-group">
-                                    <label>Select a Date</label>
-                                    <input type="date" class="form-control" id="dtpDate" value="@if (ViewBag.IsUpdate != "true") { @DateTime.Now.ToString("yyyy-MM-dd"); } else { @Model.Date.ToString("yyyy-MM-dd"); }">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group bmd-form-group">
-                                    <label>Cash Balance</label>
-                                    <input type="number" class="form-control number-validation" id="txtCashBalance" asp-for="CashBalance">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row ml-0 mr-0 mb-5 pt-2 h-100">
-                            <div class="col-6 text-right font-weight-bold">
-                                <h5 class="font-weight-bold mb-0">Cheque Balance</h5>
-                            </div>
-                            <div class="col-6 text-left">
-                                <h5 class="mb-0" id="lblChequeBalance">@Model.ChequeBalance</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
+        <div class="row d-print-block d-none">
             <div class="col">
-                <hr />
+                <hr/>
             </div>
-        </div>
+            </div>
 
-        <!-------------------------------------------  Button Section ----------------------------------------->
-        <div class="row justify-content-end">
-            <div class="col-auto form-inline" id="progressBar">
-                <img src="~/img/progress.gif" style="max-height: 41px;" class="mr-3" />
-                <h5 class="align-bottom mb-0">Please Wait....</h5>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-rose p-1 pt-2 pl-2">
+                            <h5 class="card-title">Daily Business</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-around">
+                                <div class="col-6">
+                                    <div class="form-group bmd-form-group">
+                                        <label>BTT Bill</label>
+                                        <input type="number" class="form-control number-validation" id="txtBttBill" asp-for="BttBills">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group bmd-form-group">
+                                        <label>Normal Bill</label>
+                                        <input type="number" class="form-control number-validation" id="txtNormalBill" asp-for="NormalBills">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ml-0 mr-0 pt-2 pb-2">
+                                <div class="col-6 text-right font-weight-bold">
+                                    <h5 class="font-weight-bold mb-0">Total Amount</h5>
+                                </div>
+                                <div class="col-6 text-left">
+                                    <h5 class="mb-0" id="lblTotalAmount">0.0</h5>
+                                </div>
+                            </div>
+                            <div class="row ml-0 mr-0 pt-2 pb-2">
+                                <div class="col-6 text-right font-weight-bold">
+                                    <h5 class="font-weight-bold mb-0">Summary Total</h5>
+                                </div>
+                                <div class="col-6 text-left">
+                                    <h5 class="mb-0" id="lblSummaryTotal">0.0</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-rose p-1 pt-2 pl-2">
+                            <h5 class="card-title">Cash/Cheque Remaining</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-around">
+                                <div class="col-6">
+                                    <div class="form-group bmd-form-group">
+                                        <label>Select a Date</label>
+                                        <input type="date" class="form-control" id="dtpDate" value="@if (ViewBag.IsUpdate != "true") { @DateTime.Now.ToString("yyyy-MM-dd"); } else { @Model.Date.ToString("yyyy-MM-dd"); }">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group bmd-form-group">
+                                        <label>Cash Balance</label>
+                                        <input type="number" class="form-control number-validation" id="txtCashBalance" asp-for="CashBalance">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ml-0 mr-0 mb-5 pt-2 h-100">
+                                <div class="col-6 text-right font-weight-bold">
+                                    <h5 class="font-weight-bold mb-0">Cheque Balance</h5>
+                                </div>
+                                <div class="col-6 text-left">
+                                    <h5 class="mb-0" id="lblChequeBalance">@Model.ChequeBalance</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-auto">
-                @if (ViewBag.IsUpdate == "true") {
-                    <button type="button" class="btn btn-danger" onclick="deleteConfirmation()">Delete</button>
-                }
-                else {
-                    <button type="button" class="btn btn-primary" onclick="getFieldDetails()">Submit</button>
-                }
+            <div class="row d-print-none">
+                <div class="col">
+                    <hr />
+                </div>
+            </div>
+
+            <!-------------------------------------------  Button Section ----------------------------------------->
+            <div class="row justify-content-end">
+                <div class="col-auto form-inline" id="progressBar">
+                    <img src="~/img/progress.gif" style="max-height: 41px;" class="mr-3" />
+                    <h5 class="align-bottom mb-0">Please Wait....</h5>
+                </div>
+                <div class="col-auto">
+                    <button id="btnPrint" class="btn btn-primary d-print-none btn-success"><i class="material-icons mr-2">print</i>Print</button>
+
+                    @if (ViewBag.IsUpdate == "true") {
+                        <button type="button" class="btn btn-danger d-print-none" onclick="deleteConfirmation()">Delete</button>
+                    }
+                    else {
+                        <button type="button" class="btn btn-primary d-print-none" onclick="getFieldDetails()">Submit</button>
+                    }
+                </div>
             </div>
         </div>
+        <pre id="txtJson" style=" font-size: 20px; font-weight: bold;"></pre>
+
     </div>
-    <pre id="txtJson" style=" font-size: 20px; font-weight: bold;"></pre>
-
-</div>
 
 
 <script>
@@ -313,6 +324,11 @@
     var accountableBankDeposit = parseFloat($('#lblAccountableBankDeposit').text());
 
     $('#progressBar').hide();
+
+    $('#btnPrint').click(function(){
+        window.print();
+        return false;
+    });
 
     $(".number-validation").keyup(function () {
         if ($(this).val().length === 0) {

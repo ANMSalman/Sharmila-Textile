@@ -25,7 +25,6 @@ namespace Sharmila_Textile_WebApp.Controllers {
             return View(data);
         }
 
-
         public IActionResult SummaryDetailView(string breadCumValue, long sumId) {
             ViewBag.breadCumValue = breadCumValue;
             ViewBag.IsUpdate = sumId > 0 ? "true" : "false";
@@ -33,9 +32,10 @@ namespace Sharmila_Textile_WebApp.Controllers {
             SummaryViewModel viewModel = new SummaryViewModel();
 
             if (sumId > 0) {
-                viewModel = _mapper.Map<SummaryViewModel>(_context.Summaries.SingleOrDefault(s=>s.SummaryId == sumId));
+                viewModel = _mapper.Map<SummaryViewModel>(_context.Summaries.SingleOrDefault(s => s.SummaryId == sumId));
             }
             else {
+                viewModel.Date = DateTime.Now;
                 viewModel.TotalCollection = _context.Collections.Where(x => x.Status == 1).Sum(s => s.TotalAmount);
                 viewModel.AccountableCollection = _context.Collections.Where(x => x.Status == 1 && x.CollectionType == 8).Sum(s => s.TotalAmount);
 
@@ -62,7 +62,6 @@ namespace Sharmila_Textile_WebApp.Controllers {
                 viewModel.ChequeBalance = _context.ThirdPartyCheques.Where(x => x.Status == 1 && x.Date == DateTime.Today).Sum(s => s.Amount);
             }
 
-            
             return View(viewModel);
         }
 
@@ -75,7 +74,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                 if (!result.IsDBNull(0) && !result.IsDBNull(1)) {
                     return Convert.ToDecimal(result["cashSum"].ToString()) +
                            Convert.ToDecimal(result["amountSum"].ToString());
-                } 
+                }
             }
 
             return 0;

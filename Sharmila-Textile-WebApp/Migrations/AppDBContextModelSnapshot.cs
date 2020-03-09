@@ -68,6 +68,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .HasColumnName("CREATED_DATE")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnName("DATE")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("InHandCash")
                         .HasColumnName("IN_HAND_CASH")
                         .HasColumnType("decimal(18, 2)");

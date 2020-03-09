@@ -18,16 +18,30 @@ namespace Sharmila_Textile_WebApp.Controllers {
             _mapper = mapper;
         }
 
-        public IActionResult ExpenseListView() {
-            var data = (from a in _context.Expenses
-                        join b in _context.Users on a.CreatedBy equals b.UserId
-                        join c in _context.Staffs on b.StaffId equals c.StaffId
-                        where a.Status == 1
+        public IActionResult ExpenseListView(string date) {
+            List<ExpenseViewModel> data;
+            if (date != null) {
+                data = (from a in _context.Expenses
+                    join b in _context.Users on a.CreatedBy equals b.UserId
+                    join c in _context.Staffs on b.StaffId equals c.StaffId
+                    where a.Status == 1 && a.Date == Convert.ToDateTime(date)
                         select new ExpenseViewModel {
-                            ExpenseId = a.ExpenseId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque, TotalAmount = a.TotalAmount,
-                            CreatedDate = a.CreatedDate, PaymentType = a.PaymentType, CreatedBy = a.CreatedBy, UserName = c.StaffName, Remark = a.Remark,
-                            Date = a.Date
-                        }).ToList();
+                        ExpenseId = a.ExpenseId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque, TotalAmount = a.TotalAmount,
+                        CreatedDate = a.CreatedDate, PaymentType = a.PaymentType, CreatedBy = a.CreatedBy, UserName = c.StaffName, Remark = a.Remark,
+                        Date = a.Date
+                    }).ToList();
+            }
+            else {
+                data = (from a in _context.Expenses
+                    join b in _context.Users on a.CreatedBy equals b.UserId
+                    join c in _context.Staffs on b.StaffId equals c.StaffId
+                    where a.Status == 1
+                    select new ExpenseViewModel {
+                        ExpenseId = a.ExpenseId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque, TotalAmount = a.TotalAmount,
+                        CreatedDate = a.CreatedDate, PaymentType = a.PaymentType, CreatedBy = a.CreatedBy, UserName = c.StaffName, Remark = a.Remark,
+                        Date = a.Date
+                    }).ToList();
+            } 
 
             return View(data);
         }

@@ -112,6 +112,9 @@
                                             <button type="button" rel="tooltip" class="btn btn-danger" onclick="deleteConfirmation(@item.SupplierId)">
                                                 <i class="material-icons">close</i>
                                             </button>
+                                            <a type="button" rel="tooltip" class="btn btn-success" asp-action="SupplierInfoView" asp-route-breadcumValue="Viewing @item.SupplierName" asp-route-supId="@item.SupplierId">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }

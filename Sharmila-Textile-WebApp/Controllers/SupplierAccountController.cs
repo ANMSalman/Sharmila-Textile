@@ -18,8 +18,21 @@ namespace Sharmila_Textile_WebApp.Controllers {
             _mapper = mapper;
         }
 
-        public IActionResult SupplierAccountListView() {
-            var data = (from a in _context.SupplierAccounts
+        public IActionResult SupplierAccountListView(string date) {
+            List<SupplierAccountViewModel> data;
+            if (date != null) { 
+                data = (from a in _context.SupplierAccounts
+                    join b in _context.Suppliers on a.SupplierId equals b.SupplierId
+                    join c in _context.Users on a.CreatedBy equals c.UserId
+                    join d in _context.Staffs on c.StaffId equals d.StaffId
+                    where a.Status == 1 && a.Date == Convert.ToDateTime(date)
+                        select new SupplierAccountViewModel {
+                        SupplierAccountId = a.SupplierAccountId, Description = a.Description, Amount = a.Amount, AccountType = a.AccountType,
+                        CreatedDate = a.CreatedDate, SupplierName = b.SupplierName, Date = a.Date, UserName = d.StaffName
+                    }).ToList();
+            }
+            else {
+                  data = (from a in _context.SupplierAccounts
                         join b in _context.Suppliers on a.SupplierId equals b.SupplierId
                         join c in _context.Users on a.CreatedBy equals c.UserId
                         join d in _context.Staffs on c.StaffId equals d.StaffId
@@ -28,6 +41,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                             SupplierAccountId = a.SupplierAccountId, Description = a.Description, Amount = a.Amount, AccountType = a.AccountType,
                             CreatedDate = a.CreatedDate, SupplierName = b.SupplierName, Date = a.Date, UserName = d.StaffName
                         }).ToList();
+            }
 
             return View(data);
         }

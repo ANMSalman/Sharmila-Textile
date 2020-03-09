@@ -18,15 +18,29 @@ namespace Sharmila_Textile_WebApp.Controllers {
             _mapper = mapper;
         }
 
-        public IActionResult BankDepositListView() {
-            var data = (from a in _context.BankDeposits
+        public IActionResult BankDepositListView(string date) {
+            List<BankDepositViewModel> data;
+            if (date != null) {
+                data = (from a in _context.BankDeposits
+                        join b in _context.Users on a.CreatedBy equals b.UserId
+                        join c in _context.Staffs on b.StaffId equals c.StaffId
+                        where a.Status == 1 && a.Date == Convert.ToDateTime(date)
+                        select new BankDepositViewModel {
+                            BankDepositId = a.BankDepositId, Cash = a.Cash, InHandCash = a.InHandCash, Date = a.Date, CreatedDate = a.CreatedDate, CreatedBy = a.CreatedBy,
+                            UserName = c.StaffName
+                        }).ToList();
+            }
+            else {
+
+                data = (from a in _context.BankDeposits
                         join b in _context.Users on a.CreatedBy equals b.UserId
                         join c in _context.Staffs on b.StaffId equals c.StaffId
                         where a.Status == 1
                         select new BankDepositViewModel {
-                            BankDepositId = a.BankDepositId, Cash = a.Cash, InHandCash = a.InHandCash, CreatedDate = a.CreatedDate, CreatedBy = a.CreatedBy,
+                            BankDepositId = a.BankDepositId, Cash = a.Cash, InHandCash = a.InHandCash, Date = a.Date, CreatedDate = a.CreatedDate, CreatedBy = a.CreatedBy,
                             UserName = c.StaffName
                         }).ToList();
+            }
 
             return View(data);
         }
@@ -41,7 +55,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                 bankDepositViewModel = (from a in _context.BankDeposits where a.BankDepositId == bankDepositId
 
                                         select new BankDepositViewModel() {
-                                            BankDepositId = a.BankDepositId, Cash = a.Cash, InHandCash = a.InHandCash, CreatedBy = a.CreatedBy,
+                                            BankDepositId = a.BankDepositId, Cash = a.Cash, InHandCash = a.InHandCash, Date = a.Date, CreatedBy = a.CreatedBy,
                                             ThirdPartyChequesId = a.BankDepositThirdPartyCheques.Select(x => x.ThirdPartyChequeId).ToList()
                                         }).Single();
                 bankDepositViewModel.ChequeTotal = _context.ThirdPartyCheques

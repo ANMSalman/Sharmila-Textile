@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Sharmila_Textile_WebApp.Data;
 using Sharmila_Textile_WebApp.Models;
 using Sharmila_Textile_WebApp.ViewModel;
@@ -18,8 +19,21 @@ namespace Sharmila_Textile_WebApp.Controllers {
             _mapper = mapper;
         }
 
-        public IActionResult CustomerAccountListView() {
-            var data = (from a in _context.CustomerAccounts
+        public IActionResult CustomerAccountListView(string date) {
+            List<CustomerAccountViewModel> data;
+            if (date != null) {
+                data = (from a in _context.CustomerAccounts
+                        join b in _context.Customers on a.CustomerId equals b.CustomerId
+                        join c in _context.Users on a.CreatedBy equals c.UserId
+                        join d in _context.Staffs on c.StaffId equals d.StaffId
+                        where a.Status == 1 && a.Date == Convert.ToDateTime(date)
+                        select new CustomerAccountViewModel {
+                            CustomerAccountId = a.CustomerAccountId, Description = a.Description, Date = a.Date, Amount = a.Amount, AccountType = a.AccountType,
+                            CreatedDate = a.CreatedDate, CustomerName = b.CustomerName, UserName = d.StaffName
+                        }).ToList();
+            }
+            else {
+                data = (from a in _context.CustomerAccounts
                         join b in _context.Customers on a.CustomerId equals b.CustomerId
                         join c in _context.Users on a.CreatedBy equals c.UserId
                         join d in _context.Staffs on c.StaffId equals d.StaffId
@@ -28,6 +42,8 @@ namespace Sharmila_Textile_WebApp.Controllers {
                             CustomerAccountId = a.CustomerAccountId, Description = a.Description, Date = a.Date, Amount = a.Amount, AccountType = a.AccountType,
                             CreatedDate = a.CreatedDate, CustomerName = b.CustomerName, UserName = d.StaffName
                         }).ToList();
+            }
+
 
             return View(data);
         }

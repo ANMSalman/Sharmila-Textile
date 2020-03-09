@@ -121,9 +121,6 @@
                         </h3>
                     </div>
                     <div class="card-footer">
-                        @* <div class="stats"> *@
-                        @*     <i class="material-icons">local_offer</i> Tracked from Github *@
-                        @* </div> *@
                     </div>
                 </div>
             </div>
@@ -190,13 +187,102 @@
                     <div class="card-footer">
                     </div>
                 </div>
-            </div> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-chart card-header-danger">
+                        <div class="ct-chart" id="avgBusChart"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Average business</h4>
+                        <p class="card-category"><strong>Total Business for the day : </strong><span class="text-success hover-text"></span></p>
+
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-chart card-header-danger">
+                        <div class="ct-chart" id=""></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Average business</h4>
+                        <p class="card-category"><strong>Total Business for the day : </strong><span class="text-success hover-text"></span></p>
+
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-
 <script>
+
+    GetAverageBusiness("AverageBusiness");
+    LoadReports();
+
+
+    function GetAverageBusiness(type) {
+
+        $.ajax({
+            url: localStorage.apiLink + "api/Dashboard/" + type,
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data, textStatus, xhr) {
+                var day = [];
+                var total = [];
+
+                data.forEach(function (currentValue, index, arr) {
+
+                    day.push(currentValue.day.toString());
+                    total.push({ meta: currentValue.total, value: currentValue.total });
+
+                });
+
+                var chart = Chartist.Line('#avgBusChart', {
+                    labels: day,
+                    series: [total]
+                }, {
+                    lineSmooth: window.Chartist.Interpolation.cardinal({
+                        tension: 0
+                    }),
+                    low: 0,
+                    high: Math.max(total),
+                    chartPadding: {
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: 0
+                    },
+                    axisY: {
+                        offset: 75
+                    } 
+                }).on("created",
+                    function (bar) {
+                        $(".ct-point").mouseenter(function (e) {
+                            var offset = $(this).attr("ct:value");
+                            //  $(".description").css({ top: $(this).position().top, left: $(this).position().left, position: 'absolute', 'z-index': 10 }).html(offset);
+                            var vf = $(this).closest('.card').find('.hover-text').text('Rs ' + offset + '/=');
+
+                        }).mouseleave(function () {
+                        });
+                    });
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+            }
+        });
+    }
+
+
     var drpDownSort = 1;
 
     $('.dtpFromData').hide();
@@ -212,8 +298,6 @@
             $('.dtpFromData').hide();
         }
     });
-      
-    LoadReports();
 
     function LoadReports() {
         GetFromServer("CollectionPending", $('#lblCollectionPending'));
@@ -223,21 +307,21 @@
         GetFromServer("CurrentBankBalance", $('#lblCurrentBankBalance'));
     }
 
-    function GetFromServer(type, labelType) { 
+    function GetFromServer(type, labelType) {
         labelType.addClass("d-none");
         labelType.prev().removeClass("d-none");
 
         $.ajax({
             url: localStorage.apiLink + "api/Dashboard/" + type,
-            type: 'POST', 
+            type: 'POST',
             contentType: 'application/json',
             success: function (data, textStatus, xhr) {
                 labelType.prev().addClass("d-none");
-                labelType.removeClass("d-none"); 
+                labelType.removeClass("d-none");
                 labelType.removeClass("text-danger");
                 labelType.text(data.toFixed(2));
             },
-            error: function (xhr, textStatus, errorThrown) { 
+            error: function (xhr, textStatus, errorThrown) {
                 labelType.prev().addClass("d-none");
                 labelType.removeClass("d-none");
                 labelType.addClass("text-danger");
@@ -246,4 +330,10 @@
         });
     }
 
+
 </script>
+<style>
+    .ct-point:hover {
+        cursor: pointer;
+    }
+</style>

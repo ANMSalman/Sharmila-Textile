@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 using Sharmila_Textile_WebApp.Data;
 using Sharmila_Textile_WebApp.FluentValidation.Responses;
 using Sharmila_Textile_WebApp.FluentValidation.Validators;
@@ -47,6 +48,11 @@ namespace Sharmila_Textile_WebApp {
 //                };
 //            })
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddControllersWithViews().
+                AddJsonOptions(options => {
+                    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

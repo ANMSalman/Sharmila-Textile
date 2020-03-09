@@ -66,5 +66,22 @@ namespace Sharmila_Textile_WebApp.Controllers {
             }
             return View();
         }
+
+        public IActionResult SupplierInfoView(string breadCumValue, int supId) {
+            ViewBag.breadcumValue = breadCumValue;
+
+            var data = (from a in _context.Suppliers
+                join b in _context.Users on a.CreatedBy equals b.UserId 
+                join c in _context.Staffs on b.StaffId equals c.StaffId
+                where a.CurrentStatus == 1 && a.SupplierId == supId
+                        select new SupplierViewModel {
+                    SupplierId = a.SupplierId, SupplierName = a.SupplierName, Address = a.Address, Landline = a.Landline,
+                      Mobile = a.Mobile, OpeningBalance = a.OpeningBalance,
+                    CurrentBalance = a.CurrentBalance, CreatedDate = a.CreatedDate, CreatedBy = a.CreatedBy, CurrentStatus = a.CurrentStatus,
+                    UserName = c.StaffName
+                }).SingleOrDefault();
+            return View(data);
+        }
+
     }
 }

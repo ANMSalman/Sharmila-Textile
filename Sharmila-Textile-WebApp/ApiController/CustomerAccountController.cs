@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -61,5 +63,16 @@ namespace Sharmila_Textile_WebApp.ApiController {
             return Ok(flag > 0);
         }
 
+        [HttpGet("{id}/{skip}")]
+        public IActionResult GetList(long id, int skip) {
+            Thread.Sleep(500);
+            var data =
+                _context.CustomerAccounts.Where(x => x.Status == 1 && x.CustomerId == id)
+                    .Select(f => new CustomerAccountViewModel {
+                        CustomerAccountId = f.CustomerAccountId, Date = f.Date, AccountType = f.AccountType, Amount = f.Amount
+                    }).Skip(skip).Take(50).OrderByDescending(c => c.Date).ToList();
+
+            return Ok(data);
+        }
     }
 }

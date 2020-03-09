@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -63,6 +64,18 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
             int flag = _context.SaveChanges();
             return Ok(flag > 0);
+        }
+
+        [HttpGet("{id}/{skip}")]
+        public IActionResult GetList(long id, int skip) {
+            var data = (from a in _context.Collections
+                join b in _context.ChequeStatuses on a.CollectionType equals b.ChequeStatusId
+                       where a.Status == 1 && a.CustomerId == id
+                       select new CollectionViewModel {
+                           CollectionId = a.CollectionId, Date = a.Date, CollectionType = a.CollectionType, CollectionTypeName = b.StatusName, 
+                           TotalAmount = a.TotalAmount
+                       }).Skip(skip).Take(50).OrderByDescending(c => c.Date).ToList(); 
+            return Ok(data);
         }
 
     }

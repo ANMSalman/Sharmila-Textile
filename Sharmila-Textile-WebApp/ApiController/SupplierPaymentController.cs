@@ -68,5 +68,17 @@ namespace Sharmila_Textile_WebApp.ApiController {
             return Ok(flag > 0);
         }
 
+        [HttpGet("{id}/{skip}")]
+        public IActionResult GetList(long id, int skip) {
+            var data = (from a in _context.SupplierPayments
+                join b in _context.ChequeStatuses on a.PaymentType equals b.ChequeStatusId
+                where a.Status == 1 && a.SupplierPaymentId == id
+                select new SupplierPaymentViewModel {
+                    SupplierPaymentId = a.SupplierPaymentId, Date = a.Date, PaymentType = a.PaymentType, PaymentTypeName = b.StatusName,
+                    TotalAmount = a.TotalAmount
+                }).Skip(skip).Take(50).OrderByDescending(c => c.Date).ToList();
+            return Ok(data);
+        }
+
     }
 }

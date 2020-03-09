@@ -8,12 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sharmila_Textile_WebApp.Data;
 
-namespace Sharmila_Textile_WebApp.ApiController
-{
+namespace Sharmila_Textile_WebApp.ApiController {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class DashboardController : ControllerBase
-    {
+    public class DashboardController : ControllerBase {
         private readonly AppDBContext _context;
         private readonly IMapper _mapper;
 
@@ -23,33 +21,38 @@ namespace Sharmila_Textile_WebApp.ApiController
         }
 
         public IActionResult CollectionPending() {
-            Thread.Sleep(1500);
             var result = _context.Customers.Where(x => x.CurrentStatus == 1).Sum(s => s.CurrentBalance);
             return Ok(result);
         }
 
         public IActionResult PaymentPending() {
-            Thread.Sleep(1000);
-            var result = _context.Suppliers.Where(x => x.CurrentStatus == 1).Sum(s => s.CurrentBalance); 
+            var result = _context.Suppliers.Where(x => x.CurrentStatus == 1).Sum(s => s.CurrentBalance);
             return Ok(result);
         }
 
         public IActionResult InHandTotalCash() {
-            Thread.Sleep(500);
-            var result = _context.BalanceSheets.Select(x=>x.InHandCash).SingleOrDefault();
+            var result = _context.BalanceSheets.Select(x => x.InHandCash).SingleOrDefault();
             return Ok(result);
         }
 
         public IActionResult InHandTotalCheque() {
-            Thread.Sleep(1000);
             var result = _context.BalanceSheets.Select(x => x.InHandCheque).SingleOrDefault();
             return Ok(result);
         }
 
         public IActionResult CurrentBankBalance() {
-            Thread.Sleep(1000);
             var result = _context.BalanceSheets.Select(x => x.BankBalance).SingleOrDefault();
             return Ok(result);
+        }
+
+        public IActionResult AverageBusiness() {
+            var data = _context.Summaries
+                .Where(a => a.Date.Date >= DateTime.Now.Date && a.Date.Date <= DateTime.Now.AddMonths(1).Date && a.Status == 1)
+                .Select(k => new { k.Date.Day, k.TotalAmount })
+                .GroupBy(x => new { x.Day }, (key, group) => new { day = key.Day, total = group.Sum(k => k.TotalAmount) })
+                .ToList();
+
+            return Ok(data);
         }
     }
 }

@@ -18,8 +18,24 @@ namespace Sharmila_Textile_WebApp.Controllers {
             _mapper = mapper;
         }
 
-        public IActionResult CollectionListView() {
-            var data = (from a in _context.Collections
+        public IActionResult CollectionListView(string date) {
+            List<CollectionViewModel> data;
+            if (date != null) {
+                data = (from a in _context.Collections
+                    join b in _context.ChequeStatuses on a.CollectionType equals b.ChequeStatusId
+                    join c in _context.Customers on a.CustomerId equals c.CustomerId
+                    join d in _context.Users on a.CreatedBy equals d.UserId
+                    join e in _context.Staffs on d.StaffId equals e.StaffId
+                    where a.Status == 1 && a.Date == Convert.ToDateTime(date)
+                        select new CollectionViewModel {
+                        CollectionId = a.CollectionId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque, Returns = a.Returns,
+                        TotalAmount = a.TotalAmount, CreatedDate = a.CreatedDate, CollectionType = a.CollectionType, Date = a.Date,
+                        CollectionTypeName = b.StatusName, CustomerId = a.CustomerId, CustomerName = c.CustomerName, CreatedBy = a.CreatedBy,
+                        UserName = e.StaffName, Remark = a.Remark
+                    }).ToList();
+            }
+            else {
+                  data = (from a in _context.Collections
                         join b in _context.ChequeStatuses on a.CollectionType equals b.ChequeStatusId
                         join c in _context.Customers on a.CustomerId equals c.CustomerId
                         join d in _context.Users on a.CreatedBy equals d.UserId
@@ -31,6 +47,7 @@ namespace Sharmila_Textile_WebApp.Controllers {
                             CollectionTypeName = b.StatusName, CustomerId = a.CustomerId, CustomerName = c.CustomerName, CreatedBy = a.CreatedBy,
                             UserName = e.StaffName, Remark = a.Remark
                         }).ToList();
+            }
 
             return View(data);
         }

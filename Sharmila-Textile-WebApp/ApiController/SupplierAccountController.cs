@@ -57,5 +57,16 @@ namespace Sharmila_Textile_WebApp.ApiController
             return Ok(flag > 0);
         }
 
+        [HttpGet("{id}/{skip}")]
+        public IActionResult GetList(long id, int skip) { 
+            var data =
+                _context.SupplierAccounts.Where(x => x.Status == 1 && x.SupplierId == id)
+                    .Select(f => new SupplierAccountViewModel() {
+                        SupplierAccountId = f.SupplierAccountId, Date = f.Date, AccountType = f.AccountType, Amount = f.Amount
+                    }).Skip(skip).Take(50).OrderByDescending(c => c.Date).ToList();
+
+            return Ok(data);
+        }
+
     }
 }

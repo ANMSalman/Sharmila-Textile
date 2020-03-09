@@ -18,19 +18,38 @@ namespace Sharmila_Textile_WebApp.Controllers {
             _mapper = mapper;
         }
 
-        public IActionResult PaymentListView() {
-            var data = (from a in _context.SupplierPayments
-                        join b in _context.ChequeStatuses on a.PaymentType equals b.ChequeStatusId
-                        join c in _context.Suppliers on a.SupplierId equals c.SupplierId
-                        join d in _context.Users on a.CreatedBy equals d.UserId
-                        join e in _context.Staffs on d.StaffId equals e.StaffId
-                        where a.Status == 1
+        public IActionResult PaymentListView(string date) {
+            List<SupplierPaymentViewModel> data;
+            if (date != null) { 
+                data = (from a in _context.SupplierPayments
+                    join b in _context.ChequeStatuses on a.PaymentType equals b.ChequeStatusId
+                    join c in _context.Suppliers on a.SupplierId equals c.SupplierId
+                    join d in _context.Users on a.CreatedBy equals d.UserId
+                    join e in _context.Staffs on d.StaffId equals e.StaffId
+                    where a.Status == 1 && a.Date == Convert.ToDateTime(date)
                         select new SupplierPaymentViewModel {
-                            SupplierPaymentId = a.SupplierPaymentId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque, Returns = a.Returns,
-                            Purchase = a.Purchase, TotalAmount = a.TotalAmount, Date = a.Date, CreatedDate = a.CreatedDate, PaymentType = a.PaymentType,
-                            PaymentTypeName = b.StatusName, SupplierId = a.SupplierId, SupplierName = c.SupplierName, CreatedBy = a.CreatedBy,
-                            UserName = e.StaffName, Remark = a.Remark
-                        }).ToList();
+                        SupplierPaymentId = a.SupplierPaymentId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque, Returns = a.Returns,
+                        Purchase = a.Purchase, TotalAmount = a.TotalAmount, Date = a.Date, CreatedDate = a.CreatedDate, PaymentType = a.PaymentType,
+                        PaymentTypeName = b.StatusName, SupplierId = a.SupplierId, SupplierName = c.SupplierName, CreatedBy = a.CreatedBy,
+                        UserName = e.StaffName, Remark = a.Remark
+                    }).ToList();
+            }
+            else {
+                data = (from a in _context.SupplierPayments
+                    join b in _context.ChequeStatuses on a.PaymentType equals b.ChequeStatusId
+                    join c in _context.Suppliers on a.SupplierId equals c.SupplierId
+                    join d in _context.Users on a.CreatedBy equals d.UserId
+                    join e in _context.Staffs on d.StaffId equals e.StaffId
+                    where a.Status == 1
+                    select new SupplierPaymentViewModel {
+                        SupplierPaymentId = a.SupplierPaymentId, Description = a.Description, Cash = a.Cash, Cheque = a.Cheque, Returns = a.Returns,
+                        Purchase = a.Purchase, TotalAmount = a.TotalAmount, Date = a.Date, CreatedDate = a.CreatedDate, PaymentType = a.PaymentType,
+                        PaymentTypeName = b.StatusName, SupplierId = a.SupplierId, SupplierName = c.SupplierName, CreatedBy = a.CreatedBy,
+                        UserName = e.StaffName, Remark = a.Remark
+                    }).ToList();
+            }
+
+            
 
             return View(data);
         }

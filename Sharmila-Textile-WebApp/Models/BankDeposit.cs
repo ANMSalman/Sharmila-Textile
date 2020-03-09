@@ -22,6 +22,9 @@ namespace Sharmila_Textile_WebApp.Models {
         [Column("TOTAL_AMOUNT", TypeName = "decimal(18, 2)")]
         public decimal TotalAmount { get; set; }
 
+        [Column("DATE")]
+        public DateTime Date { get; set; }
+
         [Column("CREATED_DATE")]
         public DateTime CreatedDate { get; set; }
 
