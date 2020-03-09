@@ -1,24 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sharmila_Textile_WebApp.Data;
 using Sharmila_Textile_WebApp.Models;
 using Sharmila_Textile_WebApp.ViewModel;
 
 namespace Sharmila_Textile_WebApp.Controllers {
+  
     public class BankDepositController : Controller {
         private readonly AppDBContext _context;
         private readonly IMapper _mapper;
 
         public BankDepositController(AppDBContext context, IMapper mapper) {
+             
             _context = context;
             _mapper = mapper;
-        }
+        } 
+         
 
         public IActionResult BankDepositListView(string date) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             List<BankDepositViewModel> data;
             if (date != null) {
                 data = (from a in _context.BankDeposits
@@ -46,6 +54,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult BankDepositDetailView(string breadCumValue, long bankDepositId) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.breadCumValue = breadCumValue;
             ViewBag.IsUpdate = bankDepositId > 0 ? "true" : "false";
 

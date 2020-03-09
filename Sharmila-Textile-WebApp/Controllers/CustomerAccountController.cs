@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Sharmila_Textile_WebApp.Data;
@@ -20,6 +21,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult CustomerAccountListView(string date) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             List<CustomerAccountViewModel> data;
             if (date != null) {
                 data = (from a in _context.CustomerAccounts
@@ -49,6 +53,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult CustomerAccountDetailView(string breadCumValue, long cusAccId) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.breadCumValue = breadCumValue;
             ViewBag.IsUpdate = cusAccId > 0 ? "true" : "false";
 

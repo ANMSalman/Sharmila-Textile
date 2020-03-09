@@ -56,7 +56,7 @@
                         <a class="dropdown-item" href="#">Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Log out</a>
+                        <a class="dropdown-item" asp-controller="Login" asp-action="Logout">Log out</a>
                     </div>
                 </li>
             </ul>
@@ -142,11 +142,11 @@
                             </div>
                             <pre id="txtJson" style=" font-size: 20px; font-weight: bold;">  </pre>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <div class="modal fade" id="modalThirdPartyCheque" tabindex="-1" role="dialog" aria-hidden="true">
@@ -336,7 +336,7 @@
     function getFieldDetails() {
         var cash = $('#txtCash').val(),
             inHandCash = $('#txtInHandCash').val(),
-            date = $('#dtpDate').val(), 
+            date = $('#dtpDate').val(),
             collectionThirdPartyCheques = thirdPartyChequeList.map(u => u.id);
 
         model = {
@@ -346,8 +346,8 @@
             "ChequeTotal": parseFloat(chequeTotal),
             "Date": date,
             "ThirdPartyChequesId": collectionThirdPartyCheques,
-            "CreatedBy": 4,
-            "IsUpdate":false
+            "CreatedBy": parseInt(localStorage.loggedUser),
+            "IsUpdate": false
         };
 
         $('#txtJson').html(JSON.stringify(model, undefined, 4));

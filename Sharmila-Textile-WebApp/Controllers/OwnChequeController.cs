@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sharmila_Textile_WebApp.Data;
 using Sharmila_Textile_WebApp.Models;
@@ -19,6 +20,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult OwnChequeList() {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             var data = (from a in _context.OwnCheques
                         join b in _context.ChequeStatuses on a.Status equals b.ChequeStatusId
                         select new OwnChequeViewModel {
@@ -30,6 +34,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult OwnChequeDetailView(string breadCumValue, long ownChequeId) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.breadCumValue = breadCumValue;
             ViewBag.IsUpdate = ownChequeId > 0 ? "true" : "false";
 

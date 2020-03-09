@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sharmila_Textile_WebApp.Data;
 using Sharmila_Textile_WebApp.Models;
 using Sharmila_Textile_WebApp.ViewModel;
 
 namespace Sharmila_Textile_WebApp.Controllers {
-    public class CollectionController : Controller {
+    public sealed class CollectionController : Controller {
         private readonly AppDBContext _context;
         private readonly IMapper _mapper;
 
         public CollectionController(AppDBContext context, IMapper mapper) {
+          
             _context = context;
             _mapper = mapper;
         }
 
         public IActionResult CollectionListView(string date) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             List<CollectionViewModel> data;
             if (date != null) {
                 data = (from a in _context.Collections
@@ -53,6 +58,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult CollectionDetailView(string breadCumValue, long collectionId) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.breadCumValue = breadCumValue;
             ViewBag.IsUpdate = collectionId > 0 ? "true" : "false";
 

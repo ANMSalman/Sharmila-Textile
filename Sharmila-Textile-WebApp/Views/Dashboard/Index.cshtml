@@ -52,7 +52,7 @@
                         <a class="dropdown-item" href="#">Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Log out</a>
+                        <a class="dropdown-item" asp-controller="Login" asp-action="Logout">Log out</a>
                     </div>
                 </li>
             </ul>
@@ -207,16 +207,32 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-chart card-header-danger">
-                        <div class="ct-chart" id=""></div>
+                <div class="card card-nav-tabs card-plain">
+                    <div class="card-header card-header-primary">
+                        <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#pnlAgingCustomers" data-toggle="tab">Aging Customers</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#pnlUpcomingOwnCheques" data-toggle="tab">Upcoming Own cheques</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Average business</h4>
-                        <p class="card-category"><strong>Total Business for the day : </strong><span class="text-success hover-text"></span></p>
+                    <div class="card-body ">
+                        <div class="tab-content text-center">
+                            <div class="tab-pane active" id="pnlAgingCustomers">
+                               
 
-                    </div>
-                    <div class="card-footer">
+                            </div>
+                            <div class="tab-pane" id="pnlUpcomingOwnCheques">
+                                asd
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -228,7 +244,6 @@
 
     GetAverageBusiness("AverageBusiness");
     LoadReports();
-
 
     function GetAverageBusiness(type) {
 
@@ -264,7 +279,7 @@
                     },
                     axisY: {
                         offset: 75
-                    } 
+                    }
                 }).on("created",
                     function (bar) {
                         $(".ct-point").mouseenter(function (e) {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sharmila_Textile_WebApp.Data;
 using Sharmila_Textile_WebApp.Models;
@@ -19,6 +20,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult PaymentListView(string date) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             List<SupplierPaymentViewModel> data;
             if (date != null) { 
                 data = (from a in _context.SupplierPayments
@@ -55,6 +59,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult PaymentDetailView(string breadCumValue, long paymentId) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.breadCumValue = breadCumValue;
             ViewBag.IsUpdate = paymentId > 0 ? "true" : "false";
 

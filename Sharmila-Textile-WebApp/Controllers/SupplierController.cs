@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sharmila_Textile_WebApp.Data;
 using Sharmila_Textile_WebApp.Models;
@@ -24,6 +25,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult SupplierView() {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             var data = from a in _context.Suppliers
                        join b in _context.Users on a.CreatedBy equals b.UserId where a.CurrentStatus == 1
                        select new SupplierViewModel {
@@ -37,6 +41,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
 
         [Obsolete]
         public IActionResult SupplierDetailView(string breadCumValue, int supplierId) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.breadcumValue = breadCumValue;
             ViewBag.IsUpdate = supplierId > 0 ? "true" : "false";
 
@@ -68,6 +75,9 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult SupplierInfoView(string breadCumValue, int supId) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.breadcumValue = breadCumValue;
 
             var data = (from a in _context.Suppliers

@@ -32,6 +32,8 @@ namespace Sharmila_Textile_WebApp {
             );
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddSession();
+
             services.AddMvc()
 //                .ConfigureApiBehaviorOptions(option => {
 //                option.InvalidModelStateResponseFactory = (context) => {
@@ -68,7 +70,7 @@ namespace Sharmila_Textile_WebApp {
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

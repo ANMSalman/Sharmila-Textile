@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sharmila_Textile_WebApp.Data;
 using Sharmila_Textile_WebApp.Models;
@@ -24,12 +25,18 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult StaffView() {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             List<StaffViewModel> list = _mapper.Map<List<StaffViewModel>>(_context.Staffs.Where(x=>x.CurrentStatus == 1).ToList());
             return View(list);
         }
 
         [Obsolete]
         public IActionResult StaffDetailView(string breadCumValue, int staffId) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.breadcumValue = breadCumValue;
             ViewBag.IsUpdate = staffId > 0 ? "true":"false";
 

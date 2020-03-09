@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Sharmila_Textile_WebApp.Data;
 
 namespace Sharmila_Textile_WebApp.ApiController {
@@ -54,5 +55,22 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
             return Ok(data);
         }
+        
+        public IActionResult AgingCustomers() {
+            var data = _context.Collections.Select(x=>new{x.CustomerId, x.CreatedDate, x.CollectionId}).OrderBy(c => c.CreatedDate);
+       
+             
+
+            var results = _context.Collections.GroupBy(x => x.CustomerId)
+                .Select(g => g.AsEnumerable().FirstOrDefault()).ToListAsync();
+
+            var firstProducts = data
+                .GroupBy(p => p.CustomerId)
+                .OrderBy(x=>x.OrderBy(s=>s.CreatedDate))
+                .Select(g => g.Key)
+                .ToList();
+            return Ok(firstProducts);
+        }
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sharmila_Textile_WebApp.Data;
@@ -21,11 +22,17 @@ namespace Sharmila_Textile_WebApp.Controllers {
         }
 
         public IActionResult SummaryListView() {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             var data = _mapper.Map<List<SummaryViewModel>>(_context.Summaries.Where(x => x.Status == 1).ToList());
             return View(data);
         }
 
         public IActionResult SummaryDetailView(string breadCumValue, long sumId) {
+            if (HttpContext.Session.GetString("loggedIn") == null || HttpContext.Session.GetString("loggedIn") == "false") {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.breadCumValue = breadCumValue;
             ViewBag.IsUpdate = sumId > 0 ? "true" : "false";
 
