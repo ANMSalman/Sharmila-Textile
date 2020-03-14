@@ -55,18 +55,48 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
             return Ok(data);
         }
+
+        public IActionResult PaymentTrend() {
+            var data = _context.Summaries
+                .Where(a => a.Date.Date >= DateTime.Now.Date && a.Date.Date <= DateTime.Now.AddMonths(1).Date && a.Status == 1)
+                .Select(k => new { k.Date.Day, k.TotalPayment, k.AccountablePayment })
+                .GroupBy(x => new { x.Day }, (key, group) => new { day = key.Day, total = group.Sum(k => k.TotalPayment), accountable = group.Sum(k => k.AccountablePayment) })
+                .ToList();
+
+            return Ok(data);
+        }
+
+        public IActionResult CollectionTrend() {
+            var data = _context.Summaries
+                .Where(a => a.Date.Date >= DateTime.Now.Date && a.Date.Date <= DateTime.Now.AddMonths(1).Date && a.Status == 1)
+                .Select(k => new { k.Date.Day, k.TotalCollection, k.AccountableCollection })
+                .GroupBy(x => new { x.Day }, (key, group) => new { day = key.Day, total = group.Sum(k => k.TotalCollection), accountable = group.Sum(k => k.AccountableCollection) })
+                .ToList();
+
+            return Ok(data);
+        }
         
+        public IActionResult ExpenseTrend() {
+            var data = _context.Summaries
+                .Where(a => a.Date.Date >= DateTime.Now.Date && a.Date.Date <= DateTime.Now.AddMonths(1).Date && a.Status == 1)
+                .Select(k => new { k.Date.Day, k.TotalExpense, k.AccountableExpense })
+                .GroupBy(x => new { x.Day }, (key, group) => new { day = key.Day, total = group.Sum(k => k.TotalExpense), accountable = group.Sum(k => k.AccountableExpense) })
+                .ToList();
+
+            return Ok(data);
+        }
+
         public IActionResult AgingCustomers() {
-            var data = _context.Collections.Select(x=>new{x.CustomerId, x.CreatedDate, x.CollectionId}).OrderBy(c => c.CreatedDate);
-       
-             
+            var data = _context.Collections.Select(x => new { x.CustomerId, x.CreatedDate, x.CollectionId }).OrderBy(c => c.CreatedDate);
+
+
 
             var results = _context.Collections.GroupBy(x => x.CustomerId)
                 .Select(g => g.AsEnumerable().FirstOrDefault()).ToListAsync();
 
             var firstProducts = data
                 .GroupBy(p => p.CustomerId)
-                .OrderBy(x=>x.OrderBy(s=>s.CreatedDate))
+                .OrderBy(x => x.OrderBy(s => s.CreatedDate))
                 .Select(g => g.Key)
                 .ToList();
             return Ok(firstProducts);

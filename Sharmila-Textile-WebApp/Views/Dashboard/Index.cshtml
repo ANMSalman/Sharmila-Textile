@@ -207,6 +207,57 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-chart card-header-warning">
+                        <div class="ct-chart" id="paymentChart"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Payment</h4>
+                        <p class="card-category"><strong>Total Payment for the day : </strong><span class="text-success hover-text-total"></span></p>
+                        <p class="card-category"><strong>Total Accountable for the day : </strong><span class="text-success hover-text-accountable"></span></p>
+
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-chart card-header-warning">
+                        <div class="ct-chart" id="collectionChart"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Collection</h4>
+                        <p class="card-category"><strong>Total Collection for the day : </strong><span class="text-success hover-text-total"></span></p>
+                        <p class="card-category"><strong>Total Accountable for the day : </strong><span class="text-success hover-text-accountable"></span></p>
+
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-chart card-header-warning">
+                        <div class="ct-chart" id="expenseChart"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Expense</h4>
+                        <p class="card-category"><strong>Total Expense for the day : </strong><span class="text-success hover-text-total"></span></p>
+                        <p class="card-category"><strong>Total Accountable for the day : </strong><span class="text-success hover-text-accountable"></span></p>
+
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="card card-nav-tabs card-plain">
                     <div class="card-header card-header-primary">
                         <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
@@ -226,7 +277,7 @@
                     <div class="card-body ">
                         <div class="tab-content text-center">
                             <div class="tab-pane active" id="pnlAgingCustomers">
-                               
+
 
                             </div>
                             <div class="tab-pane" id="pnlUpcomingOwnCheques">
@@ -242,59 +293,122 @@
 
 <script>
 
-    GetAverageBusiness("AverageBusiness");
+    GetTrendsFromServer("AverageBusiness");
+    GetTrendsFromServer("PaymentTrend");
+    GetTrendsFromServer("CollectionTrend");
+    GetTrendsFromServer("ExpenseTrend");
     LoadReports();
 
-    function GetAverageBusiness(type) {
+    function GetTrendsFromServer(type) {
 
         $.ajax({
             url: localStorage.apiLink + "api/Dashboard/" + type,
-            type: 'POST',
+            type: 'GET',
             contentType: 'application/json',
             success: function (data, textStatus, xhr) {
-                var day = [];
-                var total = [];
-
-                data.forEach(function (currentValue, index, arr) {
-
-                    day.push(currentValue.day.toString());
-                    total.push({ meta: currentValue.total, value: currentValue.total });
-
-                });
-
-                var chart = Chartist.Line('#avgBusChart', {
-                    labels: day,
-                    series: [total]
-                }, {
-                    lineSmooth: window.Chartist.Interpolation.cardinal({
-                        tension: 0
-                    }),
-                    low: 0,
-                    high: Math.max(total),
-                    chartPadding: {
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        left: 0
-                    },
-                    axisY: {
-                        offset: 75
-                    }
-                }).on("created",
-                    function (bar) {
-                        $(".ct-point").mouseenter(function (e) {
-                            var offset = $(this).attr("ct:value");
-                            //  $(".description").css({ top: $(this).position().top, left: $(this).position().left, position: 'absolute', 'z-index': 10 }).html(offset);
-                            var vf = $(this).closest('.card').find('.hover-text').text('Rs ' + offset + '/=');
-
-                        }).mouseleave(function () {
-                        });
-                    });
-
+                if (type === "AverageBusiness") {
+                    CreateAvgBusTrend(data);
+                } else if (type === "PaymentTrend") {
+                    CreateTrend(data, "#paymentChart");
+                } else if (type === "CollectionTrend") {
+                    CreateTrend(data, "#collectionChart");
+                } else if (type === "ExpenseTrend") {
+                    CreateTrend(data, "#expenseChart");
+                }
             },
             error: function (xhr, textStatus, errorThrown) {
             }
         });
+    }
+
+    function CreateAvgBusTrend(data) {
+        var day = [];
+        var total = [];
+
+        data.forEach(function (currentValue, index, arr) {
+
+            day.push(currentValue.day.toString());
+            total.push({ meta: currentValue.total, value: currentValue.total });
+
+        });
+
+        var chart = Chartist.Line('#avgBusChart', {
+            labels: day,
+            series: [total]
+        }, {
+            lineSmooth: window.Chartist.Interpolation.cardinal({
+                tension: 0
+            }),
+            low: 0,
+            high: Math.max(total),
+            chartPadding: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            },
+            axisY: {
+                offset: 75
+            }
+        }).on("created",
+            function (bar) {
+                $(".ct-point").mouseenter(function (e) {
+                    var offset = $(this).attr("ct:value");
+                    var vf = $(this).closest('.card').find('.hover-text').text('Rs ' + offset + '/=');
+
+                }).mouseleave(function () {
+                });
+            });
+    }
+
+    function CreateTrend(data, trendId) {
+        var day = [];
+        var total = [];
+        var accountable = [];
+
+        data.forEach(function (currentValue, index, arr) {
+
+            day.push(currentValue.day.toString());
+            total.push({ meta: "total", value: currentValue.total });
+            accountable.push({ meta: "accountable", value: currentValue.accountable });
+
+        });
+
+        var chart = Chartist.Line(trendId, {
+            labels: day,
+            series: [
+                total,
+                accountable
+            ]
+        }, {
+            lineSmooth: window.Chartist.Interpolation.cardinal({
+                tension: 0
+            }),
+            low: 0,
+            high: Math.max(total),
+            chartPadding: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            },
+            axisY: {
+                offset: 75
+            }
+        }).on("created",
+            function (bar) {
+                $(".ct-point").mouseenter(function (e) {
+                    var type = $(this).attr("ct:meta");
+                    var offset = $(this).attr("ct:value");
+                    if (type === "total") {
+                        $(this).closest('.card').find('.hover-text-total').text('Rs ' + offset + '/=');
+                    } else {
+                        $(this).closest('.card').find('.hover-text-accountable').text('Rs ' + offset + '/=');
+                    }
+
+                }).mouseleave(function () {
+                });
+            });
     }
 
 
