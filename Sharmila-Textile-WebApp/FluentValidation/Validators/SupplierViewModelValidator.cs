@@ -19,12 +19,10 @@ namespace Sharmila_Textile_WebApp.FluentValidation.Validators {
                 .When(x => x.Mobile != "")
                 .WithMessage("Mobile Number should have exactly 10 numbers");
 
-            RuleFor(x => x.OpeningBalance)
-                .NotEmpty().WithMessage("Opening Balance cannot be empty")
+            RuleFor(x => x.OpeningBalance) 
                 .ScalePrecision(2, 18).WithMessage("Number should be within 2 decimal place");
 
-            RuleFor(x => x.CurrentBalance)
-                .NotEmpty().WithMessage("Current Balance cannot be empty")
+            RuleFor(x => x.CurrentBalance) 
                 .ScalePrecision(2, 18).WithMessage("Number should be within 2 decimal place");
 
         }

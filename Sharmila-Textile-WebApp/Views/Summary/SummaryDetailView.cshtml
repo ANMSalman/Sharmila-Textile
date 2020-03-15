@@ -383,12 +383,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.CollectionViewModels) { 
-                                        <tr>
-                                            <td>@item.Description</td>
-                                            <td>@item.TotalAmount</td>
-                                            <td>@item.CollectionTypeName</td>
-                                        </tr>  
+                                @foreach (var item in Model.CollectionViewModels) {
+                                    <tr>
+                                        <td>@item.Description</td>
+                                        <td>@item.TotalAmount</td>
+                                        <td>@item.CollectionTypeName</td>
+                                    </tr>
+
                                 }
 
                             </tbody>
@@ -443,12 +444,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.SupplierPaymentViewModels) { 
-                                        <tr>
-                                            <td>@item.Description</td>
-                                            <td>@item.TotalAmount</td>
-                                            <td>@item.PaymentTypeName</td>
-                                        </tr> 
+                                @foreach (var item in Model.SupplierPaymentViewModels) {
+                                    <tr>
+                                        <td>@item.Description</td>
+                                        <td>@item.TotalAmount</td>
+                                        <td>@item.PaymentTypeName</td>
+                                    </tr>
+
                                 }
                             </tbody>
                         </table>
@@ -502,12 +504,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.ExpenseViewModels) { 
+                                @foreach (var item in Model.ExpenseViewModels) {
                                     <tr>
                                         <td>@item.Description</td>
                                         <td>@item.TotalAmount</td>
                                         <td>@item.PaymentType</td>
-                                    </tr> 
+                                    </tr>
+
                                 }
                             </tbody>
                         </table>

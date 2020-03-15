@@ -28,8 +28,7 @@ namespace Sharmila_Textile_WebApp.FluentValidation.Validators {
             RuleFor(x => x.Branch)
                 .NotEmpty().WithMessage("Branch Name cannot be empty");
 
-            RuleFor(x => x.Amount)
-                .NotEmpty().WithMessage("Amount cannot be empty")
+            RuleFor(x => x.Amount) 
                 .ScalePrecision(2, 18).WithMessage("Numbers should be within 2 decimal place");
 
         }

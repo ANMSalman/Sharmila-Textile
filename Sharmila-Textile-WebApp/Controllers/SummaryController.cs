@@ -80,54 +80,56 @@ namespace Sharmila_Textile_WebApp.Controllers {
                                 inner join [dbo].[SUPPLIER_ACCOUNT] c on b.SUPPLIER_ACCOUNTS_ID = c.SUPPLIER_ACCOUNTS_ID
                                 where CAST(a.DATE as date) = CAST(GETDATE() as date)"); // didn't include loan filter
 
-                viewModel.CollectionViewModels = (from a in _context.Collections
-                                                  join b in _context.ChequeStatuses on a.CollectionType equals b.ChequeStatusId
-                                                  join c in _context.Customers on a.CustomerId equals c.CustomerId
-                                                  where a.Status == 1 && a.Date.Date == DateTime.Now.Date
-                                                  select new CollectionViewModel {
-                                                      CollectionId = a.CollectionId, Description = a.Description, TotalAmount = a.TotalAmount,
-                                                      CollectionTypeName = b.StatusName, CustomerName = c.CustomerName
-                                                  }).ToList();
+            }
 
-                viewModel.CustomerAccountViewModels = (from a in _context.CustomerAccounts
-                                                       join b in _context.Customers on a.CustomerId equals b.CustomerId
-                                                       where a.Status == 1 && a.Date.Date == DateTime.Now.Date
-                                                       select new CustomerAccountViewModel {
-                                                           CustomerAccountId = a.CustomerAccountId, Description = a.Description, Amount = a.Amount,
-                                                           AccountType = a.AccountType
-                                                       }).ToList();
 
-                viewModel.SupplierPaymentViewModels = (from a in _context.SupplierPayments
-                                                       join b in _context.ChequeStatuses on a.PaymentType equals b.ChequeStatusId
-                                                       join c in _context.Suppliers on a.SupplierId equals c.SupplierId
-                                                       where a.Status == 1 && a.Date.Date == DateTime.Now.Date
-                                                       select new SupplierPaymentViewModel() {
-                                                           SupplierPaymentId = a.SupplierPaymentId, Description = a.Description, TotalAmount = a.TotalAmount,
-                                                           PaymentTypeName = b.StatusName, SupplierName = c.SupplierName
-                                                       }).ToList();
+            viewModel.CollectionViewModels = (from a in _context.Collections
+                                              join b in _context.ChequeStatuses on a.CollectionType equals b.ChequeStatusId
+                                              join c in _context.Customers on a.CustomerId equals c.CustomerId
+                                              where a.Status == 1 && a.Date.Date == DateTime.Now.Date
+                                              select new CollectionViewModel {
+                                                  CollectionId = a.CollectionId, Description = a.Description, TotalAmount = a.TotalAmount,
+                                                  CollectionTypeName = b.StatusName, CustomerName = c.CustomerName
+                                              }).ToList();
 
-                viewModel.SupplierAccountViewModels = (from a in _context.SupplierAccounts
-                                                       join b in _context.Suppliers on a.SupplierId equals b.SupplierId
-                                                       where a.Status == 1 && a.Date.Date == DateTime.Now.Date
-                                                       select new SupplierAccountViewModel {
-                                                           SupplierAccountId = a.SupplierAccountId, Description = a.Description, Amount = a.Amount,
-                                                           AccountType = a.AccountType
-                                                       }).ToList();
-
-                viewModel.ExpenseViewModels = (from a in _context.Expenses
-                                               where a.Status == 1 && a.Date.Date == DateTime.Now.Date
-                                               select new ExpenseViewModel() {
-                                                   ExpenseId = a.ExpenseId, Description = a.Description, TotalAmount = a.TotalAmount,
-                                                   PaymentType = a.PaymentType
-                                               }).ToList();
-
-                viewModel.BankDepositViewModels = (from a in _context.BankDeposits
+            viewModel.CustomerAccountViewModels = (from a in _context.CustomerAccounts
+                                                   join b in _context.Customers on a.CustomerId equals b.CustomerId
                                                    where a.Status == 1 && a.Date.Date == DateTime.Now.Date
-                                                   select new BankDepositViewModel() {
-                                                       BankDepositId = a.BankDepositId, TotalAmount = a.TotalAmount
+                                                   select new CustomerAccountViewModel {
+                                                       CustomerAccountId = a.CustomerAccountId, Description = a.Description, Amount = a.Amount,
+                                                       AccountType = a.AccountType
                                                    }).ToList();
 
-            }
+            viewModel.SupplierPaymentViewModels = (from a in _context.SupplierPayments
+                                                   join b in _context.ChequeStatuses on a.PaymentType equals b.ChequeStatusId
+                                                   join c in _context.Suppliers on a.SupplierId equals c.SupplierId
+                                                   where a.Status == 1 && a.Date.Date == DateTime.Now.Date
+                                                   select new SupplierPaymentViewModel() {
+                                                       SupplierPaymentId = a.SupplierPaymentId, Description = a.Description, TotalAmount = a.TotalAmount,
+                                                       PaymentTypeName = b.StatusName, SupplierName = c.SupplierName
+                                                   }).ToList();
+
+            viewModel.SupplierAccountViewModels = (from a in _context.SupplierAccounts
+                                                   join b in _context.Suppliers on a.SupplierId equals b.SupplierId
+                                                   where a.Status == 1 && a.Date.Date == DateTime.Now.Date
+                                                   select new SupplierAccountViewModel {
+                                                       SupplierAccountId = a.SupplierAccountId, Description = a.Description, Amount = a.Amount,
+                                                       AccountType = a.AccountType
+                                                   }).ToList();
+
+            viewModel.ExpenseViewModels = (from a in _context.Expenses
+                                           where a.Status == 1 && a.Date.Date == DateTime.Now.Date
+                                           select new ExpenseViewModel() {
+                                               ExpenseId = a.ExpenseId, Description = a.Description, TotalAmount = a.TotalAmount,
+                                               PaymentType = a.PaymentType
+                                           }).ToList();
+
+            viewModel.BankDepositViewModels = (from a in _context.BankDeposits
+                                               where a.Status == 1 && a.Date.Date == DateTime.Now.Date
+                                               select new BankDepositViewModel() {
+                                                   BankDepositId = a.BankDepositId, TotalAmount = a.TotalAmount
+                                               }).ToList();
+
 
             return View(viewModel);
         }
