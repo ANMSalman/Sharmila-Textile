@@ -62,7 +62,7 @@
     </div>
 </nav>
 
-<div class="content">
+<div class="content" id="printableArea">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -71,7 +71,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-success p-1 pt-2 pl-2">
                         <h5 class="card-title">Collection</h5>
@@ -79,7 +79,7 @@
                     <div class="card-body">
                         <div class="row justify-content-between">
                             <div class="col-auto">
-                                <h5 class="font-weight-bold">Total Collection</h5>
+                                <h5 class="font-weight-bold">Total </h5>
                             </div>
                             <div class="col-auto">
                                 <h5 id="lblTotalCollection">@Model.TotalCollection</h5>
@@ -87,7 +87,7 @@
                         </div>
                         <div class="row justify-content-between">
                             <div class="col-auto font-weight-bold">
-                                <h5 class="font-weight-bold">Accountable Collection</h5>
+                                <h5 class="font-weight-bold">Accountable </h5>
                             </div>
                             <div class="col-auto">
                                 <h5 id="lblAccountableCollection">@Model.AccountableCollection</h5>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-success p-1 pt-2 pl-2">
                         <h5 class="card-title">Payment</h5>
@@ -111,7 +111,7 @@
                     <div class="card-body">
                         <div class="row justify-content-between">
                             <div class="col-auto">
-                                <h5 class="font-weight-bold">Total Payment</h5>
+                                <h5 class="font-weight-bold">Total </h5>
                             </div>
                             <div class="col-auto">
                                 <h5 id="lblTotalPayment">@Model.TotalPayment</h5>
@@ -119,7 +119,7 @@
                         </div>
                         <div class="row justify-content-between">
                             <div class="col-auto font-weight-bold">
-                                <h5 class="font-weight-bold">Accountable Payment</h5>
+                                <h5 class="font-weight-bold">Accountable </h5>
                             </div>
                             <div class="col-auto">
                                 <h5 id="lblAccountablePayment">@Model.AccountablePayment</h5>
@@ -135,7 +135,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-success p-1 pt-2 pl-2">
                         <h5 class="card-title">Expense</h5>
@@ -143,7 +143,7 @@
                     <div class="card-body">
                         <div class="row justify-content-between">
                             <div class="col-auto">
-                                <h5 class="font-weight-bold">Total Expense</h5>
+                                <h5 class="font-weight-bold">Total</h5>
                             </div>
                             <div class="col-auto">
                                 <h5 id="lblTotalExpense">@Model.TotalExpense</h5>
@@ -151,7 +151,7 @@
                         </div>
                         <div class="row justify-content-between">
                             <div class="col-auto font-weight-bold">
-                                <h5 class="font-weight-bold">Accountable Expense</h5>
+                                <h5 class="font-weight-bold">Accountable </h5>
                             </div>
                             <div class="col-auto">
                                 <h5 id="lblAccountableExpense">@Model.AccountableExpense</h5>
@@ -167,7 +167,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-success p-1 pt-2 pl-2">
                         <h5 class="card-title">Bank Deposit</h5>
@@ -175,7 +175,7 @@
                     <div class="card-body">
                         <div class="row justify-content-between">
                             <div class="col-auto">
-                                <h5 class="font-weight-bold">Total Bank Deposit</h5>
+                                <h5 class="font-weight-bold">Total</h5>
                             </div>
                             <div class="col-auto">
                                 <h5 id="lblTotalBankDeposit">@Model.TotalBankDeposit</h5>
@@ -183,7 +183,7 @@
                         </div>
                         <div class="row justify-content-between">
                             <div class="col-auto font-weight-bold">
-                                <h5 class="font-weight-bold">Accountable Bank Deposit</h5>
+                                <h5 class="font-weight-bold">Accountable</h5>
                             </div>
                             <div class="col-auto">
                                 <h5 id="lblAccountableBankDeposit">@Model.AccountableBankDeposit</h5>
@@ -199,112 +199,360 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card card-chart">
+                    <div class="card-header card-header-success p-1 pt-2 pl-2">
+                        <h5 class="card-title">Supplier Account</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
+                                <h5 class="font-weight-bold">Total</h5>
+                            </div>
+                            <div class="col-auto">
+                                <h5 id="lblTotalSupplierAccount">@Model.TotalSupplierAccount</h5>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between">
+                            <div class="col-auto font-weight-bold">
+                                <h5 class="font-weight-bold">Accountable</h5>
+                            </div>
+                            <div class="col-auto">
+                                <h5 id="lblAccountableSupplierAccount">@Model.AccountableSupplierAccount</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer d-print-none">
+                        <div class="stats">
+                            <a target="_blank" asp-controller="SupplierAccount" asp-action="SupplierAccountListView" asp-route-date="@Model.Date" class="text-primary">
+                                <i class="fa fa-external-link mr-2"></i>View Supplier Account
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card card-chart">
+                    <div class="card-header card-header-success p-1 pt-2 pl-2">
+                        <h5 class="card-title">Customer Account</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
+                                <h5 class="font-weight-bold">Total</h5>
+                            </div>
+                            <div class="col-auto">
+                                <h5 id="lblTotalCustomerAccount">@Model.TotalSupplierAccount</h5>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between">
+                            <div class="col-auto font-weight-bold">
+                                <h5 class="font-weight-bold">Accountable</h5>
+                            </div>
+                            <div class="col-auto">
+                                <h5 id="lblAccountableCustomerAccount">@Model.AccountableCustomerAccount</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer d-print-none">
+                        <div class="stats">
+                            <a target="_blank" asp-controller="CustomerAccount" asp-action="CustomerAccountListView" asp-route-date="@Model.Date" class="text-primary">
+                                <i class="fa fa-external-link mr-2"></i>View Customer Account
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row d-print-block d-none">
             <div class="col">
-                <hr/>
+                <hr />
             </div>
-            </div>
+        </div>
 
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="card card-chart">
-                        <div class="card-header card-header-rose p-1 pt-2 pl-2">
-                            <h5 class="card-title">Daily Business</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row justify-content-around">
-                                <div class="col-6">
-                                    <div class="form-group bmd-form-group">
-                                        <label>BTT Bill</label>
-                                        <input type="number" class="form-control number-validation" id="txtBttBill" asp-for="BttBills">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group bmd-form-group">
-                                        <label>Normal Bill</label>
-                                        <input type="number" class="form-control number-validation" id="txtNormalBill" asp-for="NormalBills">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row ml-0 mr-0 pt-2 pb-2">
-                                <div class="col-6 text-right font-weight-bold">
-                                    <h5 class="font-weight-bold mb-0">Total Amount</h5>
-                                </div>
-                                <div class="col-6 text-left">
-                                    <h5 class="mb-0" id="lblTotalAmount">0.0</h5>
-                                </div>
-                            </div>
-                            <div class="row ml-0 mr-0 pt-2 pb-2">
-                                <div class="col-6 text-right font-weight-bold">
-                                    <h5 class="font-weight-bold mb-0">Summary Total</h5>
-                                </div>
-                                <div class="col-6 text-left">
-                                    <h5 class="mb-0" id="lblSummaryTotal">0.0</h5>
-                                </div>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-chart">
+                    <div class="card-header card-header-rose p-1 pt-2 pl-2">
+                        <h5 class="card-title">Daily Business</h5>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="card card-chart">
-                        <div class="card-header card-header-rose p-1 pt-2 pl-2">
-                            <h5 class="card-title">Cash/Cheque Remaining</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row justify-content-around">
-                                <div class="col-6">
-                                    <div class="form-group bmd-form-group">
-                                        <label>Select a Date</label>
-                                        <input type="date" class="form-control" id="dtpDate" value="@if (ViewBag.IsUpdate != "true") { @DateTime.Now.ToString("yyyy-MM-dd"); } else { @Model.Date.ToString("yyyy-MM-dd"); }">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group bmd-form-group">
-                                        <label>Cash Balance</label>
-                                        <input type="number" class="form-control number-validation" id="txtCashBalance" asp-for="CashBalance">
-                                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-around">
+                            <div class="col-6">
+                                <div class="form-group bmd-form-group">
+                                    <label>BTT Bill</label>
+                                    <input type="number" class="form-control number-validation" id="txtBttBill" asp-for="BttBills">
                                 </div>
                             </div>
-                            <div class="row ml-0 mr-0 mb-5 pt-2 h-100">
-                                <div class="col-6 text-right font-weight-bold">
-                                    <h5 class="font-weight-bold mb-0">Cheque Balance</h5>
+                            <div class="col-6">
+                                <div class="form-group bmd-form-group">
+                                    <label>Normal Bill</label>
+                                    <input type="number" class="form-control number-validation" id="txtNormalBill" asp-for="NormalBills">
                                 </div>
-                                <div class="col-6 text-left">
-                                    <h5 class="mb-0" id="lblChequeBalance">@Model.ChequeBalance</h5>
-                                </div>
+                            </div>
+                        </div>
+                        <div class="row ml-0 mr-0 pt-2 pb-2">
+                            <div class="col-6 text-right font-weight-bold">
+                                <h5 class="font-weight-bold mb-0">Total Amount</h5>
+                            </div>
+                            <div class="col-6 text-left">
+                                <h5 class="mb-0" id="lblTotalAmount">0.0</h5>
+                            </div>
+                        </div>
+                        <div class="row ml-0 mr-0 pt-2 pb-2">
+                            <div class="col-6 text-right font-weight-bold">
+                                <h5 class="font-weight-bold mb-0">Summary Total</h5>
+                            </div>
+                            <div class="col-6 text-left">
+                                <h5 class="mb-0" id="lblSummaryTotal">0.0</h5>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row d-print-none">
-                <div class="col">
-                    <hr />
-                </div>
-            </div>
-
-            <!-------------------------------------------  Button Section ----------------------------------------->
-            <div class="row justify-content-end">
-                <div class="col-auto form-inline" id="progressBar">
-                    <img src="~/img/progress.gif" style="max-height: 41px;" class="mr-3" />
-                    <h5 class="align-bottom mb-0">Please Wait....</h5>
-                </div>
-                <div class="col-auto">
-                    <button id="btnPrint" class="btn btn-primary d-print-none btn-success"><i class="material-icons mr-2">print</i>Print</button>
-
-                    @if (ViewBag.IsUpdate == "true") {
-                        <button type="button" class="btn btn-danger d-print-none" onclick="deleteConfirmation()">Delete</button>
-                    }
-                    else {
-                        <button type="button" class="btn btn-primary d-print-none" onclick="getFieldDetails()">Submit</button>
-                    }
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-chart">
+                    <div class="card-header card-header-rose p-1 pt-2 pl-2">
+                        <h5 class="card-title">Cash/Cheque Remaining</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-around">
+                            <div class="col-6">
+                                <div class="form-group bmd-form-group">
+                                    <label>Select a Date</label>
+                                    <input type="date" class="form-control" id="dtpDate" value="@if (ViewBag.IsUpdate != "true") { @DateTime.Now.ToString("yyyy-MM-dd"); } else { @Model.Date.ToString("yyyy-MM-dd"); }">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group bmd-form-group">
+                                    <label>Cash Balance</label>
+                                    <input type="number" class="form-control number-validation" id="txtCashBalance" asp-for="CashBalance">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ml-0 mr-0 mb-5 pt-2 h-100">
+                            <div class="col-6 text-right font-weight-bold">
+                                <h5 class="font-weight-bold mb-0">Cheque Balance</h5>
+                            </div>
+                            <div class="col-6 text-left">
+                                <h5 class="mb-0" id="lblChequeBalance">@Model.ChequeBalance</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <pre id="txtJson" style=" font-size: 20px; font-weight: bold;"></pre>
+
+        <!-------------------------------------------  Button Section ----------------------------------------->
+        <div class="row justify-content-end">
+            <div class="col-auto form-inline" id="progressBar">
+                <img src="~/img/progress.gif" style="max-height: 41px;" class="mr-3" />
+                <h5 class="align-bottom mb-0">Please Wait....</h5>
+            </div>
+            <div class="col-auto">
+                <button id="btnPrint" class="btn btn-primary d-print-none btn-success"><i class="material-icons mr-2">print</i>Print</button>
+
+                @if (ViewBag.IsUpdate == "true") {
+                    <button type="button" class="btn btn-danger d-print-none" onclick="deleteConfirmation()">Delete</button>
+                }
+                else {
+                    <button type="button" class="btn btn-primary d-print-none" onclick="getFieldDetails()">Submit</button>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <hr />
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card card-chart mt-0">
+                    <div class="card-header card-header-primary p-1 pt-2 pl-2">
+                        <h4>Collection</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <table id="dataTbl" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-bold">Description</th>
+                                    <th class="font-weight-bold">Total Amount</th>
+                                    <th class="font-weight-bold">Collection Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.CollectionViewModels) { 
+                                        <tr>
+                                            <td>@item.Description</td>
+                                            <td>@item.TotalAmount</td>
+                                            <td>@item.CollectionTypeName</td>
+                                        </tr>  
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-chart mt-0">
+                    <div class="card-header card-header-primary p-1 pt-2 pl-2">
+                        <h4>Customer Accounts</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <table id="dataTbl" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-bold">Description</th>
+                                    <th class="font-weight-bold">Total Amount</th>
+                                    <th class="font-weight-bold">Account Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.CustomerAccountViewModels) {
+                                    <tr>
+                                        <td>@item.Description</td>
+                                        <td>@item.Amount</td>
+                                        <td>@item.AccountType</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4" style="page-break-before:always">
+            <div class="col-md-6">
+                <div class="card card-chart mt-0">
+                    <div class="card-header card-header-primary p-1 pt-2 pl-2">
+                        <h4>Payment</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <table id="dataTbl" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-bold">Description</th>
+                                    <th class="font-weight-bold">Total Amount</th>
+                                    <th class="font-weight-bold">Payment Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.SupplierPaymentViewModels) { 
+                                        <tr>
+                                            <td>@item.Description</td>
+                                            <td>@item.TotalAmount</td>
+                                            <td>@item.PaymentTypeName</td>
+                                        </tr> 
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-chart mt-0">
+                    <div class="card-header card-header-primary p-1 pt-2 pl-2">
+                        <h4>Supplier Account</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <table id="dataTbl" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-bold">Description</th>
+                                    <th class="font-weight-bold">Total Amount</th>
+                                    <th class="font-weight-bold">Account Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.SupplierAccountViewModels) {
+                                    <tr>
+                                        <td>@item.Description</td>
+                                        <td>@item.Amount</td>
+                                        <td>@item.AccountType</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4" style="page-break-before:always">
+            <div class="col-md-6">
+                <div class="card card-chart mt-0">
+                    <div class="card-header card-header-primary p-1 pt-2 pl-2">
+                        <h4>Expenses</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <table id="dataTbl" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-bold">Description</th>
+                                    <th class="font-weight-bold">Total Amount</th>
+                                    <th class="font-weight-bold">Payment Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ExpenseViewModels) { 
+                                    <tr>
+                                        <td>@item.Description</td>
+                                        <td>@item.TotalAmount</td>
+                                        <td>@item.PaymentType</td>
+                                    </tr> 
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-chart mt-0">
+                    <div class="card-header card-header-primary p-1 pt-2 pl-2">
+                        <h4>Bank Deposit</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <table id="dataTbl" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-bold">Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BankDepositViewModels) {
+                                    <tr>
+                                        <td>@item.TotalAmount</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row d-print-none">
+            <div class="col">
+                <hr />
+            </div>
+        </div>
+
 
     </div>
+    <pre id="txtJson" style=" font-size: 20px; font-weight: bold;"></pre>
+
+</div>
 
 
 <script>
@@ -325,8 +573,23 @@
 
     $('#progressBar').hide();
 
-    $('#btnPrint').click(function(){
+    $('#btnPrint').click(function () {
+        printDiv();
+    });
+
+    function printDiv() {
+        var restorepage = $('body').html();
+        var printcontent = $('#printableArea').clone();
+        $('body').empty().html(printcontent);
         window.print();
+        $('body').html(restorepage);
+    }
+
+    jQuery(document).bind("keyup keydown", function(e) {
+        if (e.ctrlKey && e.keyCode === 80) {
+            printDiv();
+            return false;
+        }
         return false;
     });
 
@@ -350,101 +613,106 @@
         summaryTotal = totalAmount + totalCollection - totalPayment - totalExpense - totalBankDeposit;
         $('#lblSummaryTotal').text(summaryTotal);
 
-    }
 
-    function getFieldDetails() {
+        $('#lblTotalSupplierAccount').text(summaryTotal - @Model.AccountableSupplierAccount);
+        $('#lblTotalCustomerAccount').text(summaryTotal - @Model.AccountableCustomerAccount);
+
+
+        }
+
+        function getFieldDetails() {
 
         model = {
-            "BttBills": bttBill,
-            "NormalBills": normalBill,
-            "TotalAmount": totalAmount,
-            "TotalCollection": totalCollection,
-            "AccountableCollection": parseFloat($('#lblAccountableCollection').text()),
-            "TotalPayment": totalPayment,
-            "AccountablePayment": parseFloat($('#lblAccountablePayment').text()),
-            "TotalExpense": totalExpense,
-            "AccountableExpense": parseFloat($('#lblAccountableExpense').text()),
-            "TotalBankDeposit": totalBankDeposit,
-            "AccountableBankDeposit": parseFloat($('#lblAccountableBankDeposit').text()),
-            "SummaryTotal": summaryTotal,
-            "CashBalance": parseFloat($('#txtCashBalance').val()),
-            "ChequeBalance": parseFloat($('#lblChequeBalance').text()),
-            "Date": $('#dtpDate').val(), 
-            "IsUpdate":false
+        "BttBills": bttBill,
+        "NormalBills": normalBill,
+        "TotalAmount": totalAmount,
+        "TotalCollection": totalCollection,
+        "AccountableCollection": parseFloat($('#lblAccountableCollection').text()),
+        "TotalPayment": totalPayment,
+        "AccountablePayment": parseFloat($('#lblAccountablePayment').text()),
+        "TotalExpense": totalExpense,
+        "AccountableExpense": parseFloat($('#lblAccountableExpense').text()),
+        "TotalBankDeposit": totalBankDeposit,
+        "AccountableBankDeposit": parseFloat($('#lblAccountableBankDeposit').text()),
+        "SummaryTotal": summaryTotal,
+        "CashBalance": parseFloat($('#txtCashBalance').val()),
+        "ChequeBalance": parseFloat($('#lblChequeBalance').text()),
+        "Date": $('#dtpDate').val(),
+        "IsUpdate":false
         };
 
         $('#txtJson').html(JSON.stringify(model, undefined, 4));
         SaveChanges('Create');
-    }
+        }
 
-    function SaveChanges(type) {
+        function SaveChanges(type) {
         $('#progressBar').show();
         $.ajax({
-            url: localStorage.apiLink + "api/Summary/" + type,
-            type: 'POST',
-            data: JSON.stringify(model),
-            contentType: 'application/json',
-            success: function (data, textStatus, xhr) {
-                $('#progressBar').hide();
-                if (data === true) {
+        url: localStorage.apiLink + "api/Summary/" + type,
+        type: 'POST',
+        data: JSON.stringify(model),
+        contentType: 'application/json',
+        success: function (data, textStatus, xhr) {
+        $('#progressBar').hide();
+        if (data === true) {
 
-                    Swal.fire({
-                        title: 'Success',
-                        text: "Changes Saved Successfully!",
-                        icon: 'success',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK!'
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location.replace(localStorage.apiLink + "Summary/SummaryListView");
-                        }
-                    });
-                } else {
-                    Swal.fire(
-                        'Oops...',
-                        'Something went wrong!',
-                        'error'
-                    );
-                }
-            },
-            error: function (xhr, textStatus, errorThrown) {
-
-            }
-        });
-    }
-
-    function deleteConfirmation() {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+        title: 'Success',
+        text: "Changes Saved Successfully!",
+        icon: 'success',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK!'
         }).then((result) => {
-            if (result.value) {
-                deleteRequest();
-            }
+        if (result.value) {
+        window.location.replace(localStorage.apiLink + "Summary/SummaryListView");
+        }
         });
-    }
+        } else {
+        Swal.fire(
+        'Oops...',
+        'Something went wrong!',
+        'error'
+        );
+        }
+        },
+        error: function (xhr, textStatus, errorThrown) {
 
-    function deleteRequest() {
-        $.ajax({
-            url: localStorage.apiLink + "api/Summary/Delete/" + @Model.SummaryId,
-            type: 'get',
-            contentType: 'application/json',
-            success: function (data, textStatus, xhr) {
-                if (data === true) {
-                    window.location.replace(localStorage.apiLink + "Summary/SummaryListView");
-                }
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.log('Error in Operation');
-            }
+        }
         });
-    }
+        }
+
+        function deleteConfirmation() {
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+        if (result.value) {
+        deleteRequest();
+        }
+        });
+        }
+
+        function deleteRequest() {
+        $.ajax({
+        url: localStorage.apiLink + "api/Summary/Delete/" + @Model.SummaryId,
+        type: 'get',
+        contentType: 'application/json',
+        success: function (data, textStatus, xhr) {
+        if (data === true) {
+        window.location.replace(localStorage.apiLink + "Summary/SummaryListView");
+        }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+        console.log('Error in Operation');
+        }
+        });
+        }
 
 
 </script>

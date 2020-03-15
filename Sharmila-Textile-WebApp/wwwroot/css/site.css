@@ -72,4 +72,9 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+@media print {
+  .container {
+    width: auto;
+  }
  
+} 

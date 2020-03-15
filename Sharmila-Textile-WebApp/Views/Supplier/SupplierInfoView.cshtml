@@ -55,7 +55,7 @@
     </div>
 </nav>
 
-<div class="content">
+<div class="content" id="printableArea">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -184,7 +184,22 @@
 
 <script>
     $('#btnPrint').click(function(){
+        printDiv();
+    });
+
+    function printDiv() {
+        var restorepage = $('body').html();
+        var printcontent = $('#printableArea').clone();
+        $('body').empty().html(printcontent);
         window.print();
+        $('body').html(restorepage);
+    }
+
+    jQuery(document).bind("keyup keydown", function(e) {
+        if (e.ctrlKey && e.keyCode === 80) {
+            printDiv();
+            return false;
+        }
         return false;
     });
 
@@ -253,7 +268,7 @@
                 <td>${moment(date).format('YYYY-MM-DD')}</td>
                 <td>${type}</td>
                 <td class="text-right">${amount}</td>
-                    <td class="text-center d-print-none"><a class="btn btn-sm btn-primary text-white" target="_blank" href="`+actionLink+`?date=${moment(date).format('YYYY-MM-DD')}"><i class="fa fa-eye"></i><a></td> 
+                    <td class="text-center d-print-none"><a class="btn btn-sm btn-primary text-white" target="_blank" href="`+actionLink+`?date=${moment(date).format('YYYY-MM-DD')}"><i class="fa fa-eye"></i><a></td>
             </tr>`;
     }
 
