@@ -19,8 +19,10 @@ namespace Sharmila_Textile_WebApp.ViewModel {
         public decimal CurrentBalance { get; set; }
         public DateTime CreatedDate { get; set; }
         public long CreatedBy { get; set; }
-        public int CurrentStatus { get; set; } 
-        public string UserName { get; set; } 
+        public int CurrentStatus { get; set; }
+        public string UserName { get; set; }
+        public User User { get; set; }
+        public DateTime LastCollectionDate { get; set; }
         public List<CustomerAttachmentViewModel> CustomerAttachmentList { get; set; }
     }
 }

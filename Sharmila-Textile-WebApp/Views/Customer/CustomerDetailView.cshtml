@@ -134,7 +134,21 @@
                                     <div class="text-danger" id="errorCurrentBalance"></div>
                                 </div>
                             </div>
+                            @if (ViewBag.isCollectionExist == false) {
+                                <div class="col-md-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="txtCurrentBalance">Last Collection Date</label>
+                                        <input type="date" class="form-control" id="txtLastCollectionDate" asp-for="LastCollectionDate" value="@if (ViewBag.IsUpdate != "true") {
+                                                                                                                                                   @DateTime.Now.ToString("yyyy-MM-dd");
+                                                                                                                                               }else {
+                                                                                                                                                   @Model.LastCollectionDate.ToString("yyyy-MM-dd");
+                                                                                                                                               }">
+                                        <div class="text-danger" id="errorLastCollectionDate"></div>
+                                    </div>
+                                </div>
+                            }
 
+                            <div class="col-md-8 mt-3"></div>
                             <div class="col-md-5 mt-3">
                                 <input type="file" id="fileAttachment" class="d-none">
                                 <label for="fileAttachment" class="btn btn-round btn-success btn-sm mt-0">
@@ -179,7 +193,7 @@
 
     var fileObject = [];
     var fileCount = 0;
-     
+
     $('#progressBar').hide();
     var IsUpdate = @ViewBag.IsUpdate;
     var customerId;
@@ -291,6 +305,7 @@
         var mobile = $('#txtMobile').val();
         var openingBalance = $('#txtOpeningBalance').val();
         var currentBalance = $('#txtCurrentBalance').val();
+        var lastCollectionDate = $('#txtLastCollectionDate').val();
 
         openingBalance = openingBalance === '' ? 0 : openingBalance;
         currentBalance = currentBalance === '' ? 0 : currentBalance;
@@ -312,6 +327,7 @@
                 "Mobile": mobile,
                 "OpeningBalance": parseFloat(openingBalance),
                 "CurrentBalance": parseFloat(currentBalance),
+                "LastCollectionDate": lastCollectionDate,
                 "CustomerAttachmentList": filesList
 
             };
@@ -328,7 +344,7 @@
                 "OpeningBalance": parseFloat(openingBalance),
                 "CurrentBalance": parseFloat(currentBalance),
                 "CustomerAttachmentList": filesList,
-                "CreatedBy":parseInt(localStorage.loggedUser) 
+                "CreatedBy":parseInt(localStorage.loggedUser)
             };
             SaveChanges('Create');
         }

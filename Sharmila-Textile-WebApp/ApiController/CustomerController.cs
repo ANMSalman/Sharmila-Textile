@@ -89,6 +89,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
             single.Mobile = model.Mobile;
             single.OpeningBalance = model.OpeningBalance;
             single.CurrentBalance = model.CurrentBalance; 
+            single.LastCollectionDate = model.LastCollectionDate; 
 
             var flag = _context.SaveChanges();
             var cusId = single.CustomerId;

@@ -47,7 +47,10 @@ namespace Sharmila_Textile_WebApp.ApiController {
             if (flag > 0) {
                 var single = _context.Customers.Single(x => x.CustomerId == model.CustomerId);
                 single.CurrentBalance -= model.TotalAmount;
+                single.LastCollectionDate = DateTime.Now;
+
                 _context.SaveChanges();
+
             }
 
             return Ok(flag > 0);
@@ -69,12 +72,12 @@ namespace Sharmila_Textile_WebApp.ApiController {
         [HttpGet("{id}/{skip}")]
         public IActionResult GetList(long id, int skip) {
             var data = (from a in _context.Collections
-                join b in _context.ChequeStatuses on a.CollectionType equals b.ChequeStatusId
-                       where a.Status == 1 && a.CustomerId == id
-                       select new CollectionViewModel {
-                           CollectionId = a.CollectionId, Date = a.Date, CollectionType = a.CollectionType, CollectionTypeName = b.StatusName, 
-                           TotalAmount = a.TotalAmount
-                       }).Skip(skip).Take(50).OrderByDescending(c => c.Date).ToList(); 
+                        join b in _context.ChequeStatuses on a.CollectionType equals b.ChequeStatusId
+                        where a.Status == 1 && a.CustomerId == id
+                        select new CollectionViewModel {
+                            CollectionId = a.CollectionId, Date = a.Date, CollectionType = a.CollectionType, CollectionTypeName = b.StatusName,
+                            TotalAmount = a.TotalAmount
+                        }).Skip(skip).Take(50).OrderByDescending(c => c.Date).ToList();
             return Ok(data);
         }
 

@@ -53,5 +53,8 @@ namespace Sharmila_Textile_WebApp.Models {
         [ForeignKey("CreatedBy")]
         public User User { get; set; }
 
+        [Column("LAST_COLLECTION_DATE", TypeName = "date")]
+        public DateTime LastCollectionDate { get; set; }
+
     }
 }

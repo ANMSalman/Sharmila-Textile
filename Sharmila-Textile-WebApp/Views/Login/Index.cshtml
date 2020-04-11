@@ -27,29 +27,99 @@
         localStorage.apiLink = "https://localhost:44367/";
     </script>
 </head>
-<body>
+<body class="off-canvas-sidebar">
 
-    <div class="wrapper">
-        <div class="content p-5">
-            <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
+        <div class="container">
+            <div class="navbar-wrapper">
+                <a class="navbar-brand" href="javascript:;">Login Page</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item  active ">
+                        <a asp-action="Index" class="nav-link">
+                            <i class="material-icons">fingerprint</i>
+                            Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="wrapper wrapper-full-page">
+        <div class="page-header login-page header-filter" filter-color="blue" style="background: rgba(0,0,0,0.5);
+    background-image: url(img/login.jpg); background-size: cover; background-position: top center;">
+            <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+            <div class="container"> 
                 <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="txtUsername">Username</label>
-                            <input type="text" class="form-control" id="txtUsername">
+                    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+
+                        <div class="card">
+                            <div class="card-header card-header-primary text-center  pt-3">
+                                <h4 class="card-title font-weight-bold mt-3">Login</h4>
+                                <div class="social-line">
+                                    <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
+                                        <i class="fa fa-facebook-square"></i>
+                                    </a>
+                                    <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                    <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <p class="card-description text-center mb-4">Or Be Classical</p>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">email</i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" id="txtUsername" placeholder="Username...">
+                                </div>
+
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">lock_outline</i>
+                                        </span>
+                                    </div>
+                                    <input type="password" class="form-control" id="txtPassword" placeholder="Password...">
+                                </div>
+                            </div>
+                            <div class="card-footer justify-content-center">
+                                <button type="submit" class="btn btn-primary btn-link" onclick="ValidateLogin()">Submit</button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="txtPassword">Password</label>
-                            <input type="password" class="form-control" id="txtPassword">
-                        </div>
-                        <button type="submit" class="btn btn-primary" onclick="ValidateLogin()">Submit</button> 
 
                     </div>
                 </div>
-                    
             </div>
+            <footer class="footer">
+                <div class="container">
+                    <div class="copyright float-right">
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>, made with <i class="material-icons">favorite</i> by
+                        <a href="https://dushyanth.xyz.lk/" target="_blank">Dushyanth Kandiah</a> for a better web.
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
+
+
 
     <script src="~/js/core/popper.min.js"></script>
     <script src="~/js/core/bootstrap-material-design.min.js"></script>
@@ -78,36 +148,36 @@
     <script src="~/js/material-dashboard.js"></script>
 
 
-<script>
-    
+    <script>
 
-    function ValidateLogin() {
-        var username = $('#txtUsername').val();
-        var password = $('#txtPassword').val();
 
-        $.ajax({
-            url: localStorage.apiLink + "api/Login/ValidateLogin/" + username + "/"+ password,
-            type: 'GET', 
-            contentType: 'application/json',
-            success: function (data, textStatus, xhr) {
+        function ValidateLogin() {
+            var username = $('#txtUsername').val();
+            var password = $('#txtPassword').val();
 
-                if (data !== "Invalid Username Password") {
-                    localStorage.loggedUser = data ;
-                    window.location.replace(localStorage.apiLink + "Dashboard/Index"); 
-                } else {
-                    Swal.fire(
-                        'Please Try Again',
-                        'Invalid Username/Password!',
-                        'error'
-                    );
+            $.ajax({
+                url: localStorage.apiLink + "api/Login/ValidateLogin/" + username + "/" + password,
+                type: 'GET',
+                contentType: 'application/json',
+                success: function (data, textStatus, xhr) {
+
+                    if (data !== "Invalid Username Password") {
+                        localStorage.loggedUser = data;
+                        window.location.replace(localStorage.apiLink + "Dashboard/Index");
+                    } else {
+                        Swal.fire(
+                            'Please Try Again',
+                            'Invalid Username/Password!',
+                            'error'
+                        );
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+
                 }
-            },
-            error: function (xhr, textStatus, errorThrown) {
-
-            }
-        });
-    }
-</script>
+            });
+        }
+    </script>
 
 </body>
 </html>

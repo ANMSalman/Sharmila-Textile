@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sharmila_Textile_WebApp.Data;
+using Sharmila_Textile_WebApp.ViewModel;
 
 namespace Sharmila_Textile_WebApp.ApiController {
     [Route("api/[controller]/[action]")]
@@ -75,7 +76,7 @@ namespace Sharmila_Textile_WebApp.ApiController {
 
             return Ok(data);
         }
-        
+
         public IActionResult ExpenseTrend() {
             var data = _context.Summaries
                 .Where(a => a.Date.Date >= DateTime.Now.Date && a.Date.Date <= DateTime.Now.AddMonths(1).Date && a.Status == 1)
@@ -86,21 +87,31 @@ namespace Sharmila_Textile_WebApp.ApiController {
             return Ok(data);
         }
 
-        public IActionResult AgingCustomers() {
-            var data = _context.Collections.Select(x => new { x.CustomerId, x.CreatedDate, x.CollectionId }).OrderBy(c => c.CreatedDate);
+        public IActionResult UpcomingOwnCheque() {
+            var today = DateTime.Today;
+            var data = _context.OwnCheques
+                .Where(x => x.Status == 1 && x.DueDate.Date >= today && x.DueDate.Date < today.AddDays(30)).Select(
+                    x => new OwnChequeViewModel {
+                        OwnChequeId = x.OwnChequeId, ChequeCode = x.ChequeCode, Bank = x.Bank, Branch = x.Branch, Amount = x.Amount, Date = x.Date, DueDate = x.DueDate
+                    }).ToList();
 
-
-
-            var results = _context.Collections.GroupBy(x => x.CustomerId)
-                .Select(g => g.AsEnumerable().FirstOrDefault()).ToListAsync();
-
-            var firstProducts = data
-                .GroupBy(p => p.CustomerId)
-                .OrderBy(x => x.OrderBy(s => s.CreatedDate))
-                .Select(g => g.Key)
-                .ToList();
-            return Ok(firstProducts);
+            return Ok(data);
         }
+
+        public IActionResult AgingCustomers() {
+            var data = (from a in _context.Customers
+                join b in _context.Users on a.CreatedBy equals b.UserId where a.CurrentStatus == 1 orderby a.LastCollectionDate
+                select new CustomerViewModel {
+                    CustomerId = a.CustomerId, CustomerName = a.CustomerName, NIC = a.NIC, HomeAddress = a.HomeAddress, HomeLandline = a.HomeLandline,
+                    OfficeAddress = a.OfficeAddress, OfficeLandline = a.OfficeLandline, Mobile = a.Mobile, OpeningBalance = a.OpeningBalance, CurrentBalance = a.CurrentBalance,
+                    CreatedDate = a.CreatedDate, CreatedBy = a.CreatedBy, CurrentStatus = a.CurrentStatus, LastCollectionDate = a.LastCollectionDate, UserName = b.UserName
+                }).ToList() ;
+
+
+            return Ok(data);
+        }
+
+
 
     }
 }

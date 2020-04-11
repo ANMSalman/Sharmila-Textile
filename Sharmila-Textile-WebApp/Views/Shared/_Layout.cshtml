@@ -39,73 +39,73 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Dashboard", "Index")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "Dashboard" ? "active" : "")">
                         <a class="nav-link" is-active-route asp-controller="Dashboard" asp-action="Index">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext , "Staff", "StaffView")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "Staff" ? "active" : "")">
                         <a class="nav-link" is-active-route asp-controller="Staff" asp-action="StaffView">
                             <i class="material-icons">face</i>
                             <p>Staff</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Customer", "CustomerView")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "Customer" ? "active" : "")">
                         <a class="nav-link" asp-controller="Customer" asp-action="CustomerView">
                             <i class="material-icons">group</i>
                             <p>Customer</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Supplier", "SupplierView")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "Supplier" ? "active" : "")">
                         <a class="nav-link" asp-controller="Supplier" asp-action="SupplierView">
                             <i class="material-icons">local_shipping</i>
                             <p>Supplier</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "OwnCheque", "OwnChequeList")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "OwnCheque" ? "active" : "")">
                         <a class="nav-link" asp-controller="OwnCheque" asp-action="OwnChequeList">
                             <i class="fa fa-money"></i>
                             <p>Own Cheque</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "ThirdPartyCheque", "ThirdPartyChequeList")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "ThirdPartyCheque" ? "active" : "")">
                         <a class="nav-link" asp-controller="ThirdPartyCheque" asp-action="ThirdPartyChequeList">
                             <i class="fa fa-money"></i>
                             <p>Third Party Cheque</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "SupplierPayment", "PaymentListView")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "SupplierPayment" ? "active" : "")">
                         <a class="nav-link" asp-controller="SupplierPayment" asp-action="PaymentListView">
                             <i class="material-icons">payment</i>
                             <p>Supplier Payment</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Collection", "CollectionListView")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "Collection" ? "active" : "")">
                         <a class="nav-link" asp-controller="Collection" asp-action="CollectionListView">
                             <i class="fa fa-bitcoin"></i>
                             <p>Collection</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "CustomerAccount", "CustomerAccountListView")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "CustomerAccount" ? "active" : "")"> 
                         <a class="nav-link" asp-controller="CustomerAccount" asp-action="CustomerAccountListView">
                             <i class="fa fa-book"></i>
                             <p>Customer Account</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "SupplierAccount", "SupplierAccountListView")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "SupplierAccount" ? "active" : "")"> 
                         <a class="nav-link" asp-controller="SupplierAccount" asp-action="SupplierAccountListView">
                             <i class="fa fa-book"></i>
                             <p>Supplier Account</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "Expense", "ExpenseListView")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "Expense" ? "active" : "")"> 
                         <a class="nav-link" asp-controller="Expense" asp-action="ExpenseListView">
                             <i class="fa fa-dollar"></i>
                             <p>Expenses</p>
                         </a>
                     </li>
-                    <li class="nav-item @ActiveRouteTagHelper.IsTabActive(ViewContext, "BankDeposit", "BankDepositListView")">
+                    <li class="nav-item @Html.Raw(ViewContext.RouteData.Values["controller"].ToString() == "BankDeposit" ? "active" : "")"> 
                         <a class="nav-link" asp-controller="BankDeposit" asp-action="BankDepositListView">
                             <i class="fa fa-bank"></i>
                             <p>Bank Deposit</p>

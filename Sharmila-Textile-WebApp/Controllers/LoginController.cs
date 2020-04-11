@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Sharmila_Textile_WebApp.Controllers {
     public class LoginController : Controller {
-        public IActionResult Index() { 
+        public IActionResult Index() {
+            
             return View();  
         }
 
