@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Sharmila_Textile_WebApp</RootNamespace>
+    <UserSecretsId>bcdfe4d3-92c0-478b-bcfd-a634207707a9</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

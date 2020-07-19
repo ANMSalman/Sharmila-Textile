@@ -317,7 +317,7 @@
             chqTotal += parseFloat(value.amount) ;
         });
         chequeTotal = chqTotal;
-        $("#lblCheque").text(chqTotal.toFixed(2));
+        $("#lblCheque").text(chqTotal.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
         calculateGrandTotal();
     }
 
@@ -325,7 +325,7 @@
 
         const cash = parseFloat($('#txtCash').val());
         totalAmount = cash + chequeTotal;
-        $("#lblTotalAmount").text(totalAmount.toFixed(2));
+        $("#lblTotalAmount").text(totalAmount.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
     }
 
     $(function() {

@@ -101,11 +101,11 @@
                                     <tr>
                                         <td class="text-center">@item.SupplierPaymentId</td>
                                         <td>@item.Description</td>
-                                        <td>@item.Cash</td>
-                                        <td>@item.Cheque</td>
-                                        <td>@item.Returns</td>
-                                        <td>@item.Purchase</td>
-                                        <td>@item.TotalAmount</td>
+                                        <td>@item.Cash.ToString("N2")</td>
+                                        <td>@item.Cheque.ToString("N2")</td>
+                                        <td>@item.Returns.ToString("N2")</td>
+                                        <td>@item.Purchase.ToString("N2")</td>
+                                        <td>@item.TotalAmount.ToString("N2")</td>
                                         <td>@item.Date.ToString("yyyy-MM-dd")</td> 
                                         <td>@item.CreatedDate.ToString("yyyy-MM-dd")</td> 
                                         <td>@item.PaymentTypeName</td>

@@ -95,8 +95,8 @@
                                 @foreach (var item in Model) {
                                     <tr>
                                         <td class="text-center">@item.BankDepositId</td> 
-                                        <td>@item.Cash</td>  
-                                        <td>@item.InHandCash</td>  
+                                        <td>@item.Cash.ToString("N2")</td>  
+                                        <td>@item.InHandCash.ToString("N2")</td>  
                                         <td>@item.Date.ToString("yyyy-MM-dd")</td> 
                                         <td>@item.CreatedDate.ToString("yyyy-MM-dd")</td> 
                                         <td>@item.UserName</td>

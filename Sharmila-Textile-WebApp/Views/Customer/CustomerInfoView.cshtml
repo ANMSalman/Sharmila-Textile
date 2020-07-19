@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6 form-inline">
                                         <h5 class="font-weight-bold mr-3">Opening Balance : </h5>
-                                        <h5>@Model.OpeningBalance</h5>
+                                        <h5>@Model.OpeningBalance.ToString("N2")</h5>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6 form-inline">
                                         <h5 class="font-weight-bold mr-3">Created Date : </h5>
@@ -126,7 +126,7 @@
                                     </div>
                                     <div class="col-auto text-danger form-inline">
                                         <h3 class="font-weight-bold mr-3">Current Balance : </h3>
-                                        <h3>@Model.CurrentBalance</h3>
+                                        <h3>@Model.CurrentBalance.ToString("N2")</h3>
                                     </div>
                                 </div>
                             </div>
@@ -244,7 +244,7 @@
                 $("#btnLoadMoreAcc").html(`<h5 style="height: 25px;" class="mb-0 pb-0 font-weight-bold">Load More</h5>`);
 
                 data.forEach(function (currentValue, index, arr) {
-                    html += populateTable(currentValue.Date, currentValue.AccountType, currentValue.Amount, "/CustomerAccount/CustomerAccountListView");
+                    html += populateTable(currentValue.Date, currentValue.AccountType, parseFloat(currentValue.Amount).toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"), "/CustomerAccount/CustomerAccountListView");
                     skipAcc++;
                 });
                 $('#tblAccount').append(html);
@@ -266,7 +266,7 @@
                 $("#btnLoadMoreCol").html(`<h5 style="height: 25px;" class="mb-0 pb-0 font-weight-bold">Load More</h5>`);
 
                 data.forEach(function (currentValue, index, arr) {
-                    html += populateTable(currentValue.Date, currentValue.CollectionTypeName, currentValue.TotalAmount, "/Collection/CollectionListView");
+                    html += populateTable(currentValue.Date, currentValue.CollectionTypeName, parseFloat(currentValue.TotalAmount).toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"), "/Collection/CollectionListView");
                     skipCol++;
                 });
                 $('#tblCollection').append(html);

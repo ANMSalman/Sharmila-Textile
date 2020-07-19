@@ -10,8 +10,8 @@ using Sharmila_Textile_WebApp.Data;
 namespace Sharmila_Textile_WebApp.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20200303130657_chqDatev2")]
-    partial class chqDatev2
+    [Migration("20200718071847_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,6 +70,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .HasColumnName("CREATED_DATE")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnName("DATE")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("InHandCash")
                         .HasColumnName("IN_HAND_CASH")
                         .HasColumnType("decimal(18, 2)");
@@ -77,6 +81,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<int>("Status")
                         .HasColumnName("STATUS")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnName("TOTAL_AMOUNT")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("BankDepositId");
 
@@ -259,6 +267,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<string>("HomeLandline")
                         .HasColumnName("HOME_LAND_LINE")
                         .HasColumnType("nchar(10)");
+
+                    b.Property<DateTime>("LastCollectionDate")
+                        .HasColumnName("LAST_COLLECTION_DATE")
+                        .HasColumnType("date");
 
                     b.Property<string>("Mobile")
                         .HasColumnName("MOBILE")
@@ -526,6 +538,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                         .HasColumnName("CHEQUE_CODE")
                         .HasColumnType("varchar(50)");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnName("DATE")
+                        .HasColumnType("datetime");
+
                     b.Property<DateTime>("DueDate")
                         .HasColumnName("DUE_DATE")
                         .HasColumnType("datetime");
@@ -669,6 +685,103 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.HasIndex("StaffId");
 
                     b.ToTable("STAFF_ATTACHMENT");
+                });
+
+            modelBuilder.Entity("Sharmila_Textile_WebApp.Models.Summary", b =>
+                {
+                    b.Property<long>("SummaryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("SUMMARY_ID")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("AccountableBankDeposit")
+                        .HasColumnName("ACCOUNTABLE_BANK_DEPOSIT")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("AccountableCollection")
+                        .HasColumnName("ACCOUNTABLE_COLLECTION")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("AccountableCustomerAccount")
+                        .HasColumnName("ACCOUNTABLE_CUSTOMER_ACCOUNT")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("AccountableExpense")
+                        .HasColumnName("ACCOUNTABLE_EXPENSE")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("AccountablePayment")
+                        .HasColumnName("ACCOUNTABLE_PAYMENT")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("AccountableSupplierAccount")
+                        .HasColumnName("ACCOUNTABLE_SUPPLIER_ACCOUNT")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("BttBills")
+                        .HasColumnName("BTT_BILLS")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("CashBalance")
+                        .HasColumnName("CASH_BALANCE")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("ChequeBalance")
+                        .HasColumnName("CHEQUE_BALANCE")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnName("CREATED_DATE")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnName("DATE")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("NormalBills")
+                        .HasColumnName("NORMAL_BILLS")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnName("STATUS")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SummaryTotal")
+                        .HasColumnName("SUMMARY_TOTAL")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnName("TOTAL_AMOUNT")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("TotalBankDeposit")
+                        .HasColumnName("TOTAL_BANK_DEPOSIT")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("TotalCollection")
+                        .HasColumnName("TOTAL_COLLECTION")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("TotalCustomerAccount")
+                        .HasColumnName("TOTAL_CUSTOMER_ACCOUNT")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("TotalExpense")
+                        .HasColumnName("TOTAL_EXPENSE")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("TotalPayment")
+                        .HasColumnName("TOTAL_PAYMENT")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("TotalSupplierAccount")
+                        .HasColumnName("TOTAL_SUPPLIER_ACCOUNT")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("SummaryId");
+
+                    b.ToTable("SUMMARY");
                 });
 
             modelBuilder.Entity("Sharmila_Textile_WebApp.Models.Supplier", b =>
@@ -972,6 +1085,10 @@ namespace Sharmila_Textile_WebApp.Migrations
                     b.Property<string>("ChequeCode")
                         .HasColumnName("CHEQUE_CODE")
                         .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnName("DATE")
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnName("DUE_DATE")

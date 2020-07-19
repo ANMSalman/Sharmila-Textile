@@ -115,12 +115,13 @@
                             <i class="fa fa-bitcoin"> </i>
                         </div>
                         <p class="card-category">Current Total Collection Pending</p>
+                    </div>
+                    <div class="card-body">
                         <h3 class="card-title">
                             <img src="~/img/loading.gif" style="max-height: 41px;" class="d-none" />
                             <span id="lblCollectionPending"></span>
                         </h3>
-                    </div>
-                    <div class="card-footer">
+                        <hr />
                     </div>
                 </div>
             </div>
@@ -131,12 +132,13 @@
                             <i class="material-icons">payment </i>
                         </div>
                         <p class="card-category">Current Total Payment Pending</p>
+                    </div>
+                    <div class="card-body">
                         <h3 class="card-title">
                             <img src="~/img/loading.gif" style="max-height: 41px;" class="d-none" />
                             <span id="lblPaymentPending"></span>
                         </h3>
-                    </div>
-                    <div class="card-footer">
+                        <hr />
                     </div>
                 </div>
             </div>
@@ -147,12 +149,13 @@
                             <i class="material-icons">account_balance_wallet</i>
                         </div>
                         <p class="card-category">Current Total In-hand Cash</p>
+                    </div>
+                    <div class="card-body">
                         <h3 class="card-title">
                             <img src="~/img/loading.gif" style="max-height: 41px;" class="d-none" />
                             <span id="lblInHandTotalCash"></span>
                         </h3>
-                    </div>
-                    <div class="card-footer">
+                        <hr />
                     </div>
                 </div>
             </div>
@@ -163,12 +166,13 @@
                             <i class="fa fa-money"></i>
                         </div>
                         <p class="card-category">Current Total In-Hand Cheques</p>
+                    </div>
+                    <div class="card-body">
                         <h3 class="card-title">
                             <img src="~/img/loading.gif" style="max-height: 41px;" class="d-none" />
                             <span id="lblInHandTotalCheque"></span>
                         </h3>
-                    </div>
-                    <div class="card-footer">
+                        <hr />
                     </div>
                 </div>
             </div>
@@ -179,12 +183,13 @@
                             <i class="fa fa-bank"></i>
                         </div>
                         <p class="card-category">Current Bank balance</p>
+                    </div>
+                    <div class="card-body">
                         <h3 class="card-title">
                             <img src="~/img/loading.gif" style="max-height: 41px;" class="d-none" />
                             <span id="lblCurrentBankBalance"></span>
                         </h3>
-                    </div>
-                    <div class="card-footer">
+                        <hr />
                     </div>
                 </div>
             </div>
@@ -561,7 +566,7 @@
                 labelType.prev().addClass("d-none");
                 labelType.removeClass("d-none");
                 labelType.removeClass("text-danger");
-                labelType.text(data.toFixed(2));
+                labelType.text(data.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
             },
             error: function (xhr, textStatus, errorThrown) {
                 labelType.prev().addClass("d-none");
